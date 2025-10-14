@@ -1,0 +1,11 @@
+#Burada json_serializable builder’ı için hangi dosyalarda .g.dart üretileceğini belirtiyorsun.
+#Olmasaydı @JsonSerializable() ile işaretlenmiş sınıflarda .g.dart üretmeye çalışır.
+#Yani kontrolsüz, tüm proje taranır. Büyük projelerde gereksiz dosyalar generate edilebilir, build süresi uzar.
+targets:
+  $default:
+    builders:
+      json_serializable:
+          # json_serializable tarafından işlenecek dosyaların pattern’i
+          generate_for:
+            include:
+            - lib/models/**_model.dart
