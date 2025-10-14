@@ -104,3 +104,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/colors/
+
+flutter_gen:
+  output: lib/gen/
+  colors:
+    inputs:
+      - assets/colors/colors.xml
