@@ -23,8 +23,8 @@ class ColorName {
   /// Color: #455A64
   static const Color loginInputColor = Color(0xFF455A64);
 
-  /// Color: #1E1E1E
-  static const Color scaffoldBackgroundColor = Color(0xFF1E1E1E);
+  /// Color: #07012C
+  static const Color scaffoldBackgroundColor = Color(0xFF07012C);
 
   /// Color: #FFFFFF
   static const Color whiteColor = Color(0xFFFFFFFF);

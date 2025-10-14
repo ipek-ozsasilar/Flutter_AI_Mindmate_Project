@@ -1,7 +1,7 @@
 <resources>
     <color name="whiteColor">#FFFFFF</color>
     <color name="yellowColor">#FED36A</color>
-    <color name="scaffoldBackgroundColor">#1E1E1E</color>
+    <color name="scaffoldBackgroundColor">#07012C</color>
     <color name="loginGreyTextColor">#8CAAB9</color>
     <color name="loginInputColor">#455A64</color>
     <color name="blackColor">#000000</color>
