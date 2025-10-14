@@ -1,0 +1,17 @@
+scripts:
+  #clean
+  clean: flutter clean
+  #pub get
+  pub_get: flutter pub get
+  #run app
+  run_app: flutter run
+  #reset
+  reset: flutter clean && flutter pub get
+  #build all
+  build_all: flutter clean && flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
+  #gen flutter
+  gen_flutter: flutter pub run build_runner build --delete-conflicting-outputs
+  #build apk
+  build_apk: flutter build apk  
+  #install apk
+  install_apk: adb install -r build/app/outputs/flutter-apk/app-debug.apk
