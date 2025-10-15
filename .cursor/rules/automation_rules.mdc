@@ -1,0 +1,9 @@
+---
+type: "Always"
+description: "Otomasyon, build ve script yönetimi kuralları"
+alwaysApply: true
+---
+
+- Flutter_gen_runner paketi ile kod üretimi esnasında her yeni bir değişiklik yapılınca flutter pub run build_runner build --delete-conflicting-outputs yani rps run gen_flutter komutu çalıştırılmalı
+- Sürekli kullanılan terminal komutlarını rps.yaml dosyasında script ile yönetilmeli ve kısa yoldan çalıştırılmalı
+- Assets/ klasörü altında bir değişiklik yapıldığında rps run gen_flutter komutu çalıştırılmalı

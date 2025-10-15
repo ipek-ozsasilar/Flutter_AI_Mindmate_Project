@@ -1,0 +1,10 @@
+---
+type: "Always"
+description: "UI, responsive ve tasarım kuralları"
+alwaysApply: true
+---
+
+- Proje için responsive tasarımı responsive_framework paketi ile main.dartta breakpointsler tanımlanarak sağlanmalı
+- Projenin colorları yazmanı istediğimde ve sana color numaralarını verdiğimde assets/ klasörü altında colors/ klasörü altında colors.xml dosyası oluşturup colorları buraya yaz
+- Color, images, Fontsları flutter gen ile yönettiğim için output çıktı olarak gen/ klasörü altında ver bunların üretilmiş kodlarını
+- Projede kullanılan widget heigh, widht, büyüklük; icon büyüklüğü, resim boyutları, Text boyutları lib/ klasörü altında products/ klasörü altında enums/ klasörü altında sizes_enum.dart dosyası içerisinde yazılmalıdır. Kod içinde sabit numaralar kullanılmamalıdır. Image ile ilgili boyutlar, sayısal değerler sizes_enum.dart dosyası içerisinde ImageEnum isimli enum olarak, Text ile ilgili boyutlar, sayısal değerler TextEnum isimli enum olarak, icon ile ilgili boyutlar, sayısal değerler IconEnum isimli enum olarak, Widget ile ilgili boyutlar, sayısal değerler WidgetEnum isimli enum olarak yazılmalıdır. Bu enumlar enhanced enum şeklinde yazılmalıdır. Hangi türü (örneğin image, text, icon, widget) verdiysem, sadece o türe ait enum oluşturulmalıdır.

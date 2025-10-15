@@ -1,0 +1,10 @@
+---
+type: "Always"
+description: "Kod kalitesi, lint kuralları ve yapı kuralları"
+alwaysApply: true
+---
+
+- Pubspec.yaml dosyasına eklenen her paket için başında bir iki kelimelik bir yorum satırı olmalı
+- Json serializable yapılacağı zaman g.dart dosyası üretileceği zaman sadece lib/ klasörü altındaki models/ klasörü altındaki **_model.dart uzantılı dosyalar için üretilecektir
+- Analysis_options.yaml dosyasında flutter_lints paketi ile always_declare_return_types: true, always_put_required_named_parameters_first: true, always_require_non_null_named_parameters: true, always_use_package_imports: true, avoid_print: true, prefer_final_locals: true, avoid_empty_else: true, sort_constructors_first: true, use_super_parameters: true kuralları tanımlanmalıdır
+- Kod içinde hardcoded string kullanılmamalıdır. Tüm sabitler enums/ klasörü altında strings_enum.dart dosyasında tanımlanmalı.

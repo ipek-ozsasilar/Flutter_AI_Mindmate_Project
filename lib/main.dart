@@ -3,9 +3,12 @@ import 'package:flutter_mindmate_project/features/splash/splash_view.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/enums/device_type_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
+import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
+  //Service locator setup
+  setupLocator();
   runApp(const MyApp());
 }
 

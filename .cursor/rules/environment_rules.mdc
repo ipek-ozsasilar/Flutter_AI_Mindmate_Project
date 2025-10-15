@@ -1,0 +1,8 @@
+---
+type: "Always"
+description: "Environment yönetimi kuralları"
+alwaysApply: true
+---
+
+- Api keyi , gizli bilgileri normal dosyalara açık bir şekilde yazma .env dosyasına yaz
+- Envied paketi ile env'lar yönetilmeli

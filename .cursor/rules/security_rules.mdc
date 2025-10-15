@@ -1,0 +1,9 @@
+---
+type: "Always"
+description: "Güvenlik, loglama ve hata yönetimi kuralları"
+alwaysApply: true
+---
+
+- Bir debug ihtiyacı olduğunda print ile yazdırmak yerine log ile yazdırılmalı Logger paketini kullanarak yazdır
+- Projenin ui testini yap dediğimde maestro ile ui testi yapılmalı
+- Kritik olan ve uygulamayı çökertme ihtimali olan bütün kodları try-catch içinde yaz. Catch bloğu içinde hata Logger ile loglanmalı. throw sadece ViewModel veya Service katmanında, üst katman tarafından handle edilecekse kullanılabilir. UI katmanında kesinlikle throw edilmemelidir.

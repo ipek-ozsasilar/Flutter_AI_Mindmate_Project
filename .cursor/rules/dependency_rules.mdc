@@ -1,0 +1,7 @@
+---
+type: "Always"
+description: "Bağımlılık yönetimi ve servis kayıt kuralları"
+alwaysApply: true
+---
+
+- Proje bağımlılıkları get_it paketi ile yönetilmeli. lib/ içinde service_locator/ klasörü ve altinda service_locator.dart dosyası oluşturularak bağımlılıklar burada yazılmalı

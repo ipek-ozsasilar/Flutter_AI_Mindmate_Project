@@ -1,0 +1,10 @@
+---
+type: "Always"
+description: "Proje yapısı ve klasör organizasyonu kuralları"
+alwaysApply: true
+---
+
+- Ekranlar lib/ klasörü altında features/ altında yazılmalıdır
+- Features/ altında tanımlanan her klasör altında sub_view/ klasörü oluşturulmalı
+- Features/ altında tanımlanan her klasör altında sub_view/ tanımlamıştık. Her widget bir dosyada olmamalı clean hale getirip dosyayı , dosyalama yapmanı istersem o dosyanın oldugu klasörün altındaki sub_view klasörü altında anlamlı bir isimle o widgetı taşımalısın. view.dart uzantılı dosyalarda sadece Widget ağaçları (UI tanımı) bulunmalıdır. İş mantığı (business logic), servis çağrıları, state yönetimi, validation gibi işlemler view_model veya provider dosyalarında olmalıdır. Dosyalama yapılarak modülerlik sağlanmalı
+- Features/ altında tanımlanan her klasör altında view_model/ ve provider/ klasörleri oluşturulmalı
