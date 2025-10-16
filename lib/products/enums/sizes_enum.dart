@@ -1,8 +1,8 @@
-enum SizesEnum {
+enum IconSizesEnum {
   iconSize(24);
 
   final double value;
-  const SizesEnum(this.value);
+  const IconSizesEnum(this.value);
 }
 
 enum ScreenSizesEnum {
@@ -16,4 +16,29 @@ enum ScreenSizesEnum {
 
   final double value;
   const ScreenSizesEnum(this.value);
+}
+
+enum TextSizesEnum {
+  appTitleSize(20),
+  generalSize(16),
+  googleSize(24),
+  splashTitleSize(60);
+
+  final double value;
+  const TextSizesEnum(this.value);
+}
+
+enum WidgetSizesEnum {
+  splashImageContainerHeight(350);
+
+  final double value;
+  const WidgetSizesEnum(this.value);
+}
+
+enum AppbarSizesEnum {
+  toolbarHeight(100),
+  leadingWidth(135);
+
+  final double value;
+  const AppbarSizesEnum(this.value);
 }

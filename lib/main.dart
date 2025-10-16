@@ -8,7 +8,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
   //Service locator setup
-  setupLocator();
+  setupLocator(); 
   runApp(const MyApp());
 }
 
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         iconButtonTheme: IconButtonThemeData(
           style: IconButton.styleFrom(
             backgroundColor: Colors.transparent,
-            iconSize: SizesEnum.iconSize.value,
+            iconSize: IconSizesEnum.iconSize.value,
           ),
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: ColorName.yellowColor,
             foregroundColor: ColorName.blackColor,
+            shape: RoundedRectangleBorder(),
           ),
         ),
       ),

@@ -24,12 +24,16 @@ class $AssetsColorsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/mindmate_logo.png
+  AssetGenImage get mindmateLogo =>
+      const AssetGenImage('assets/images/mindmate_logo.png');
+
   /// File path: assets/images/mindmate_splash.png
   AssetGenImage get mindmateSplash =>
       const AssetGenImage('assets/images/mindmate_splash.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [mindmateSplash];
+  List<AssetGenImage> get values => [mindmateLogo, mindmateSplash];
 }
 
 class Assets {
