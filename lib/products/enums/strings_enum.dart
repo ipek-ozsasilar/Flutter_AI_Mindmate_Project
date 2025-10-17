@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum StringsEnum {
   splashTitle('Manage your Day with '),
   demoEmail('demo@mindmate.com'),
@@ -20,6 +18,8 @@ enum StringsEnum {
   privacyPolicy(
     'I have read & agreed to Mindmate Privacy Policy,Terms & Condition',
   ),
+  privacyPolicyFirstPart('I have read & agreed to Mindmate'),
+  privacyPolicySecondPart('Privacy Policy,Terms & Condition'),
   notifications('Notifications'),
   history('History'),
   profile('Profile'),

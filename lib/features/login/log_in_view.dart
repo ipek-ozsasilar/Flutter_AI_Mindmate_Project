@@ -33,8 +33,7 @@ class _LogInViewState extends State<LogInView> {
       appBar: LogInAppbar(),
       body: Padding(
         padding: Paddings.paddingInstance.generalHorizontalPadding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             //welcome back title
             GeneralTextWidget(
@@ -83,7 +82,7 @@ class _LogInViewState extends State<LogInView> {
             //forgot password text button
             Padding(
               padding:
-                  Paddings.paddingInstance.loginForgotPasswordVerticalPadding,
+                  Paddings.paddingInstance.loginForgotPasswordTopPadding,
               child: Align(
                 alignment: alignment,
                 child: GlobalTextButton(
