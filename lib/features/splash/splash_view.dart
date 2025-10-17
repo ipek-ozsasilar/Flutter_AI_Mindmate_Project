@@ -5,7 +5,7 @@ import 'package:flutter_mindmate_project/products/appbars/splash_appbar.dart';
 import 'package:flutter_mindmate_project/products/constants/paddings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
-import 'package:flutter_mindmate_project/products/widgets/buttons/elevated_button_widget.dart';
+import 'package:flutter_mindmate_project/products/widgets/buttons/global_elevated_button.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/richt_text_widget.dart';
 
 class SplashView extends StatefulWidget {
@@ -36,13 +36,14 @@ class _SplashViewState extends State<SplashView> {
                 firstText: StringsEnum.splashTitle.value,
                 secondText: StringsEnum.mindmate.value,
                 textSize: TextSizesEnum.splashTitleSize.value,
+                isItalic: true,
               ),
 
               //lets start button
               Expanded(
                 child: Padding(
                   padding: Paddings.paddingInstance.splashButtonVerticalPadding,
-                  child: ElevatedButtonWidget(onPressed: () {}),
+                  child: GlobalElevatedButton(onPressed: () {}, text: StringsEnum.startText.value),
                 ),
               ),
             ],

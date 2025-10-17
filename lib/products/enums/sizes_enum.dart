@@ -29,6 +29,7 @@ enum TextSizesEnum {
 }
 
 enum WidgetSizesEnum {
+  elevatedButtonHeight(60),
   splashImageContainerHeight(350);
 
   final double value;
@@ -36,7 +37,8 @@ enum WidgetSizesEnum {
 }
 
 enum AppbarSizesEnum {
-  toolbarHeight(100),
+  splashToolbarHeight(100),
+  logInToolbarHeight(150),
   leadingWidth(135);
 
   final double value;

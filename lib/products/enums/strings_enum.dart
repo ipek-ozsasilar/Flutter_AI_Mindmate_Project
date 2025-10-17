@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 enum StringsEnum {
   splashTitle('Manage your Day with '),
+  demoEmail('demo@mindmate.com'),
   mindmate('MindMate'),
   startText('Let’s Start'),
   welcomeBack('Welcome Back!'),
-  emailEmailAddress('Email Address'),
-  passwordPassword('Password'),
+  emailAddress('Email Address'),
+  password('Password'),
   forgotPassword('Forgot Password?'),
   orContinueWith('Or continue with'),
   google('Google'),

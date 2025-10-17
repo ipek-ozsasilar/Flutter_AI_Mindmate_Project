@@ -5,6 +5,7 @@ import 'package:flutter_mindmate_project/products/enums/device_type_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 
 void main() {
   //Service locator setup
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        scaffoldBackgroundColor: ColorName.scaffoldBackgroundColor,
+        scaffoldBackgroundColor:  ColorName.scaffoldBackgroundColor,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: ColorName.yellowColor,
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SplashView(),
+      home:  LogInView(),
     );
   }
 }

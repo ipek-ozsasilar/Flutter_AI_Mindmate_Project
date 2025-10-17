@@ -5,6 +5,7 @@ class RichtTextWidget extends StatelessWidget {
   final String firstText;
   final String secondText;
   final double textSize;
+  final bool isItalic;
   final FontWeight fontWeight = FontWeight.w500;
   final FontStyle fontStyle = FontStyle.italic;
   RichtTextWidget({
@@ -12,6 +13,7 @@ class RichtTextWidget extends StatelessWidget {
     required this.firstText,
     required this.secondText,
     required this.textSize,
+    this.isItalic = false,
   });
 
   @override
@@ -25,7 +27,7 @@ class RichtTextWidget extends StatelessWidget {
               fontSize: textSize,
               fontWeight: fontWeight,
               color: ColorName.whiteColor,
-              fontStyle: fontStyle,
+              fontStyle: isItalic ? fontStyle : null,
             ),
           ),
           TextSpan(
@@ -34,7 +36,7 @@ class RichtTextWidget extends StatelessWidget {
               fontSize: textSize,
               fontWeight: fontWeight,
               color: ColorName.yellowColor,
-              fontStyle: fontStyle,
+              fontStyle: isItalic ? fontStyle : null,
             ),
           ),
         ],
