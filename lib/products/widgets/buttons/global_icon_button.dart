@@ -11,7 +11,7 @@ class GlobalIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {},
-      icon: GlobalIcon(icon, ColorName.whiteColor),
+      icon: GlobalIcon(icon, iconColor: ColorName.whiteColor),
     );
   }
 }

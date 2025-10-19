@@ -22,7 +22,7 @@ class GlobalOutlinedIconButton extends StatelessWidget {
       ),
       icon: GlobalIcon(
         IconConstants.iconConstants.googleIcon,
-        ColorName.whiteColor,
+        iconColor: ColorName.whiteColor,
       ),
       style: OutlinedButton.styleFrom(
         foregroundColor: ColorName.whiteColor,

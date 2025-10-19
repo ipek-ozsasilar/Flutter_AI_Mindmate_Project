@@ -22,7 +22,8 @@ enum TextSizesEnum {
   appTitleSize(20),
   generalSize(16),
   googleSize(24),
-  splashTitleSize(60);
+  splashTitleSize(60),
+  messageBottomAppbarTextSize(12);
 
   final double value;
   const TextSizesEnum(this.value);
@@ -30,13 +31,16 @@ enum TextSizesEnum {
 
 enum WidgetSizesEnum {
   elevatedButtonHeight(60),
-  splashImageContainerHeight(350);
+  splashImageContainerHeight(350),
+  startChatContainerHeight(150),
+  startChatContainerWidth(200);
 
   final double value;
   const WidgetSizesEnum(this.value);
 }
 
 enum AppbarSizesEnum {
+  messageToolbarHeight(100),
   splashToolbarHeight(100),
   logInToolbarHeight(150),
   leadingWidth(135);

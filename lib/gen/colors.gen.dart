@@ -17,6 +17,9 @@ class ColorName {
   /// Color: #000000
   static const Color blackColor = Color(0xFF000000);
 
+  /// Color: #1C2529
+  static const Color bottomAppBarColor = Color(0xFF1C2529);
+
   /// Color: #8CAAB9
   static const Color loginGreyTextColor = Color(0xFF8CAAB9);
 

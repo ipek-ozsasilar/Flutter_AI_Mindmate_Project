@@ -5,4 +5,5 @@
     <color name="loginGreyTextColor">#8CAAB9</color>
     <color name="loginInputColor">#455A64</color>
     <color name="blackColor">#000000</color>
+    <color name="bottomAppBarColor">#1C2529</color>
 </resources>

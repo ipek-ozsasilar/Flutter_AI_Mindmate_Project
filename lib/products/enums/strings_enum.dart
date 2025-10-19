@@ -10,6 +10,11 @@ enum StringsEnum {
   orContinueWith('Or continue with'),
   google('Google'),
   logIn('Log In'),
+  startChat('Start a new chat'),
+  progress('progress'),
+  history('history'),
+  profile('profile'),
+  notifications('notifications'),
   dontHaveAnAccount('Don’t have an account?'),
   signUp('Sign Up'),
   createYourAccount('Create your account'),
@@ -18,11 +23,9 @@ enum StringsEnum {
   privacyPolicy(
     'I have read & agreed to Mindmate Privacy Policy,Terms & Condition',
   ),
+  messages('Messages'),
   privacyPolicyFirstPart('I have read & agreed to Mindmate'),
   privacyPolicySecondPart('Privacy Policy,Terms & Condition'),
-  notifications('Notifications'),
-  history('History'),
-  profile('Profile'),
   logout('Logout');
 
   final String value;

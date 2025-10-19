@@ -9,4 +9,9 @@ class IconConstants {
   IconData get visibilityOffIcon => Icons.visibility_off;
   IconData get googleIcon => Icons.g_mobiledata;
   IconData get personIcon => Icons.person;
+  IconData get arrowBackIcon => Icons.arrow_back;
+  IconData get addIcon => Icons.add;
+  IconData get notificationsIcon => Icons.notifications;
+  IconData get historyIcon => Icons.history;
+  IconData get progressIcon => Icons.bar_chart_outlined;
 }
