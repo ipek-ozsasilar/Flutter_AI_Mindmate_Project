@@ -1,4 +1,4 @@
-part of '../message_view.dart';
+part of '../create_chat_view.dart';
 
 class _StartChatWidget extends StatelessWidget {
   const _StartChatWidget();

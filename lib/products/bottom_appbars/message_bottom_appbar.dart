@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmate_project/features/history/history_view.dart';
+import 'package:flutter_mindmate_project/features/message/message_view.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
@@ -22,7 +24,12 @@ class MessageBottomAppbar extends StatelessWidget
             child: _MessageBottomAppbarTextAndIcon(
               icon: IconConstants.iconConstants.historyIcon,
               text: StringsEnum.history.value,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HistoryView()),
+                );
+              },
             ),
           ),
           Expanded(
@@ -36,7 +43,12 @@ class MessageBottomAppbar extends StatelessWidget
           Expanded(
             child: _MessageBottomAppbarTextAndIcon(
               icon: IconConstants.iconConstants.addIcon,
-              onPressed: () {},
+              onPressed: () {
+                      Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MessageView()),
+                );
+              },
             ),
           ),
 

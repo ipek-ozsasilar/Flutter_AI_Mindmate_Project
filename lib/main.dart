@@ -7,6 +7,7 @@ import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
+import 'package:flutter_mindmate_project/features/create_chat/create_chat_view.dart';
 import 'package:flutter_mindmate_project/features/message/message_view.dart';
 void main() {
   //Service locator setup

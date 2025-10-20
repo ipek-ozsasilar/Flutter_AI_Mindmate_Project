@@ -26,7 +26,30 @@ enum StringsEnum {
   messages('Messages'),
   privacyPolicyFirstPart('I have read & agreed to Mindmate'),
   privacyPolicySecondPart('Privacy Policy,Terms & Condition'),
-  logout('Logout');
+  logout('Logout'),
+  howAreYouFeelingToday('Bugün nasıl hissediyorsun?'),
+  todaysChatsRemaining('Kalan günlük sohbet hakkı'),
+  shareYourFeelings('Duygularını paylaş'),
+  noChatsYet('Henüz hiç sohbet başlatmadın'),
+  startYourFirstChat('İlk sohbetini başlat ve duygularını paylaş'),
+  todaysConversations('Bugünün Sohbetleri'),
+  dailyLimitReached('Günlük limit doldu'),
+  comeBackTomorrow('Yarın tekrar gel ve duygularını paylaş'),
+  morning('Morning'),
+  afternoon('Afternoon'),
+  evening('Evening'),
+  aiResponse('AI Yanıtı'),
+  writeYourFeelingsHere('Duygularını buraya yaz...'),
+  send('Send'),
+  aiIsThinking('AI düşünüyor...'),
+  chatCompleted('Sohbet tamamlandı'),
+  thankYouForSharing('Paylaşımın için teşekkürler!'),
+  historyTitle('Geçmiş'),
+  today('Bugün'),
+  yesterday('Dün'),
+  noHistoryYet('Henüz geçmiş yok'),
+  startChattingToSeeHistory('Sohbet etmeye başla ve geçmişini gör'),
+  chats('sohbet');
 
   final String value;
   const StringsEnum(this.value);

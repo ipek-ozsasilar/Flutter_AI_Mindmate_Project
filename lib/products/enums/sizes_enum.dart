@@ -1,5 +1,6 @@
 enum IconSizesEnum {
-  iconSize(24);
+  iconSize(24),
+  moodIconSize(48);
 
   final double value;
   const IconSizesEnum(this.value);
@@ -23,7 +24,10 @@ enum TextSizesEnum {
   generalSize(16),
   googleSize(24),
   splashTitleSize(60),
-  messageBottomAppbarTextSize(12);
+  messageBottomAppbarTextSize(12),
+  todayCardTitleSize(22),
+  subtitleSize(14),
+  chatTimeSize(12);
 
   final double value;
   const TextSizesEnum(this.value);
@@ -33,7 +37,14 @@ enum WidgetSizesEnum {
   elevatedButtonHeight(60),
   splashImageContainerHeight(350),
   startChatContainerHeight(150),
-  startChatContainerWidth(200);
+  startChatContainerWidth(200),
+  todayCardHeight(200),
+  chatCardHeight(120),
+  borderRadius(16),
+  moodIconContainerSize(60),
+  limitIndicatorSize(50),
+  historyCardMinHeight(150),
+  historyChatItemHeight(80);
 
   final double value;
   const WidgetSizesEnum(this.value);
