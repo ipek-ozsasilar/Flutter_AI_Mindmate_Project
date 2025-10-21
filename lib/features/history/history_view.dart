@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/appbars/message_appbar.dart';
 import 'package:flutter_mindmate_project/products/bottom_appbars/message_bottom_appbar.dart';
+import 'package:flutter_mindmate_project/products/constants/icons.dart';
+import 'package:flutter_mindmate_project/products/constants/paddings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
+import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart' as SizesEnum;
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
+import 'package:flutter_mindmate_project/products/widgets/buttons/global_icon_button.dart';
+import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
 
 part 'sub_view/daily_history_card_widget.dart';
@@ -20,54 +25,55 @@ class HistoryView extends StatefulWidget {
 class _HistoryViewState extends State<HistoryView> {
   // Dummy history data - grouped by date
   final Map<String, List<Map<String, dynamic>>> _historyData = {
-    '20 Ekim 2024': [
+    'October 20, 2024': [
       {
         'time': '09:30',
         'period': StringsEnum.morning.value,
         'mood': '😊',
-        'userMessage': 'Bugün harika bir gün geçirdim, işlerim çok iyi gitti!',
+        'userMessage': 'I had a great day today, my work went really well!',
         'aiResponse':
-            'Mutlu olduğunu duymak harika! Bu olumlu enerjiyi devam ettir.',
+            'Great to hear you\'re happy! Keep up that positive energy.',
       },
       {
         'time': '14:45',
         'period': StringsEnum.afternoon.value,
         'mood': '😊',
-        'userMessage': 'Öğle yemeğinde arkadaşlarımla güzel vakit geçirdim.',
-        'aiResponse': 'Sosyal bağlantılar çok önemli. Harika!',
+        'userMessage': 'I had a wonderful time with my friends at lunch.',
+        'aiResponse': 'Social connections are so important. Amazing!',
       },
       {
         'time': '21:00',
         'period': StringsEnum.evening.value,
         'mood': '😌',
-        'userMessage': 'Günü dinlenerek bitiriyorum, huzurluyum.',
-        'aiResponse': 'Kendinize zaman ayırmanız muhteşem. İyi geceler!',
+        'userMessage': 'I\'m ending the day relaxing, I feel peaceful.',
+        'aiResponse': 'Taking time for yourself is wonderful. Good night!',
       },
     ],
-    '19 Ekim 2024': [
+    'October 19, 2024': [
       {
         'time': '08:15',
         'period': StringsEnum.morning.value,
         'mood': '😰',
-        'userMessage': 'Bugün önemli bir toplantım var, biraz gerginim.',
-        'aiResponse': 'Derin nefes al, hazırlıklısın. Başarılar dilerim!',
+        'userMessage': 'I have an important meeting today, I\'m a bit nervous.',
+        'aiResponse': 'Take a deep breath, you\'re prepared. Good luck!',
       },
       {
         'time': '16:30',
         'period': StringsEnum.afternoon.value,
         'mood': '😊',
-        'userMessage': 'Toplantı çok iyi geçti, rahatladım!',
-        'aiResponse': 'Harika! Endişelerin boşaymış, süpersin!',
+        'userMessage': 'The meeting went really well, I feel relieved!',
+        'aiResponse': 'Awesome! Your worries were unfounded, you\'re amazing!',
       },
     ],
-    '18 Ekim 2024': [
+    'October 18, 2024': [
       {
         'time': '10:00',
         'period': StringsEnum.morning.value,
         'mood': '😢',
-        'userMessage': 'Bugün biraz üzgünüm, işler planladığım gibi gitmedi.',
+        'userMessage':
+            'I\'m feeling a bit sad today, things didn\'t go as planned.',
         'aiResponse':
-            'Üzgün hissetmek normal. Yarın yeni bir gün, umarım daha iyi olur.',
+            'Feeling sad is normal. Tomorrow is a new day, hope it\'s better.',
       },
     ],
   };

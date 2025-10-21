@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/features/login/create_account_view.dart';
+import 'package:flutter_mindmate_project/features/profile/profile_view.dart';
 import 'package:flutter_mindmate_project/features/splash/splash_view.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/enums/device_type_enum.dart';
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
           ),
         ),  
       ),
-      home:   MessageView(),
+      home:   ProfileView(),
     );
   }
 }

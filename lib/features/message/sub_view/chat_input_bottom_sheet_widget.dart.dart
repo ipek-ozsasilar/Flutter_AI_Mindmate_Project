@@ -1,22 +1,21 @@
 part of '../message_view.dart';
 
 class _ChatInputBottomSheetWidget extends StatefulWidget {
-  final Function(String message, String mood) onSendMessage;
-
-  const _ChatInputBottomSheetWidget({required this.onSendMessage});
+  const _ChatInputBottomSheetWidget({super.key});
 
   @override
-  State<_ChatInputBottomSheetWidget> createState() => _ChatInputModalWidgetState();
+  State<_ChatInputBottomSheetWidget> createState() =>
+      _ChatInputModalWidgetState();
 }
 
 class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
   final TextEditingController _messageController = TextEditingController();
   String _selectedMood = '😊';
   final List<Map<String, String>> _moods = [
-    {'emoji': '😊', 'label': 'Mutlu'},
-    {'emoji': '😢', 'label': 'Üzgün'},
-    {'emoji': '😰', 'label': 'Endişeli'},
-    {'emoji': '😡', 'label': 'Sinirli'},
+    {'emoji': '😊', 'label': 'Happy'},
+    {'emoji': '😢', 'label': 'Sad'},
+    {'emoji': '😰', 'label': 'Anxious'},
+    {'emoji': '😡', 'label': 'Angry'},
   ];
 
   @override
@@ -28,7 +27,6 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
   void _handleSend() {
     if (_messageController.text.trim().isEmpty) return;
 
-    widget.onSendMessage(_messageController.text.trim(), _selectedMood);
     Navigator.pop(context);
   }
 

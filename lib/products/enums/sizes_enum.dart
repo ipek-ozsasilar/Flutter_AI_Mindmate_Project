@@ -1,6 +1,8 @@
 enum IconSizesEnum {
   iconSize(24),
-  moodIconSize(48);
+  moodIconSize(48),
+  cameraIconSize(18),
+  imagePickerInsideIconSize(60);
 
   final double value;
   const IconSizesEnum(this.value);
@@ -34,6 +36,7 @@ enum TextSizesEnum {
 }
 
 enum WidgetSizesEnum {
+  profileImageSize(120),
   elevatedButtonHeight(60),
   splashImageContainerHeight(350),
   startChatContainerHeight(150),
@@ -41,10 +44,13 @@ enum WidgetSizesEnum {
   todayCardHeight(200),
   chatCardHeight(120),
   borderRadius(16),
+  smallBorderRadius(12),
   moodIconContainerSize(60),
   limitIndicatorSize(50),
   historyCardMinHeight(150),
-  historyChatItemHeight(80);
+  historyChatItemHeight(80),
+  historyCardContainerSizes(100),
+  profileCameraContainerSize(35);
 
   final double value;
   const WidgetSizesEnum(this.value);

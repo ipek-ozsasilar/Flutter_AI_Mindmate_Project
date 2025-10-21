@@ -4,8 +4,12 @@ class _DailyHistoryCardWidget extends StatelessWidget {
   final String date;
   final bool isToday;
   final List<Map<String, dynamic>> dayChats;
+  final CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start;
+  final MainAxisAlignment mainAxisAlignment = MainAxisAlignment.spaceBetween;
+  final Color? color = ColorName.yellowColor.withOpacity(0.2);
+  final double width = 1;
 
-  const _DailyHistoryCardWidget({
+  _DailyHistoryCardWidget({
     required this.date,
     required this.isToday,
     required this.dayChats,
@@ -14,54 +18,48 @@ class _DailyHistoryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: ColorName.loginInputColor,
-        borderRadius: BorderRadius.circular(WidgetSizesEnum.borderRadius.value),
-      ),
+      margin: Paddings.paddingInstance.chatHistoryWidgetMargin,
+      padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
+      decoration: _ContainerDecoration(),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: crossAxisAlignment,
         children: [
           // Date header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GeneralTextWidget(
-                color: ColorName.whiteColor,
-                size: TextSizesEnum.appTitleSize.value,
-                text: date,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 4,
+          Padding(
+            padding: Paddings.paddingInstance.chatHistoryWidgetMargin,
+            child: Row(
+              mainAxisAlignment: mainAxisAlignment,
+              children: [
+                GeneralTextWidget(
+                  color: ColorName.whiteColor,
+                  size: TextSizesEnum.appTitleSize.value,
+                  text: date,
                 ),
-                decoration: BoxDecoration(
-                  color: isToday
-                      ? ColorName.yellowColor.withOpacity(0.2)
-                      : ColorName.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(12),
-                  border: isToday
-                      ? Border.all(color: ColorName.yellowColor, width: 1)
-                      : null,
-                ),
-                child: Text(
-                  isToday
-                      ? StringsEnum.today.value
-                      : '${dayChats.length} ${StringsEnum.chats.value}',
-                  style: TextStyle(
+                Container(
+                  padding: Paddings.paddingInstance.dailyHistoryCardPadding,
+                  decoration: BoxDecoration(
+                    color: isToday ? color : ColorName.scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(
+                      WidgetSizesEnum.smallBorderRadius.value,
+                    ),
+                    border: isToday
+                        ? Border.all(color: ColorName.yellowColor, width: width)
+                        : null,
+                  ),
+                  child: GeneralTextWidget(
+                    text: isToday
+                        ? StringsEnum.today.value
+                        : '${dayChats.length} ${StringsEnum.chats.value}',
                     color: isToday
                         ? ColorName.yellowColor
                         : ColorName.loginGreyTextColor,
-                    fontSize: TextSizesEnum.chatTimeSize.value,
-                    fontWeight: FontWeight.bold,
+                    size: TextSizesEnum.subtitleSize.value,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 12),
+
           // Chats list
           ...dayChats.asMap().entries.map((entry) {
             final int index = entry.key;
@@ -75,6 +73,13 @@ class _DailyHistoryCardWidget extends StatelessWidget {
           }),
         ],
       ),
+    );
+  }
+
+  BoxDecoration _ContainerDecoration() {
+    return BoxDecoration(
+      color: ColorName.loginInputColor,
+      borderRadius: BorderRadius.circular(WidgetSizesEnum.borderRadius.value),
     );
   }
 }

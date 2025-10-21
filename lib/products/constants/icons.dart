@@ -14,4 +14,12 @@ class IconConstants {
   IconData get notificationsIcon => Icons.notifications;
   IconData get historyIcon => Icons.history;
   IconData get progressIcon => Icons.bar_chart_outlined;
+  IconData get emailInsideEmpty => Icons.email_outlined;
+  IconData get lockInsideEmpty => Icons.lock_outline;
+  IconData get settings => Icons.settings_outlined;
+  IconData get privacy => Icons.privacy_tip_outlined;
+  IconData get logout => Icons.logout;
+  IconData get arrowDownIcon => Icons.keyboard_arrow_down;
+  IconData get editIcon => Icons.edit;
+  IconData get cameraIcon => Icons.camera_alt;
 }

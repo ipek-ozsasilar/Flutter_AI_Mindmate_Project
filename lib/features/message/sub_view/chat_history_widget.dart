@@ -1,5 +1,5 @@
 part of '../message_view.dart';
-
+//kod cleanlesştirilecek
 class _ChatHistoryWidget extends StatelessWidget {
   final List<Map<String, dynamic>> conversations;
 
@@ -7,7 +7,6 @@ class _ChatHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Expanded(
       child: conversations.isEmpty
           ? _EmptyStateWidget()
@@ -15,7 +14,7 @@ class _ChatHistoryWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: Paddings.paddingInstance.generalHorizontalPadding,
                   child: GeneralTextWidget(
                     color: ColorName.whiteColor,
                     size: TextSizesEnum.appTitleSize.value,

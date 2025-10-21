@@ -5,6 +5,7 @@ Icon GlobalIcon(
   IconData icon,
   {
   Color? iconColor = ColorName.whiteColor,
+  double? iconSize = 25,
 }) {
-  return Icon(icon, color: iconColor, size: 30);
+  return Icon(icon, color: iconColor, size: iconSize);
 }

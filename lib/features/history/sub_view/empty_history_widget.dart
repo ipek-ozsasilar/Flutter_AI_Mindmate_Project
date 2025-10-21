@@ -1,41 +1,54 @@
 part of '../history_view.dart';
 
 class _EmptyHistoryWidget extends StatelessWidget {
+  final MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center;
+  final TextAlign textAlign = TextAlign.center;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: mainAxisAlignment,
         children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: ColorName.loginInputColor,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: const Icon(
-              Icons.history,
-              size: 50,
-              color: ColorName.loginGreyTextColor,
+          Padding(
+            padding: Paddings.paddingInstance.emptyHistoryWidgetPadding,
+            child: Container(
+              width: WidgetSizesEnum.historyCardContainerSizes.value,
+              height: WidgetSizesEnum.historyCardContainerSizes.value,
+              decoration: HistoryCardDecoration(),
+              child: GlobalIcon(
+                IconConstants.iconConstants.historyIcon,
+                iconColor: ColorName.loginGreyTextColor,
+              ),
             ),
           ),
-          const SizedBox(height: 20),
-          GeneralTextWidget(
-            color: ColorName.whiteColor,
-            size: TextSizesEnum.generalSize.value,
-            text: StringsEnum.noHistoryYet.value,
+
+          Padding(
+            padding: Paddings.paddingInstance.chatHistoryWidgetMargin,
+            child: GeneralTextWidget(
+              color: ColorName.whiteColor,
+              size: TextSizesEnum.generalSize.value,
+              text: StringsEnum.noHistoryYet.value,
+            ),
           ),
-          const SizedBox(height: 8),
+
           Text(
             StringsEnum.startChattingToSeeHistory.value,
             style: TextStyle(
               color: ColorName.loginGreyTextColor,
               fontSize: TextSizesEnum.subtitleSize.value,
             ),
-            textAlign: TextAlign.center,
+            textAlign: textAlign,
           ),
         ],
+      ),
+    );
+  }
+
+  BoxDecoration HistoryCardDecoration() {
+    return BoxDecoration(
+      color: ColorName.loginInputColor,
+      borderRadius: BorderRadius.circular(
+        WidgetSizesEnum.limitIndicatorSize.value,
       ),
     );
   }
