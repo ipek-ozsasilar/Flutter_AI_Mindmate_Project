@@ -20,6 +20,8 @@ class IconConstants {
   IconData get privacy => Icons.privacy_tip_outlined;
   IconData get logout => Icons.logout;
   IconData get arrowDownIcon => Icons.keyboard_arrow_down;
+  IconData get arrowUpIcon => Icons.keyboard_arrow_up;
   IconData get editIcon => Icons.edit;
   IconData get cameraIcon => Icons.camera_alt;
+  IconData get calendarIcon => Icons.calendar_today;
 }

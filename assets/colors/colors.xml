@@ -6,4 +6,10 @@
     <color name="loginInputColor">#455A64</color>
     <color name="blackColor">#000000</color>
     <color name="bottomAppBarColor">#1C2529</color>
+    <color name="moodVerySadColor">#D32F2F</color>
+    <color name="moodSadColor">#F57C00</color>
+    <color name="moodNeutralColor">#FFC107</color>
+    <color name="moodHappyColor">#8BC34A</color>
+    <color name="moodVeryHappyColor">#4CAF50</color>
+    <color name="orangeColor">#FF9800</color>
 </resources>

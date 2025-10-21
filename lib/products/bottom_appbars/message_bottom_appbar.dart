@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/features/history/history_view.dart';
 import 'package:flutter_mindmate_project/features/message/message_view.dart';
+import 'package:flutter_mindmate_project/features/notifications/notifications_view.dart';
 import 'package:flutter_mindmate_project/features/profile/profile_view.dart';
+import 'package:flutter_mindmate_project/features/progress/progress_view.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
@@ -37,7 +39,12 @@ class MessageBottomAppbar extends StatelessWidget
             child: _MessageBottomAppbarTextAndIcon(
               icon: IconConstants.iconConstants.progressIcon,
               text: StringsEnum.progress.value,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProgressView()),
+                );
+              },
             ),
           ),
 
@@ -69,7 +76,12 @@ class MessageBottomAppbar extends StatelessWidget
             child: _MessageBottomAppbarTextAndIcon(
               icon: IconConstants.iconConstants.notificationsIcon,
               text: StringsEnum.notifications.value,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NotificationsView()),
+                );
+              },
             ),
           ),
         ],

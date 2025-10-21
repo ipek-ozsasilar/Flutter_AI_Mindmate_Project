@@ -25,7 +25,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MessageAppbar(),
+      appBar: MessageAppbar(title: StringsEnum.profile.value),
       body: SingleChildScrollView(
         child: Padding(
           padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,

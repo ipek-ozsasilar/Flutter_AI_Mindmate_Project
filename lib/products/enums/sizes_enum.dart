@@ -36,11 +36,14 @@ enum TextSizesEnum {
 }
 
 enum WidgetSizesEnum {
+  notificationReadDotSize(8),
+  notificationTimeContainerSize(50),
   profileImageSize(120),
   elevatedButtonHeight(60),
   splashImageContainerHeight(350),
   startChatContainerHeight(150),
   startChatContainerWidth(200),
+  progressChartContainerHeight(300),
   todayCardHeight(200),
   chatCardHeight(120),
   borderRadius(16),
@@ -50,7 +53,9 @@ enum WidgetSizesEnum {
   historyCardMinHeight(150),
   historyChatItemHeight(80),
   historyCardContainerSizes(100),
-  profileCameraContainerSize(35);
+  profileCameraContainerSize(35),
+  progressEmojiItemContainerSize(40),
+  progressEmojiStatusCircleSize(20);
 
   final double value;
   const WidgetSizesEnum(this.value);

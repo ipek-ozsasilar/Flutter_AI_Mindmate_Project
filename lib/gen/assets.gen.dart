@@ -21,6 +21,39 @@ class $AssetsColorsGen {
   List<String> get values => [colors];
 }
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/happy_emoji.jpeg
+  AssetGenImage get happyEmoji =>
+      const AssetGenImage('assets/icons/happy_emoji.jpeg');
+
+  /// File path: assets/icons/neutral_emoji.jpeg
+  AssetGenImage get neutralEmoji =>
+      const AssetGenImage('assets/icons/neutral_emoji.jpeg');
+
+  /// File path: assets/icons/sad_emoji.jpeg
+  AssetGenImage get sadEmoji =>
+      const AssetGenImage('assets/icons/sad_emoji.jpeg');
+
+  /// File path: assets/icons/very_happy_emoji.jpeg
+  AssetGenImage get veryHappyEmoji =>
+      const AssetGenImage('assets/icons/very_happy_emoji.jpeg');
+
+  /// File path: assets/icons/very_sad_emoji.jpeg
+  AssetGenImage get verySadEmoji =>
+      const AssetGenImage('assets/icons/very_sad_emoji.jpeg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+    happyEmoji,
+    neutralEmoji,
+    sadEmoji,
+    veryHappyEmoji,
+    verySadEmoji,
+  ];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -40,6 +73,7 @@ class Assets {
   const Assets._();
 
   static const $AssetsColorsGen colors = $AssetsColorsGen();
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

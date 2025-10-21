@@ -52,7 +52,7 @@ class _MessageViewState extends State<MessageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MessageAppbar(),
+      appBar: MessageAppbar(title: StringsEnum.messages.value),
       body: Column(
         children: [
           _ChatHistoryWidget(conversations: _conversations),

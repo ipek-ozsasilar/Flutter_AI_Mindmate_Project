@@ -9,7 +9,8 @@ import 'package:flutter_mindmate_project/products/widgets/texts/general_text_wid
 
 class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
   final bool centerTitle;
-  const MessageAppbar({this.centerTitle = true, super.key});
+  final String title;
+  const MessageAppbar({this.centerTitle = true, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: GeneralTextWidget(
         color: ColorName.whiteColor,
         size: TextSizesEnum.appTitleSize.value,
-        text: StringsEnum.messages.value,
+        text: title,
       ),
     );
   }

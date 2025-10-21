@@ -26,6 +26,24 @@ class ColorName {
   /// Color: #455A64
   static const Color loginInputColor = Color(0xFF455A64);
 
+  /// Color: #8BC34A
+  static const Color moodHappyColor = Color(0xFF8BC34A);
+
+  /// Color: #FFC107
+  static const Color moodNeutralColor = Color(0xFFFFC107);
+
+  /// Color: #F57C00
+  static const Color moodSadColor = Color(0xFFF57C00);
+
+  /// Color: #4CAF50
+  static const Color moodVeryHappyColor = Color(0xFF4CAF50);
+
+  /// Color: #D32F2F
+  static const Color moodVerySadColor = Color(0xFFD32F2F);
+
+  /// Color: #FF9800
+  static const Color orangeColor = Color(0xFFFF9800);
+
   /// Color: #1D2B36
   static const Color scaffoldBackgroundColor = Color(0xFF1D2B36);
 

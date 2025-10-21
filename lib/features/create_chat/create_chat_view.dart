@@ -21,7 +21,7 @@ class _CreateChatViewState extends State<CreateChatView> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: MessageAppbar(),
+      appBar: MessageAppbar(title: StringsEnum.startChat.value),
       body: Center(child: _StartChatWidget()),
       bottomNavigationBar:  MessageBottomAppbar(),
     );

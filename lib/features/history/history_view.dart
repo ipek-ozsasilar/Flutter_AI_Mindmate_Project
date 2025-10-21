@@ -92,7 +92,7 @@ class _HistoryViewState extends State<HistoryView> {
     final List<String> dates = _historyData.keys.toList();
 
     return Scaffold(
-      appBar: const MessageAppbar(),
+      appBar: MessageAppbar(title: StringsEnum.history.value),
       body: _historyData.isEmpty
           ? _EmptyHistoryWidget()
           : ListView.builder(
