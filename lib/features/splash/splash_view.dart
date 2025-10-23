@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 import 'package:flutter_mindmate_project/gen/assets.gen.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/appbars/splash_appbar.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/buttons/global_elevated_button.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/richt_text_widget.dart';
+import 'package:flutter_mindmate_project/products/mixins/navigation_mixin.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -15,7 +17,7 @@ class SplashView extends StatefulWidget {
   State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> {
+class _SplashViewState extends State<SplashView> with NavigationMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +45,12 @@ class _SplashViewState extends State<SplashView> {
               Expanded(
                 child: Padding(
                   padding: Paddings.paddingInstance.splashButtonVerticalPadding,
-                  child: GlobalElevatedButton(onPressed: () {}, text: StringsEnum.startText.value),
+                  child: GlobalElevatedButton(
+                    onPressed: () {
+                      navigateTo(LogInView());
+                    },
+                    text: StringsEnum.startText.value,
+                  ),
                 ),
               ),
             ],

@@ -5,14 +5,17 @@ import 'package:flutter_mindmate_project/features/splash/splash_view.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/enums/device_type_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
+import 'package:flutter_mindmate_project/products/initiliazer/app_initiliazer.dart';
 import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 import 'package:flutter_mindmate_project/features/create_chat/create_chat_view.dart';
 import 'package:flutter_mindmate_project/features/message/message_view.dart';
-void main() {
-  //Service locator setup
-  setupLocator(); 
+void main() async {
+  //AppInitiliazer'ı başlatır
+  //AppInitiliazer'ın init metodu async olduğu için await kullanıyoruz.
+  await AppInitiliazer().init();
+  //MyApp widget'ını oluşturuyoruz
   runApp(const MyApp());
 }
 
@@ -69,7 +72,7 @@ class MyApp extends StatelessWidget {
           ),
         ),  
       ),
-      home:   ProfileView(),
+      home:   SplashView(),
     );
   }
 }
