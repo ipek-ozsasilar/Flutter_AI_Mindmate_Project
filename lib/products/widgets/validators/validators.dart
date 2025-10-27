@@ -30,4 +30,12 @@ class Validators {
     }
     return null;
   }
+
+  // Full Name validator
+  String? validateFullName(String? value) {
+    if (value == null || value.isEmpty) {
+      return ErrorStringsEnum.fullNameEmptyError.value;
+    }
+    return null;
+  }
 }

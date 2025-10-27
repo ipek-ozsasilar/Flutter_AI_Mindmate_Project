@@ -1,4 +1,5 @@
 enum StringsEnum {
+  createAccount('Create Account'),
   splashTitle('Manage your Day with '),
   demoEmail('demo@mindmate.com'),
   mindmate('MindMate'),
@@ -80,7 +81,8 @@ enum StringsEnum {
   sadLabel('Sad'),
   neutralLabel('Neutral'),
   happyLabel('Happy'),
-  veryHappyLabel('Very Happy');
+  veryHappyLabel('Very Happy'),
+  privacyPolicyUrl('https://flutter.dev/');
 
   final String value;
   const StringsEnum(this.value);
