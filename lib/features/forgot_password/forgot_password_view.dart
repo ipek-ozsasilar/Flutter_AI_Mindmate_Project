@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mindmate_project/features/forgot_password/view_model/forgot_password_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/appbars/log_in_appbar.dart';
-import 'package:flutter_mindmate_project/products/appbars/message_appbar.dart';
 import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/constants/paddings.dart';
-import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
-import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_mindmate_project/products/widgets/buttons/global_elevated_button.dart';
 import 'package:flutter_mindmate_project/products/widgets/inputs/input_widget.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
@@ -22,19 +20,12 @@ class ForgotPasswordView extends ConsumerStatefulWidget {
   ConsumerState<ForgotPasswordView> createState() => _ForgotPasswordViewState();
 }
 
-class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView>
-    with ScaffoldMessage {
+class _ForgotPasswordViewState extends ForgotPasswordViewModel {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    setupListeners();
     return Scaffold(
       appBar: LogInAppbar(),
       body: Padding(
@@ -56,8 +47,7 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView>
                 child: GeneralTextWidget(
                   color: ColorName.loginGreyTextColor,
                   size: TextSizesEnum.generalSize.value,
-                  text:
-                      'Enter your email address, we will send you a password reset link',
+                  text: StringsEnum.forgotPasswordDescription.value,
                 ),
               ),
 
@@ -73,7 +63,7 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView>
 
               // Email address input
               InputWidget(
-                controller: _emailController,
+                controller: readEmailController(),
                 hintText: StringsEnum.demoEmail.value,
                 prefixIcon: IconConstants.iconConstants.emailIcon,
                 keyboardType: TextInputType.emailAddress,
@@ -92,12 +82,11 @@ class _ForgotPasswordViewState extends ConsumerState<ForgotPasswordView>
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       // TODO: Send password reset email
-                      showSnackBar(
-                        ErrorStringsEnum.passwordResetEmailSent.value,
-                      );
+                      sendPasswordResetEmail();
                     }
                   },
                   text: StringsEnum.send.value,
+                  loading: loadingWatch(),
                 ),
               ),
             ],

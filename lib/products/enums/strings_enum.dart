@@ -8,6 +8,7 @@ enum StringsEnum {
   emailAddress('Email Address'),
   password('Password'),
   forgotPassword('Forgot Password?'),
+  forgotPasswordDescription('Enter your email address, we will send you a password reset link'),
   orContinueWith('Or continue with'),
   google('Google'),
   demoName('Fazil Laghari'),

@@ -21,7 +21,8 @@ enum ErrorStringsEnum {
   emailAlreadyInUseError('email already in use'),
   weakPasswordError('weak password'),
   operationNotAllowedError('operation not allowed'),
-  urlLaunchError('url launch error');
+  urlLaunchError('url launch error'),
+  passwordResetEmailSentFailed('password reset email sent failed');
 
   final String value;
   const ErrorStringsEnum(this.value);
