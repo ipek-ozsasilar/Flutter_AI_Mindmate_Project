@@ -11,5 +11,6 @@
     <color name="moodNeutralColor">#FFC107</color>
     <color name="moodHappyColor">#8BC34A</color>
     <color name="moodVeryHappyColor">#4CAF50</color>
-    <color name="orangeColor">#FF9800</color>
+    <color name="orangeColor">#FF9800</color>   
+    <color name="redColor">#FF0000</color>
 </resources>

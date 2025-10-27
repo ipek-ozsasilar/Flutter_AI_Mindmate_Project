@@ -1,20 +1,21 @@
 // lib/products/validators/validators.dart
+import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
+
 class Validators {
    Validators._();
   static final validatorsInstance = Validators._();
-  
+
+  final int passwordLength = 6;
   // Email validation pattern
-   final RegExp emailRegex = RegExp(
-    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-  );
+   final RegExp emailRegex = RegExp(r'[a-zA-Z0-9@._+%-]');
   
   // Email validator method
    String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email boş olamaz';
+      return ErrorStringsEnum.emailEmptyError.value;
     }
     if (!emailRegex.hasMatch(value)) {
-      return 'Geçerli bir email adresi giriniz';
+      return ErrorStringsEnum.invalidEmailError.value;
     }
     return null;
   }
@@ -22,10 +23,10 @@ class Validators {
   // Password validator
    String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Şifre boş olamaz';
+      return ErrorStringsEnum.passwordEmptyError.value;
     }
-    if (value.length < 6) {
-      return 'Şifre en az 6 karakter olmalıdır';
+    if (value.length < passwordLength) {
+      return ErrorStringsEnum.passwordLengthError.value;
     }
     return null;
   }

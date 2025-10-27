@@ -9,11 +9,13 @@ class TextAndSignUpLogInRowWidget extends StatelessWidget {
   final String secondText;
   final String space = " ";
   final WrapAlignment wrapAlignment;
+  final Function()? onPressed;
   TextAndSignUpLogInRowWidget({
     super.key,
     required this.firstText,
     required this.secondText,
     this.wrapAlignment = WrapAlignment.center,
+    required this.onPressed,
   });
 
   @override
@@ -27,7 +29,7 @@ class TextAndSignUpLogInRowWidget extends StatelessWidget {
           size: TextSizesEnum.generalSize.value,
           text: firstText + space,
         ),
-        GlobalTextButton(text: secondText, textColor: ColorName.yellowColor),
+        GlobalTextButton(text: secondText, textColor: ColorName.yellowColor, onPressed: onPressed),
       ],
     );
   }

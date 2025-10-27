@@ -11,12 +11,14 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 import 'package:flutter_mindmate_project/features/create_chat/create_chat_view.dart';
 import 'package:flutter_mindmate_project/features/message/message_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 void main() async {
   //AppInitiliazer'ı başlatır
   //AppInitiliazer'ın init metodu async olduğu için await kullanıyoruz.
   await AppInitiliazer().init();
-  //MyApp widget'ını oluşturuyoruz
-  runApp(const MyApp());
+  //MyApp widget'ını ProviderScope ile sarmalıyoruz (Riverpod için gerekli)
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -63,16 +65,16 @@ class MyApp extends StatelessWidget {
           ),
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        scaffoldBackgroundColor:  ColorName.scaffoldBackgroundColor,
+        scaffoldBackgroundColor: ColorName.scaffoldBackgroundColor,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: ColorName.yellowColor,
             foregroundColor: ColorName.blackColor,
             shape: RoundedRectangleBorder(),
           ),
-        ),  
+        ),
       ),
-      home:   SplashView(),
+      home: SplashView(),
     );
   }
 }

@@ -21,6 +21,7 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
         padding: Paddings.paddingInstance.splashAppbarLeadingLeftPadding,
         child: GlobalIconButton(
           icon: IconConstants.iconConstants.arrowBackIcon,
+          onPressed: () {},
         ),
       ),
       title: GeneralTextWidget(

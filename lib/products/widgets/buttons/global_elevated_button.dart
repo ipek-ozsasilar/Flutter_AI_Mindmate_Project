@@ -8,12 +8,13 @@ class GlobalElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final IconData? icon;
-
+  final bool loading;
   const GlobalElevatedButton({
     super.key,
     required this.onPressed,
     required this.text,
     this.icon,
+    this.loading = false,
   });
 
   @override
@@ -38,7 +39,7 @@ class GlobalElevatedButton extends StatelessWidget {
                   ),
                 ],
               )
-            : GeneralTextWidget(
+            : loading == true ? CircularProgressIndicator() : GeneralTextWidget(
                 text: text,
                 color: ColorName.blackColor,
                 size: TextSizesEnum.generalSize.value,

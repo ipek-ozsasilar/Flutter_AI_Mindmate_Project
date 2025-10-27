@@ -37,9 +37,9 @@ class _ProfileMenuItemWidget extends StatelessWidget {
             ),
 
             if (isEditable)
-              GlobalIconButton(icon: IconConstants.iconConstants.editIcon),
+              GlobalIconButton(icon: IconConstants.iconConstants.editIcon, onPressed: () {}),
             if (isExpandable)
-              GlobalIconButton(icon: IconConstants.iconConstants.arrowDownIcon),
+              GlobalIconButton(icon: IconConstants.iconConstants.arrowDownIcon, onPressed: () {}),
         ],
       ),
     );

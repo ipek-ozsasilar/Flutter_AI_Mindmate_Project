@@ -8,13 +8,14 @@ import 'package:flutter_mindmate_project/products/widgets/texts/general_text_wid
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 
 class GlobalOutlinedIconButton extends StatelessWidget {
-  const GlobalOutlinedIconButton({super.key});
+  final VoidCallback? onPressed;
+  const GlobalOutlinedIconButton({super.key,required this.onPressed});
   final double borderSideWidth = 2;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
-      onPressed: () {},
+      onPressed: onPressed,
       label: GeneralTextWidget(
         color: ColorName.whiteColor,
         size: TextSizesEnum.generalSize.value,

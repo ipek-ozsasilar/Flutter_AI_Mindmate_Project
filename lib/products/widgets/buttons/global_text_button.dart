@@ -6,8 +6,9 @@ import 'package:flutter_mindmate_project/products/widgets/texts/general_text_wid
 class GlobalTextButton extends StatelessWidget {
   final String text;
   final Color textColor;
+  final Function()? onPressed;
   final EdgeInsets padding = EdgeInsets.zero;
-  GlobalTextButton({super.key, required this.text, required this.textColor});
+  GlobalTextButton({super.key, required this.text, required this.textColor,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class GlobalTextButton extends StatelessWidget {
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: GeneralTextWidget(
         color: textColor,
         size: TextSizesEnum.generalSize.value,
