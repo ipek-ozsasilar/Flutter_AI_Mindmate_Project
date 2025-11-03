@@ -8,7 +8,7 @@ import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class LoginViewModel extends ConsumerState<LogInView>
-    with NavigationMixin<LogInView>, ScaffoldMessage<LogInView> {
+    with ScaffoldMessage<LogInView> {
   // Build içinde çağrılır - state değişikliklerini dinler
   void setupListeners() {
     ref.listen<LoginState>(loginProvider, (previous, next) {
@@ -16,7 +16,7 @@ abstract class LoginViewModel extends ConsumerState<LogInView>
       if (previous != null && previous.isLoading && !next.isLoading) {
         if (next.errorMessage == ErrorStringsEnum.loginSuccess.value) {
           // Login başarılı, home'a git
-          navigateTo(const CreateChatView());
+          context.navigateTo(const CreateChatView());
           //email ve password'u temizle
           clearEmailAndPassword();
         } else if (next.errorMessage != null && next.errorMessage!.isNotEmpty) {
@@ -84,7 +84,7 @@ abstract class LoginViewModel extends ConsumerState<LogInView>
   Future<void> googleLogin() async {
     final result = await ref.read(loginProvider.notifier).GoogleLogin();
     if (result) {
-      navigateTo(const CreateChatView());
+      context.navigateTo(const CreateChatView());
       clearEmailAndPassword();
     } else {
       showSnackBar(ErrorStringsEnum.loginFailed.value);

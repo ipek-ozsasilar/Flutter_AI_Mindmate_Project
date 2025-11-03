@@ -21,6 +21,7 @@ import 'package:flutter_mindmate_project/products/widgets/texts/general_text_wid
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/validators/validators.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_mindmate_project/products/mixins/navigation_mixin.dart';
 
 class LogInView extends ConsumerStatefulWidget {
   const LogInView({super.key});
@@ -116,7 +117,7 @@ class _LogInViewState extends LoginViewModel {
                     text: StringsEnum.forgotPassword.value,
                     textColor: ColorName.loginGreyTextColor,
                     onPressed: () {
-                      navigateTo(const ForgotPasswordView());
+                      context.navigateTo(const ForgotPasswordView());
                       //Başka bir sayfaya geçildiğinde email ve password'u temizle
                       clearEmailAndPassword();
                     },
@@ -155,7 +156,7 @@ class _LogInViewState extends LoginViewModel {
                 firstText: StringsEnum.dontHaveAnAccount.value,
                 secondText: StringsEnum.signUp.value,
                 onPressed: () {
-                  navigateTo(CreateAccountView());
+                  context.navigateTo(const CreateAccountView());
                   //Başka bir sayfaya geçildiğinde email ve password'u temizle
                   clearEmailAndPassword();
                 },

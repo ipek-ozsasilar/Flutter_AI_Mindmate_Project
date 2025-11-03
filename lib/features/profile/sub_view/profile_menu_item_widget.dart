@@ -18,28 +18,34 @@ class _ProfileMenuItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: Paddings.paddingInstance.chatHistoryWidgetMargin ,
+      margin: Paddings.paddingInstance.chatHistoryWidgetMargin,
       padding: Paddings.paddingInstance.profileMenuItemPadding,
       decoration: _ContainerDecoration(),
       child: Row(
-          children: [
-            Padding(
-              padding: Paddings.paddingInstance.widgetsBetweenSpace  ,
-              child: GlobalIcon(icon, iconColor: ColorName.loginGreyTextColor),
-            ),
-            
-            Expanded(
-              child: GeneralTextWidget(
-                text: text,
-                color: ColorName.loginGreyTextColor,
-                size: TextSizesEnum.generalSize.value,
-              ),
-            ),
+        children: [
+          Padding(
+            padding: Paddings.paddingInstance.widgetsBetweenSpace,
+            child: GlobalIcon(icon, iconColor: ColorName.loginGreyTextColor),
+          ),
 
-            if (isEditable)
-              GlobalIconButton(icon: IconConstants.iconConstants.editIcon, onPressed: () {}),
-            if (isExpandable)
-              GlobalIconButton(icon: IconConstants.iconConstants.arrowDownIcon, onPressed: () {}),
+          Expanded(
+            child: GeneralTextWidget(
+              text: text,
+              color: ColorName.loginGreyTextColor,
+              size: TextSizesEnum.generalSize.value,
+            ),
+          ),
+
+          if (isEditable)
+            GlobalIconButton(
+              icon: IconConstants.iconConstants.editIcon,
+              onPressed: onTap ?? () {},
+            ),
+          if (isExpandable)
+            GlobalIconButton(
+              icon: IconConstants.iconConstants.arrowDownIcon,
+              onPressed: onTap ?? () {},
+            ),
         ],
       ),
     );
@@ -48,7 +54,9 @@ class _ProfileMenuItemWidget extends StatelessWidget {
   BoxDecoration _ContainerDecoration() {
     return BoxDecoration(
       color: ColorName.loginInputColor,
-      borderRadius: BorderRadius.circular(WidgetSizesEnum.smallBorderRadius.value),
+      borderRadius: BorderRadius.circular(
+        WidgetSizesEnum.smallBorderRadius.value,
+      ),
     );
   }
 }

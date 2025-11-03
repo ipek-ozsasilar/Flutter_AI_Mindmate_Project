@@ -8,10 +8,7 @@ import 'package:flutter_mindmate_project/products/mixins/navigation_mixin.dart';
 import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView>
-    with
-        NavigationMixin<ForgotPasswordView>,
-        ScaffoldMessage<ForgotPasswordView> {
+abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView> with ScaffoldMessage<ForgotPasswordView> {
   // Build içinde çağrılır - state değişikliklerini dinler
   void setupListeners() {
     ref.listen<ForgotPasswordState>(forgotPasswordProvider, (previous, next) {
@@ -20,7 +17,7 @@ abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView>
         if (next.errorMessage == ErrorStringsEnum.loginSuccess.value ||
             next.errorMessage == ErrorStringsEnum.createAccountSuccess.value) {
           // Login/Create Account başarılı, home'a git
-          navigateTo(const LogInView());
+          context.navigateTo(const LogInView());
           //email ve password'u temizle
           clearEmail();
         } else if (next.errorMessage != null && next.errorMessage!.isNotEmpty) {
@@ -57,7 +54,7 @@ abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView>
         .read(forgotPasswordProvider.notifier)
         .sendPasswordResetEmail();
     if (result) {
-      navigateTo(const LogInView());
+      context.navigateTo(const LogInView());
       clearEmail();
       return true;
     } else {

@@ -19,18 +19,22 @@ class _HistoryChatItemWidget extends StatelessWidget {
             padding: Paddings.paddingInstance.chatHistoryWidgetMargin,
             child: Row(
               children: [
-                Text(chat['mood'], style: const TextStyle(fontSize: 20)),
+                GeneralTextWidget(
+                  color: ColorName.whiteColor,
+                  size: TextSizesEnum.subtitleSize.value,
+                  text: chat['emoji'] ?? '😊',
+                ),
                 const SizedBox(width: 8),
                 GeneralTextWidget(
                   color: ColorName.loginGreyTextColor,
                   size: TextSizesEnum.subtitleSize.value,
-                  text: chat['period'],
+                  text: chat['period'] ?? '',
                 ),
                 const Spacer(),
                 GeneralTextWidget(
                   color: ColorName.loginGreyTextColor,
                   size: TextSizesEnum.chatTimeSize.value,
-                  text: chat['time'],
+                  text: chat['time'] ?? '',
                 ),
               ],
             ),
@@ -42,7 +46,7 @@ class _HistoryChatItemWidget extends StatelessWidget {
             child: GeneralTextWidget(
               color: ColorName.whiteColor,
               size: TextSizesEnum.subtitleSize.value,
-              text: chat['userMessage'],
+              text: chat['userMessage'] ?? '',
             ),
           ),
 
@@ -56,17 +60,16 @@ class _HistoryChatItemWidget extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  Icons.psychology,
-                  color: ColorName.yellowColor,
-                  size: 16,
+                 GlobalIcon(
+                  IconConstants.iconConstants.psychologyIcon,
+                  iconColor: ColorName.yellowColor,
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: GeneralTextWidget(
                     color: ColorName.loginGreyTextColor,
                     size: TextSizesEnum.chatTimeSize.value,
-                    text: chat['aiResponse'],
+                    text: chat['aiResponse'] ?? '',
                   ),
                 ),
               ],

@@ -10,7 +10,7 @@ import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class SplashViewModel extends ConsumerState<SplashView> with NavigationMixin<SplashView>, ScaffoldMessage<SplashView> {
+abstract class SplashViewModel extends ConsumerState<SplashView> with ScaffoldMessage<SplashView> {
   // Button'dan çağrılır - sadece provider metodlarını tetikler
   Future<void> startChecks() async {
     await ref.read(splashProvider.notifier).checkInternetConnection();
@@ -29,9 +29,9 @@ abstract class SplashViewModel extends ConsumerState<SplashView> with Navigation
       // Login kontrolü bitti, yönlendir
       if (previous != null && previous.isLoading && !next.isLoading) {
         if (next.isLoggedIn) {
-          navigateTo(const CreateChatView());
+          context.navigateTo(const CreateChatView());
         } else {
-          navigateTo(LogInView());
+          context.navigateTo(const LogInView());
         }
       }
     });

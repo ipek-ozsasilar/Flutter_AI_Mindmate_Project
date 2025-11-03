@@ -1,64 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmate_project/features/message/provider/message_provider.dart';
+import 'package:flutter_mindmate_project/features/message/view_model/message_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
+import 'package:flutter_mindmate_project/models/message_model.dart';
 import 'package:flutter_mindmate_project/products/appbars/message_appbar.dart';
 import 'package:flutter_mindmate_project/products/bottom_appbars/message_bottom_appbar.dart';
+import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/constants/paddings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
+import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'sub_view/chat_history_widget.dart';
 part 'sub_view/start_chat_button_widget.dart';
-part 'sub_view/chat_input_bottom_sheet_widget.dart.dart';
+part 'sub_view/chat_input_bottom_sheet_widget.dart';
 
-class MessageView extends StatefulWidget {
+class MessageView extends ConsumerStatefulWidget {
   const MessageView({super.key});
 
   @override
-  State<MessageView> createState() => _MessageViewState();
+  ConsumerState<MessageView> createState() => _MessageViewState();
 }
 
-class _MessageViewState extends State<MessageView> {
-  // Dummy data for conversations
-  final List<Map<String, dynamic>> _conversations = [];
+class _MessageViewState extends MessageViewModel {
   final int _totalChats = 3;
+  bool _isInitialLoading = true;
 
-  int get _remainingChats => _totalChats - _conversations.length;
+  int get _remainingChats {
+    // Sadece bugünün mesajlarını say
+    final DateTime today = DateTime.now();
+    final String todayDateStr = today.toString().split(
+      ' ',
+    )[0]; // YYYY-MM-DD formatında
+    final int todayMessagesCount = ref
+        .watch(messageProvider)
+        .messages
+        .where((message) => message.date == todayDateStr)
+        .length;
 
-  String _getPeriod() {
-    final int hour = DateTime.now().hour;
-    if (hour < 12) {
-      return StringsEnum.morning.value;
-    } else if (hour < 18) {
-      return StringsEnum.afternoon.value;
-    } else {
-      return StringsEnum.evening.value;
+    return _totalChats - todayMessagesCount;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Build tamamlandıktan SONRA mesajları yükle
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadInitialData();
+    });
+  }
+
+  Future<void> _loadInitialData() async {
+    await loadMessages();
+    if (mounted) {
+      setState(() {
+        _isInitialLoading = false;
+      });
     }
   }
 
-  void _openChatInputModal() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) =>
-          _ChatInputBottomSheetWidget(),
-    );
-  }
-
-  
-
-
   @override
   Widget build(BuildContext context) {
+    setupListeners(); // ✅ ref.listen build içinde olmalı
+
+    // İlk yükleme sırasında loading göster
+    if (_isInitialLoading) {
+      return const Scaffold(
+        backgroundColor: ColorName.scaffoldBackgroundColor,
+        body: Center(
+          child: CircularProgressIndicator(color: ColorName.yellowColor),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.messages.value),
       body: Column(
         children: [
-          _ChatHistoryWidget(conversations: _conversations),
+          _ChatHistoryWidget(
+            messages: messageRead(),
+            isSendingMessage: loadingWatch(),
+          ),
           _StartChatButtonWidget(
             hasReachedLimit: _remainingChats <= 0,
-            onStartChat: _openChatInputModal,
+            onSendMessage: onPressedSendButton,
+            isLoading: loadingWatch(),
           ),
         ],
       ),

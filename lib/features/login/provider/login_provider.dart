@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,6 +27,10 @@ class LoginProvider extends StateNotifier<LoginState> {
         ),
       );
 
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+    
+  }
   Future<bool> checkInternetConnection() async {
     try {
       final result = await Connectivity().checkConnectivity();
@@ -42,6 +47,7 @@ class LoginProvider extends StateNotifier<LoginState> {
       return false;
     }
   }
+  
 
   Future<bool> checkEmailAndPassword() async {
     final email = emailController.text.trim();

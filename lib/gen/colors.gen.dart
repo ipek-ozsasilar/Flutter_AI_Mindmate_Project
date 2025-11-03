@@ -17,9 +17,6 @@ class ColorName {
   /// Color: #000000
   static const Color blackColor = Color(0xFF000000);
 
-  /// Color: #FF0000
-  static const Color redColor = Color(0xFFFF0000);
-
   /// Color: #1C2529
   static const Color bottomAppBarColor = Color(0xFF1C2529);
 
@@ -46,6 +43,9 @@ class ColorName {
 
   /// Color: #FF9800
   static const Color orangeColor = Color(0xFFFF9800);
+
+  /// Color: #FF0000
+  static const Color redColor = Color(0xFFFF0000);
 
   /// Color: #1D2B36
   static const Color scaffoldBackgroundColor = Color(0xFF1D2B36);

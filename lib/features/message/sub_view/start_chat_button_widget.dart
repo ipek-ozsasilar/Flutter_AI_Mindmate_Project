@@ -2,24 +2,39 @@ part of '../message_view.dart';
 
 class _StartChatButtonWidget extends StatelessWidget {
   final bool hasReachedLimit;
-  final VoidCallback onStartChat;
+  final bool isLoading;
+  final Function(String userMessage, String mood) onSendMessage;
 
   const _StartChatButtonWidget({
     required this.hasReachedLimit,
-    required this.onStartChat,
+    required this.isLoading,
+    required this.onSendMessage,
   });
+
+  void _openChatInputModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => _ChatInputBottomSheetWidget(
+        isLoading: isLoading,
+        onSendMessage:
+            onSendMessage, // Parent'tan gelen callback'i ileterek gönder
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
       child: !hasReachedLimit
           ? SizedBox(
               width: double.infinity,
               height: WidgetSizesEnum.elevatedButtonHeight.value,
               child: ElevatedButton.icon(
-                onPressed: onStartChat,
-                icon: const Icon(Icons.add_circle_outline),
+                onPressed: () => _openChatInputModal(context),
+                icon: GlobalIcon(IconConstants.iconConstants.addIcon),
                 label: GeneralTextWidget(
                   color: ColorName.blackColor,
                   size: TextSizesEnum.generalSize.value,
@@ -36,7 +51,7 @@ class _LimitReachedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
       decoration: BoxDecoration(
         color: ColorName.loginInputColor,
         borderRadius: BorderRadius.circular(WidgetSizesEnum.borderRadius.value),
@@ -44,10 +59,10 @@ class _LimitReachedWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Icons.schedule,
-            color: ColorName.loginGreyTextColor,
-            size: 40,
+          GlobalIcon(
+            IconConstants.iconConstants.scheduleIcon,
+            iconColor: ColorName.loginGreyTextColor,
+            iconSize: IconSizesEnum.limitReachedIconSize.value,
           ),
           const SizedBox(height: 8),
           GeneralTextWidget(

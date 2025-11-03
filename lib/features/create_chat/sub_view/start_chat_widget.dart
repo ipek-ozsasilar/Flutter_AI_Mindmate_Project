@@ -12,7 +12,9 @@ class _StartChatWidget extends StatelessWidget {
       width: WidgetSizesEnum.startChatContainerWidth.value,
       decoration: StartChatContainerDecoration(),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.navigateTo(const MessageView());
+        },
         child: Column(
           mainAxisAlignment: mainAxisAlignment,
           children: [

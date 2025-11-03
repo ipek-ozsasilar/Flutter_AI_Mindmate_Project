@@ -1,4 +1,5 @@
 enum IconSizesEnum {
+  limitReachedIconSize(40),
   iconSize(24),
   moodIconSize(48),
   cameraIconSize(18),

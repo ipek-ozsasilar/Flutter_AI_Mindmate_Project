@@ -1,14 +1,18 @@
 part of '../message_view.dart';
-//kod cleanlesştirilecek
-class _ChatHistoryWidget extends StatelessWidget {
-  final List<Map<String, dynamic>> conversations;
 
-  const _ChatHistoryWidget({required this.conversations});
+class _ChatHistoryWidget extends StatelessWidget {
+  final List<MessageModel> messages;
+  final bool isSendingMessage;
+
+  const _ChatHistoryWidget({
+    required this.messages,
+    required this.isSendingMessage,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: conversations.isEmpty
+      child: messages.isEmpty
           ? _EmptyStateWidget()
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,9 +29,21 @@ class _ChatHistoryWidget extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: conversations.length,
+                    itemCount: messages.length,
                     itemBuilder: (context, index) {
-                      return _ChatCard(conversation: conversations[index]);
+                      // Sadece en son eklenen mesaj (son index) için loading göster
+                      // VE o mesajın AI response'u henüz yoksa
+                      final bool isLastMessage = index == messages.length - 1;
+                      final bool shouldShowLoading =
+                          isLastMessage &&
+                          isSendingMessage &&
+                          (messages[index].aiResponse == null ||
+                              messages[index].aiResponse!.isEmpty);
+
+                      return _ChatCard(
+                        message: messages[index],
+                        isLoading: shouldShowLoading,
+                      );
                     },
                   ),
                 ),
@@ -38,15 +54,19 @@ class _ChatHistoryWidget extends StatelessWidget {
 }
 
 class _ChatCard extends StatelessWidget {
-  final Map<String, dynamic> conversation;
+  final MessageModel message;
+  final bool isLoading;
 
-  const _ChatCard({required this.conversation});
+  const _ChatCard({required this.message, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
+    final bool hasAiResponse =
+        message.aiResponse != null && message.aiResponse!.isNotEmpty;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+      padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
       decoration: BoxDecoration(
         color: ColorName.loginInputColor,
         borderRadius: BorderRadius.circular(WidgetSizesEnum.borderRadius.value),
@@ -60,12 +80,12 @@ class _ChatCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    conversation['mood'],
+                    message.emoji ?? '',
                     style: const TextStyle(fontSize: 24),
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    conversation['period'],
+                    message.period ?? '',
                     style: TextStyle(
                       color: ColorName.loginGreyTextColor,
                       fontSize: TextSizesEnum.subtitleSize.value,
@@ -75,7 +95,7 @@ class _ChatCard extends StatelessWidget {
                 ],
               ),
               Text(
-                conversation['time'],
+                message.time ?? '',
                 style: TextStyle(
                   color: ColorName.loginGreyTextColor,
                   fontSize: TextSizesEnum.chatTimeSize.value,
@@ -85,43 +105,66 @@ class _ChatCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            conversation['userMessage'],
+            message.userMessage ?? '',
             style: TextStyle(
               color: ColorName.whiteColor,
               fontSize: TextSizesEnum.subtitleSize.value,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 8),
+          // AI Response veya Loading
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: ColorName.scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(
-                  Icons.psychology,
-                  color: ColorName.yellowColor,
-                  size: 16,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    conversation['aiResponse'],
-                    style: TextStyle(
-                      color: ColorName.loginGreyTextColor,
-                      fontSize: TextSizesEnum.chatTimeSize.value,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
+            child: hasAiResponse
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.psychology,
+                        color: ColorName.yellowColor,
+                        size: 16,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          message.aiResponse ?? '',
+                          style: TextStyle(
+                            color: ColorName.loginGreyTextColor,
+                            fontSize: TextSizesEnum.chatTimeSize.value,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : isLoading
+                ? Row(
+                    children: [
+                      const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            ColorName.yellowColor,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        StringsEnum.aiIsThinking.value,
+                        style: TextStyle(
+                          color: ColorName.loginGreyTextColor,
+                          fontSize: TextSizesEnum.chatTimeSize.value,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox.shrink(), // AI response yoksa ve loading değilse boş göster
           ),
         ],
       ),

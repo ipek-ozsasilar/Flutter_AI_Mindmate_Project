@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class IconConstants {
   const IconConstants._();
   static const iconConstants = IconConstants._();
+  IconData get psychologyIcon => Icons.psychology;
   IconData get emailIcon => Icons.email;
   IconData get lockIcon => Icons.lock_outline;
   IconData get visibilityIcon => Icons.visibility;
@@ -24,4 +25,5 @@ class IconConstants {
   IconData get editIcon => Icons.edit;
   IconData get cameraIcon => Icons.camera_alt;
   IconData get calendarIcon => Icons.calendar_today;
+  IconData get scheduleIcon => Icons.schedule;
 }

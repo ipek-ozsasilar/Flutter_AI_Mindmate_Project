@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 import 'package:flutter_mindmate_project/features/login/view_model/create_account_view_model.dart';
-import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/appbars/log_in_appbar.dart';
 import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/constants/paddings.dart';
+import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
+import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
+import 'package:flutter_mindmate_project/products/mixins/navigation_mixin.dart';
 import 'package:flutter_mindmate_project/products/widgets/buttons/global_elevated_button.dart';
 import 'package:flutter_mindmate_project/products/widgets/buttons/global_outlined_icon_button.dart';
 import 'package:flutter_mindmate_project/products/widgets/inputs/input_widget.dart';
 import 'package:flutter_mindmate_project/products/widgets/rows/or_continue_with_rows.dart';
 import 'package:flutter_mindmate_project/products/widgets/rows/text_and_sign_up_log_in_rows.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
-import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/validators/validators.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CreateAccountView extends ConsumerStatefulWidget {
   const CreateAccountView({super.key});
@@ -161,7 +162,7 @@ class _CreateAccountViewState extends CreateAccountViewModel {
                 firstText: StringsEnum.alreadyHaveAnAccount.value,
                 secondText: StringsEnum.logIn.value,
                 onPressed: () {
-                  navigateTo(LogInView());
+                  context.navigateTo(const LogInView());
                   clearFullNameAndEmailAndPassword();
                 },
               ),

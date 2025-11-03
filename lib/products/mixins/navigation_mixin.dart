@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kartal/kartal.dart';
 
-mixin NavigationMixin<T extends ConsumerStatefulWidget>  on ConsumerState<T> {
-  void navigateTo( Widget widget) {
-    context.route.navigation.push(MaterialPageRoute(builder: (context) => widget),);
+/// Navigation extension for BuildContext
+/// Tüm widget türlerinde (StatelessWidget, StatefulWidget, ConsumerWidget, vb.) kullanılabilir
+extension NavigationMixin on BuildContext {
+  /// Yeni sayfaya yönlendirir
+  void navigateTo(Widget widget) {
+    route.navigation.push(MaterialPageRoute(builder: (context) => widget));
   }
 
+  /// Mevcut sayfayı kapatır ve geri döner
   void popPage() {
-    context.route.navigation.pop();
+    route.navigation.pop();
   }
-
 }

@@ -1,7 +1,9 @@
 part of '../message_view.dart';
 
 class _ChatInputBottomSheetWidget extends StatefulWidget {
-  const _ChatInputBottomSheetWidget({super.key});
+  final Function(String userMessage, String mood) onSendMessage;
+  final bool isLoading;
+  const _ChatInputBottomSheetWidget({required this.onSendMessage, required this.isLoading});
 
   @override
   State<_ChatInputBottomSheetWidget> createState() =>
@@ -13,20 +15,15 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
   String _selectedMood = '😊';
   final List<Map<String, String>> _moods = [
     {'emoji': '😊', 'label': 'Happy'},
+    {'emoji': '😐', 'label': 'Neutral'},
     {'emoji': '😢', 'label': 'Sad'},
     {'emoji': '😰', 'label': 'Anxious'},
-    {'emoji': '😡', 'label': 'Angry'},
   ];
 
-  @override
-  void dispose() {
-    _messageController.dispose();
-    super.dispose();
-  }
-
+  
   void _handleSend() {
     if (_messageController.text.trim().isEmpty) return;
-
+    widget.onSendMessage(_messageController.text.trim(), _selectedMood);
     Navigator.pop(context);
   }
 
@@ -39,9 +36,9 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
         right: 16,
         top: 20,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: ColorName.loginInputColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -110,19 +107,12 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
           SizedBox(
             width: double.infinity,
             height: WidgetSizesEnum.elevatedButtonHeight.value,
-            child: ElevatedButton.icon(
-              onPressed: _handleSend,
-              icon: const Icon(Icons.send),
-              label: GeneralTextWidget(
-                color: ColorName.blackColor,
-                size: TextSizesEnum.generalSize.value,
-                text: StringsEnum.send.value,
-              ),
-            ),
+            child: ElevatedButton(onPressed: _handleSend, 
+            child: widget.isLoading ? CircularProgressIndicator() : GeneralTextWidget(color: ColorName.blackColor, size: TextSizesEnum.generalSize.value, text: StringsEnum.send.value))
           ),
           const SizedBox(height: 16),
         ],
       ),
     );
-  }
+  }  
 }

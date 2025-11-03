@@ -8,9 +8,7 @@ import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class CreateAccountViewModel extends ConsumerState<CreateAccountView>
-    with
-        NavigationMixin<CreateAccountView>,
-        ScaffoldMessage<CreateAccountView> {
+    with ScaffoldMessage<CreateAccountView> {
   // Build içinde çağrılır - state değişikliklerini dinler
   void setupListeners() {
     ref.listen<CreateAccountState>(createAccountProvider, (previous, next) {
@@ -19,7 +17,7 @@ abstract class CreateAccountViewModel extends ConsumerState<CreateAccountView>
         if (next.errorMessage == ErrorStringsEnum.loginSuccess.value ||
             next.errorMessage == ErrorStringsEnum.createAccountSuccess.value) {
           // Login/Create Account başarılı, home'a git
-          navigateTo(const CreateChatView());
+          context.navigateTo(const CreateChatView());
           //email ve password'u temizle
           clearFullNameAndEmailAndPassword();
         } else if (next.errorMessage != null && next.errorMessage!.isNotEmpty) {
@@ -58,7 +56,7 @@ abstract class CreateAccountViewModel extends ConsumerState<CreateAccountView>
         .read(createAccountProvider.notifier)
         .emailAndPasswordCreateAccount();
     if (result) {
-      navigateTo(const CreateChatView());
+      context.navigateTo(const CreateChatView());
       clearFullNameAndEmailAndPassword();
       return true;
     } else {
@@ -99,7 +97,7 @@ abstract class CreateAccountViewModel extends ConsumerState<CreateAccountView>
         .read(createAccountProvider.notifier)
         .GoogleCreateAccount();
     if (result) {
-      navigateTo(const CreateChatView());
+      context.navigateTo(const CreateChatView());
       clearFullNameAndEmailAndPassword();
     }
     // Hata mesajı zaten provider'da set ediliyor, setupListeners gösterecek
