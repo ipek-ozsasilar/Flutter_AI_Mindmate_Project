@@ -12,12 +12,15 @@ import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 import 'package:flutter_mindmate_project/features/create_chat/create_chat_view.dart';
 import 'package:flutter_mindmate_project/features/message/message_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   //AppInitiliazer'ı başlatır
   //AppInitiliazer'ın init metodu async olduğu için await kullanıyoruz.
   await AppInitiliazer().init();
   //MyApp widget'ını ProviderScope ile sarmalıyoruz (Riverpod için gerekli)
+  //dotenv.load(fileName: ".env"); ile .env dosyasını yükler
+  await dotenv.load(fileName: ".env");
   runApp(const ProviderScope(child: MyApp()));
 }
 
