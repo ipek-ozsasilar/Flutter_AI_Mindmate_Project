@@ -10,6 +10,7 @@ enum ErrorStringsEnum {
   loginSuccess('login successful'),
   invalidEmailError('invalid email'),
   userDisabledError('user disabled'),
+  speechToTextInitializationError('speech-to-text initialization error'),
   userNotLoggedIn('user not logged in'),
   userNotFoundError('user not found'),
   wrongPasswordError('wrong password'),

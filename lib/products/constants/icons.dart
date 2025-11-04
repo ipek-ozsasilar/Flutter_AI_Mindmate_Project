@@ -9,6 +9,8 @@ class IconConstants {
   IconData get visibilityIcon => Icons.visibility;
   IconData get visibilityOffIcon => Icons.visibility_off;
   IconData get googleIcon => Icons.g_mobiledata;
+  IconData get micIcon => Icons.mic;
+  IconData get micOffIcon => Icons.mic_off;
   IconData get personIcon => Icons.person;
   IconData get arrowBackIcon => Icons.arrow_back;
   IconData get addIcon => Icons.add;

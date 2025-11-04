@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/features/message/provider/message_provider.dart';
+import 'package:flutter_mindmate_project/features/message/sub_view/speech_to_text.dart';
 import 'package:flutter_mindmate_project/features/message/view_model/message_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/models/message_model.dart';
@@ -12,10 +13,15 @@ import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 part 'sub_view/chat_history_widget.dart';
 part 'sub_view/start_chat_button_widget.dart';
 part 'sub_view/chat_input_bottom_sheet_widget.dart';
+
 
 class MessageView extends ConsumerStatefulWidget {
   const MessageView({super.key});
@@ -46,7 +52,6 @@ class _MessageViewState extends MessageViewModel {
   @override
   void initState() {
     super.initState();
-    // Build tamamlandıktan SONRA mesajları yükle
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadInitialData();
     });

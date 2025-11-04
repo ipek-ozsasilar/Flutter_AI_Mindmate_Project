@@ -3,15 +3,17 @@ part of '../message_view.dart';
 class _ChatInputBottomSheetWidget extends StatefulWidget {
   final Function(String userMessage, String mood) onSendMessage;
   final bool isLoading;
-  const _ChatInputBottomSheetWidget({required this.onSendMessage, required this.isLoading});
+  const _ChatInputBottomSheetWidget({
+    required this.onSendMessage,
+    required this.isLoading,
+  });
 
   @override
   State<_ChatInputBottomSheetWidget> createState() =>
       _ChatInputModalWidgetState();
 }
 
-class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
-  final TextEditingController _messageController = TextEditingController();
+class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> with SpeechToTextMixin {
   String _selectedMood = '😊';
   final List<Map<String, String>> _moods = [
     {'emoji': '😊', 'label': 'Happy'},
@@ -20,10 +22,24 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
     {'emoji': '😰', 'label': 'Anxious'},
   ];
 
-  
+  @override
+  void initState() {
+    super.initState();
+    initSpeech();
+  }
+
+  @override
+  void dispose() {
+    // Dinleme açık kalmasın diye widget kapanırken güvenli şekilde durdurulur
+    speechToText.stop();
+    messageController.dispose();
+    super.dispose();
+  }
+
+
   void _handleSend() {
-    if (_messageController.text.trim().isEmpty) return;
-    widget.onSendMessage(_messageController.text.trim(), _selectedMood);
+    if (messageController.text.trim().isEmpty) return;
+    widget.onSendMessage(messageController.text.trim(), _selectedMood);
     Navigator.pop(context);
   }
 
@@ -88,7 +104,7 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
           const SizedBox(height: 16),
           // Message input
           TextField(
-            controller: _messageController,
+            controller: messageController,
             maxLines: 4,
             style: const TextStyle(color: ColorName.whiteColor),
             decoration: InputDecoration(
@@ -96,6 +112,40 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
               hintStyle: const TextStyle(color: ColorName.loginGreyTextColor),
               filled: true,
               fillColor: ColorName.scaffoldBackgroundColor,
+              suffixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Onay (OK) butonu: sadece dinlerken görünür
+                  if (speechToText.isListening)
+                    IconButton(
+                      tooltip: 'Onayla',
+                      onPressed: () async {
+                        applyPendingSpeechText();
+                        await stopListening();
+                      },
+                      icon: const Icon(
+                        Icons.check,
+                        color: ColorName.yellowColor,
+                      ),
+                    ),
+                  // Mikrofon toggle
+                  IconButton(
+                    onPressed: speechEnabled
+                        ? () {
+                            if (speechToText.isListening) {
+                              stopListening();
+                            } else {
+                              startListening();
+                            }
+                          }
+                        : null,
+                    icon: GlobalIcon(
+                      speechToText.isListening ? IconConstants.iconConstants.micIcon : IconConstants.iconConstants.micOffIcon,
+                      iconColor: ColorName.yellowColor,
+                    ),
+                  ),
+                ],
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
@@ -107,12 +157,20 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> {
           SizedBox(
             width: double.infinity,
             height: WidgetSizesEnum.elevatedButtonHeight.value,
-            child: ElevatedButton(onPressed: _handleSend, 
-            child: widget.isLoading ? CircularProgressIndicator() : GeneralTextWidget(color: ColorName.blackColor, size: TextSizesEnum.generalSize.value, text: StringsEnum.send.value))
+            child: ElevatedButton(
+              onPressed: _handleSend,
+              child: widget.isLoading
+                  ? const CircularProgressIndicator()
+                  : GeneralTextWidget(
+                      color: ColorName.blackColor,
+                      size: TextSizesEnum.generalSize.value,
+                      text: StringsEnum.send.value,
+                    ),
+            ),
           ),
           const SizedBox(height: 16),
         ],
       ),
     );
-  }  
+  }
 }
