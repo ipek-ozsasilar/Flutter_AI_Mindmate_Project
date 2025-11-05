@@ -1,3 +1,4 @@
+// UI tarafı: sadece widget ağacı ve görsel sunum
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/gen/assets.gen.dart';
@@ -8,22 +9,31 @@ import 'package:flutter_mindmate_project/products/constants/paddings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_mindmate_project/features/progress/view_model/progress_view_model.dart';
 part 'sub_view/mood_chart_widget.dart';
 part 'sub_view/mood_legend_widget.dart';
 part 'sub_view/date_range_button.dart';
 
-class ProgressView extends StatefulWidget {
+class ProgressView extends ConsumerStatefulWidget {
   const ProgressView({super.key});
 
   @override
-  State<ProgressView> createState() => _ProgressViewState();
+  ConsumerState<ProgressView> createState() => _ProgressViewState();
 }
 
-class _ProgressViewState extends State<ProgressView> {
-  bool isSevenDays = true;
+class _ProgressViewState extends ProgressViewModel {
   final CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start;
   final MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center;
+
+  @override
+  void initState() {
+    super.initState();
+    // Progress ilk açıldığında mesajlar yoksa yükle
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ensureMessagesLoaded();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +66,7 @@ class _ProgressViewState extends State<ProgressView> {
                 ),
               ),
 
-              // Tarih Aralığı Seçici
+              // Tarih Aralığı Seçici: 7 gün / 30 gün
               Row(
                 mainAxisAlignment: mainAxisAlignment,
                 children: [
@@ -66,23 +76,27 @@ class _ProgressViewState extends State<ProgressView> {
                         .progressViewDateRangeButtonPadding,
                     child: _DateRangeButton(
                       text: StringsEnum.lastSevenDays.value,
-                      isSelected: isSevenDays,
-                      onTap: () => setState(() => isSevenDays = true),
+                      isSelected: isSevenDaysWatch(),
+                      onTap: () => setSevenDays(true),
                     ),
                   ),
 
                   _DateRangeButton(
                     text: StringsEnum.lastThirtyDays.value,
-                    isSelected: !isSevenDays,
-                    onTap: () => setState(() => isSevenDays = false),
+                    isSelected: !isSevenDaysWatch(),
+                    onTap: () => setSevenDays(false),
                   ),
                 ],
               ),
 
-              // Grafik
+              // Grafik: fl_chart LineChart ile mood eğrisi
               Padding(
                 padding: Paddings.paddingInstance.splashImageVerticalPadding,
-                child: _MoodChartWidget(isSevenDays: isSevenDays),
+                child: _MoodChartWidget(
+                  isSevenDays: isSevenDaysWatch(),
+                  spots: chartSpotsFromMessages(isSevenDaysWatch()),
+                  maxX: maxXForRange(isSevenDaysWatch()),
+                ),
               ),
 
               // Legend (Renkli Açıklamalar)

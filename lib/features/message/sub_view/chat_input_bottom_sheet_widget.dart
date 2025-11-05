@@ -13,13 +13,16 @@ class _ChatInputBottomSheetWidget extends StatefulWidget {
       _ChatInputModalWidgetState();
 }
 
-class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> with SpeechToTextMixin {
+class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget>
+    with SpeechToTextMixin {
   String _selectedMood = '😊';
+  // 5 seviyeyi MoodEnum ile hizala
   final List<Map<String, String>> _moods = [
-    {'emoji': '😊', 'label': 'Happy'},
+    {'emoji': '😢', 'label': 'Very Sad'},
+    {'emoji': '☹️', 'label': 'Sad'},
     {'emoji': '😐', 'label': 'Neutral'},
-    {'emoji': '😢', 'label': 'Sad'},
-    {'emoji': '😰', 'label': 'Anxious'},
+    {'emoji': '😊', 'label': 'Happy'},
+    {'emoji': '😄', 'label': 'Very Happy'},
   ];
 
   @override
@@ -35,7 +38,6 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> with
     messageController.dispose();
     super.dispose();
   }
-
 
   void _handleSend() {
     if (messageController.text.trim().isEmpty) return;
@@ -140,7 +142,9 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget> with
                           }
                         : null,
                     icon: GlobalIcon(
-                      speechToText.isListening ? IconConstants.iconConstants.micIcon : IconConstants.iconConstants.micOffIcon,
+                      speechToText.isListening
+                          ? IconConstants.iconConstants.micIcon
+                          : IconConstants.iconConstants.micOffIcon,
                       iconColor: ColorName.yellowColor,
                     ),
                   ),
