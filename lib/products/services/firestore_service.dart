@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_mindmate_project/models/message_model.dart';
+import 'package:flutter_mindmate_project/models/notification_model.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter_mindmate_project/products/enums/firestore_collection_enum.dart';
 
@@ -12,6 +13,11 @@ class FirestoreService {
   /// Messages koleksiyonuna erişim
   CollectionReference get _messagesCollection {
     return _firestore.collection(FirestoreCollectionsEnum.messages.value);
+  }
+
+  /// Notifications koleksiyonuna erişim
+  CollectionReference get _notificationsCollection {
+    return _firestore.collection(FirestoreCollectionsEnum.notifications.value);
   }
 
   /// Document ID oluşturur: userId_date_period_time formatında
@@ -39,8 +45,9 @@ class FirestoreService {
 
       // DateTime'dan doğru formatı al
       final DateTime now = DateTime.now();
-      final String fallbackTime = '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
-      
+      final String fallbackTime =
+          '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+
       final String docId = _createDocumentId(
         userId,
         message.date ?? now.toString().split(' ')[0],
@@ -104,6 +111,93 @@ class FirestoreService {
       return true;
     } catch (e) {
       _logger.e('Tüm mesajlar silinirken hata oluştu', error: e);
+      return false;
+    }
+  }
+
+  /// Bildirim için Document ID oluşturur: userId_date_bildirimsaati formatında
+  /// Örnek: userId123_2025-11-04_19-52
+  String _createNotificationDocumentId(
+    String userId,
+    String date,
+    String time,
+  ) {
+    final String safeTime = time.replaceAll(':', '-');
+    return '${userId}_${date}_$safeTime';
+  }
+
+  /// Bildirimi Firestore'a ekler
+  /// Yapı: Notification/{userId_date_bildirimsaati}
+  /// Örnek: Notification/userId123_2025-11-04_19-52
+  Future<bool> addNotificationToFirestore(
+    NotificationModel notification,
+  ) async {
+    try {
+      final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId == null) {
+        return false;
+      }
+
+      final DateTime now = DateTime.now();
+      final String fallbackDate = now.toString().split(' ')[0];
+      final String fallbackTime =
+          '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+
+      final String docId = _createNotificationDocumentId(
+        userId,
+        notification.date ?? fallbackDate,
+        notification.time ?? fallbackTime,
+      );
+
+      await _notificationsCollection.doc(docId).set(notification.toJson());
+      _logger.i('Bildirim başarıyla Firestore\'a eklendi: $docId');
+      return true;
+    } catch (e) {
+      _logger.e('Bildirim eklenirken hata oluştu', error: e);
+      return false;
+    }
+  }
+
+  /// Kullanıcının tüm bildirimlerini getirir
+  /// Document ID'leri Map olarak döndürür: {documentId: NotificationModel}
+  Future<Map<String, NotificationModel>?> getNotifications() async {
+    try {
+      final String? userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId == null) {
+        return null;
+      }
+
+      final QuerySnapshot snapshot = await _notificationsCollection.get();
+
+      final Map<String, NotificationModel> notificationsMap = {};
+
+      for (final doc in snapshot.docs) {
+        if (doc.id.startsWith(userId)) {
+          final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+          notificationsMap[doc.id] = NotificationModel.fromJson(data);
+        }
+      }
+
+      // Tarih ve saate göre sıralanmış listeyi döndürmek için Map'i sıralayabiliriz
+      // Ama Map zaten sırasız olduğu için, sıralama işlemini provider'da yapabiliriz
+      return notificationsMap;
+    } catch (e) {
+      _logger.e('Bildirimler getirilirken hata oluştu', error: e);
+      return null;
+    }
+  }
+
+  //Bildirimi okundu olarak işaretle. Eğer bildirim dokümanında isRead alanı yoksa,
+  //bu kod onu oluşturur ve true yapar.Eğer zaten varsa, değerini true olarak günceller.
+  Future<bool> markNotificationAsRead(String notificationId) async {
+    try {
+      await _notificationsCollection.doc(notificationId).update({
+        'isRead': true,
+      });
+      _logger.i('Bildirim okundu olarak işaretlendi: $notificationId');
+      return true;
+    } catch (e) {
+      _logger.e('Bildirim güncellenirken hata oluştu', error: e);
       return false;
     }
   }

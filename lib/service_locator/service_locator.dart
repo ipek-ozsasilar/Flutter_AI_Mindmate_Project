@@ -1,7 +1,7 @@
 import 'package:flutter_mindmate_project/products/services/firestore_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_mindmate_project/products/services/image_service.dart';
-
+import 'package:flutter_mindmate_project/products/services/notification_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -12,4 +12,5 @@ void setupLocator() {
   // Firestore service - mesaj veritabanı işlemleri
   getIt.registerLazySingleton<FirestoreService>(() => FirestoreService());
   getIt.registerLazySingleton<ImageService>(() => ImageService());
+  getIt.registerLazySingleton<NotificationService>(() => NotificationService());
 }

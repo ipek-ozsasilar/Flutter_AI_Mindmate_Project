@@ -3,16 +3,19 @@ import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
 //firebase
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart' as firebaseUI;
 //firebase options
 import 'package:flutter_mindmate_project/firebase_options.dart';
 //service locator
 import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
+// timezone
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz_loc;
 
 //Kodun amacı: Uygulama başlamadan önce tüm temel servisleri başlatmak.
 class AppInitiliazer {
   AppInitiliazer();
+  final String localLocation = 'Europe/Istanbul';
 
   Future<void> init() async {
     //Flutter uygulaması ile platform (Android/iOS) arasındaki köprüyü başlatır.
@@ -28,12 +31,13 @@ class AppInitiliazer {
     //clientId → Google'ın veya facebook'un hangi uygulamadan giriş isteği geldiğini bilmesi için gerekli.
     firebaseUI.FirebaseUIAuth.configureProviders([
       firebaseUI.EmailAuthProvider(),
-      GoogleProvider(clientId: const String.fromEnvironment(
-
-        'GOOGLE_CLIENT_ID_ANDROID',
-        defaultValue: '955146014965-go61a73dcd804am4tour1kv715v040r9.apps.googleusercontent.com',
-
-      )),
+      GoogleProvider(
+        clientId: const String.fromEnvironment(
+          'GOOGLE_CLIENT_ID_ANDROID',
+          defaultValue:
+              '955146014965-go61a73dcd804am4tour1kv715v040r9.apps.googleusercontent.com',
+        ),
+      ),
 
       //String.fromEnvironment() → Flutter/Dart’ın compile-time environment variable okuma yöntemidir.
       //Yani uygulamayı çalıştırırken parametre olarak verdiğin değeri alır. Eğer vermediysen, defaultValue kullanılır.
@@ -42,6 +46,13 @@ class AppInitiliazer {
 
     //Service locator'ı başlatır
     setupLocator();
+
+    // Timezone init (bildirim zamanlaması için)
+    //Flutter’a saat dilimi bilgisi ver. Flutter sadece “UTC” saatini bilir. Yani Türkiye’de sabah 9’da planladığın bir 
+    //bildirim aslında UTC’ye göre 06:00 olabilir Eğer timezone’ları yüklemezsen: Bazı cihazlarda bildirim 3 saat erken veya geç gelir.
+    tz.initializeTimeZones();
+    //Cihazın lokal saat dilimini Türkiye (Europe/Istanbul) olarak ayarla.
+    tz_loc.setLocalLocation(tz_loc.getLocation(localLocation));
   }
 }
 

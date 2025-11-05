@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/products/enums/durations_enum.dart';
+  
 
 mixin SpeechToTextMixin<T extends StatefulWidget> on State<T> {
   final TextEditingController messageController = TextEditingController();

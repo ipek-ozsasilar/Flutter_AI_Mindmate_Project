@@ -77,6 +77,8 @@ class MessageProvider extends StateNotifier<MessageState> {
         return false;
       }
 
+      // Bildirim planlama işi NotificationsProvider'a taşındı
+
       // Loading bitir
       changeStateIsLoading(false);
       return true;

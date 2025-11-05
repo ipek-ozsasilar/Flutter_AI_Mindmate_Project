@@ -2,6 +2,8 @@ import 'package:flutter_mindmate_project/features/message/message_view.dart';
 import 'package:flutter_mindmate_project/features/message/provider/message_provider.dart';
 import 'package:flutter_mindmate_project/models/message_model.dart';
 import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
+// notificationsProvider.notifier kullanıldığı için provider import edilir
+import 'package:flutter_mindmate_project/features/notifications/provider/notifications_provider.dart';
 import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -72,6 +74,20 @@ abstract class MessageViewModel extends ConsumerState<MessageView>
         .toList();
   }
 
+  /// Günlük kalan sohbet hakkını döndürür
+  int remainingChats({required int totalChats}) {
+    final DateTime today = DateTime.now();
+    final String todayDateStr = today.toString().split(' ')[0];
+
+    final int todayMessagesCount = ref
+        .watch(messageProvider)
+        .messages
+        .where((MessageModel message) => message.date == todayDateStr)
+        .length;
+
+    return totalChats - todayMessagesCount;
+  }
+
   /// Butona basınca çağrılacak callback fonksiyonu
   /// Bottom sheet'ten gelen mesajı işler ve API'ye gönderir
   Future<void> onPressedSendButton(String userMessage, String mood) async {
@@ -84,7 +100,20 @@ abstract class MessageViewModel extends ConsumerState<MessageView>
     ;
 
     /// 2. Provider'daki sendMessage metodunu çağır
-    await ref.read(messageProvider.notifier).sendMessage(userMessage, mood);
+    final bool ok = await ref
+        .read(messageProvider.notifier)
+        .sendMessage(userMessage, mood);
+
+    /// 3. Başarılıysa Notification ViewModel üzerinden planla
+    if (ok) {
+      await ref
+          .read(notificationsProvider.notifier)
+          .scheduleMotivationAfterMessage(
+            userMessage: userMessage,
+            //1 dakika sonra bildirim göster
+            delay: const Duration(minutes: 1),
+          );
+    }
   }
 
   Future<List<MessageModel>?> loadMessages() async {

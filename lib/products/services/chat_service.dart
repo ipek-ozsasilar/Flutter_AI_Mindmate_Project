@@ -52,3 +52,50 @@ Future<String> chatService(String prompt) async {
     rethrow;
   }
 }
+
+Future<String> generateMotivation(String userMessage) async {
+  try {
+    final String apiKey = dotenv.env['OPENAI_API_KEY'] ?? '';
+    final String model = 'gpt-3.5-turbo';
+    final Logger logger = Logger();
+    final Uri url = Uri.parse('https://api.openai.com/v1/chat/completions');
+
+    final String systemPrompt =
+        'Kısa, nazik, güven verici, tetikleyici olmayan, 20-30 kelimelik Türkçe bir motivasyon cümlesi üret. Emoji kullanma.';
+    final String userPrompt =
+        'Kullanıcının mesajı: "$userMessage". Bu duygu durumuna uygun tek cümlelik motivasyon yaz.';
+
+    final http.Response response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $apiKey',
+      },
+      body: jsonEncode({
+        'model': model,
+        'messages': [
+          {'role': 'system', 'content': systemPrompt},
+          {'role': 'user', 'content': userPrompt},
+        ],
+        'temperature': 0.7,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      final String text =
+          data['choices'][0]['message']['content'] as String? ?? '';
+      return text.trim();
+    } else {
+      logger.e(
+        'OpenAI motivation error: ${response.statusCode} - ${response.body}',
+      );
+      return 'Kendine nazik ol, bu duygular geçecek. Yanındayım.';
+    }
+  } catch (e) {
+    final Logger logger = Logger();
+    logger.e('generateMotivation hata', error: e);
+    return 'Kendine nazik ol, bu duygular geçecek. Yanındayım.';
+  }
+}

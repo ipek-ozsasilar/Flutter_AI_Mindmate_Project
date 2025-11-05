@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmate_project/features/login/create_account_view.dart';
-import 'package:flutter_mindmate_project/features/profile/profile_view.dart';
 import 'package:flutter_mindmate_project/features/splash/splash_view.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/enums/device_type_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/initiliazer/app_initiliazer.dart';
-import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
+import 'package:flutter_mindmate_project/products/navigation/app_navigator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
-import 'package:flutter_mindmate_project/features/create_chat/create_chat_view.dart';
-import 'package:flutter_mindmate_project/features/message/message_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -31,6 +26,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //GlobalKey<NavigatorState> türünde global bir anahtar. Uygulamanın Navigator durumuna, herhangi bir yerden (BuildContext olmadan) erişmenizi sağlar.
+      //navigatorKey.currentState ile push/pop yaparak ekrana yönlendirme, dialog açma gibi işlemleri UI context’i olmayan kodlardan (ör. servisler,
+      //background callback’ler) gerçekleştirebilirsiniz. Notification ile alakası ne? Bildirim tıklanınca veya mesajdan
+      //uygulama açılınca çoğu zaman bir ekrana yönlendirmek gerekir. Bu callback’lerde genelde BuildContext yoktur. 
+      //navigatorKey sayesinde: bildirimden gelen veriye göre ilgili sayfaya güvenle yönlendirme yapılır.
+      navigatorKey: navigatorKey,
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child!,
         //breakpoints → belirli ekran genişliklerinde widget’ların nasıl ölçekleneceğini veya yeniden boyutlanacağını tanımlar.

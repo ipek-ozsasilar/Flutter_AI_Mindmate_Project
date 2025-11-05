@@ -2,7 +2,8 @@
 
 enum DurationsEnum {
   speechListenMax(Duration(minutes: 5)),
-  speechPause(Duration(seconds: 15));
+  speechPause(Duration(seconds: 15)),
+  motivationDelay(Duration(hours: 2));
 
   const DurationsEnum(this.value);
   final Duration value;

@@ -121,7 +121,12 @@ enum StringsEnum {
   uploadingImage('Uploading image...'),
   imageUploadSuccess('Profile image updated'),
   imageUploadError('Failed to upload image'),
-  imageLoadError('Failed to load profile image');
+  imageLoadError('Failed to load profile image'),
+  // Notification strings
+  motivationTitle('Motivasyon'),
+  notificationChannelId('mindmate_motivation_channel'),
+  notificationChannelName('MindMate Motivations'),
+  notificationChannelDesc('Gün içi motivasyon bildirimleri');
 
   final String value;
   const StringsEnum(this.value);

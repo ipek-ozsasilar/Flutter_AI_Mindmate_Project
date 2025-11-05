@@ -2,11 +2,13 @@ part of '../notifications_view.dart';
 
 class _DailyNotificationCardWidget extends StatefulWidget {
   final String date;
-  final List<Map<String, dynamic>> notifications;
+  final List<NotificationModel> notifications;
+  final Function(NotificationModel)? onNotificationTap;
 
   const _DailyNotificationCardWidget({
     required this.date,
     required this.notifications,
+    this.onNotificationTap,
   });
 
   @override
@@ -21,14 +23,12 @@ class _DailyNotificationCardWidgetState
 
   //okunmamıs bıldırım var mı?
   bool get hasUnreadNotifications {
-    return widget.notifications.any((notif) => notif['isRead'] == false);
+    return widget.notifications.any((notif) => notif.isRead == false);
   }
 
   //okunmamıs bıldırım sayısı
   int get unreadCount {
-    return widget.notifications
-        .where((notif) => notif['isRead'] == false)
-        .length;
+    return widget.notifications.where((notif) => notif.isRead == false).length;
   }
 
   @override
@@ -150,11 +150,16 @@ class _DailyNotificationCardWidgetState
               ),
               child: Column(
                 children: widget.notifications.map((notification) {
-                  return NotificationItemWidget(
-                    time: notification['time'],
-                    title: notification['title'],
-                    message: notification['message'],
-                    isRead: notification['isRead'],
+                  return GestureDetector(
+                    onTap: () {
+                      widget.onNotificationTap?.call(notification);
+                    },
+                    child: NotificationItemWidget(
+                      time: notification.time ?? '',
+                      title: notification.title ?? '',
+                      message: notification.body ?? '',
+                      isRead: notification.isRead ?? false,
+                    ),
                   );
                 }).toList(),
               ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmate_project/features/message/provider/message_provider.dart';
-import 'package:flutter_mindmate_project/features/message/sub_view/speech_to_text.dart';
 import 'package:flutter_mindmate_project/features/message/view_model/message_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/models/message_model.dart';
@@ -10,18 +8,14 @@ import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/constants/paddings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
+import 'package:flutter_mindmate_project/products/services/spech_to_text_service.dart';
 import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 
 part 'sub_view/chat_history_widget.dart';
 part 'sub_view/start_chat_button_widget.dart';
 part 'sub_view/chat_input_bottom_sheet_widget.dart';
-
 
 class MessageView extends ConsumerStatefulWidget {
   const MessageView({super.key});
@@ -33,21 +27,6 @@ class MessageView extends ConsumerStatefulWidget {
 class _MessageViewState extends MessageViewModel {
   final int _totalChats = 3;
   bool _isInitialLoading = true;
-
-  int get _remainingChats {
-    // Sadece bugünün mesajlarını say
-    final DateTime today = DateTime.now();
-    final String todayDateStr = today.toString().split(
-      ' ',
-    )[0]; // YYYY-MM-DD formatında
-    final int todayMessagesCount = ref
-        .watch(messageProvider)
-        .messages
-        .where((message) => message.date == todayDateStr)
-        .length;
-
-    return _totalChats - todayMessagesCount;
-  }
 
   @override
   void initState() {
@@ -89,7 +68,12 @@ class _MessageViewState extends MessageViewModel {
             isSendingMessage: loadingWatch(),
           ),
           _StartChatButtonWidget(
-            hasReachedLimit: _remainingChats <= 0,
+            hasReachedLimit: remainingChats(totalChats: _totalChats) <= 0,
+            // onSendMessage → MessageViewModel.onPressedSendButton'u çağırır.
+            // Bu metot mesajı gönderdikten sonra NotificationsViewModel üzerinden
+            // yerel bildirimi planlar (delay ile). Navigasyon için global navigatorKey kullanılır.
+            //butona bastıktan ve verıtabanına verıler kaydedıldıkten sonra bildirim planlanır.
+            //TAM BURADA BİLDİRİM PLANLANIYOR.
             onSendMessage: onPressedSendButton,
             isLoading: loadingWatch(),
           ),

@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/features/notifications/sub_view/notifications_item_widget.dart';
+import 'package:flutter_mindmate_project/features/notifications/view_model/notifications_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
+import 'package:flutter_mindmate_project/models/notification_model.dart';
 import 'package:flutter_mindmate_project/products/appbars/message_appbar.dart';
 import 'package:flutter_mindmate_project/products/bottom_appbars/message_bottom_appbar.dart';
 import 'package:flutter_mindmate_project/products/constants/icons.dart';
@@ -9,100 +12,69 @@ import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'sub_view/daily_notification_card_widget.dart';
 
-class NotificationsView extends StatefulWidget {
+// Yerel bildirimlerin UI katmanı
+// - Liste, okundu işaretleme
+// - Çalışma mantığı: Bildirimler cihaz tarafında planlanır ve OS tetikler; internet gerekmez
+// - Android AlarmManager / iOS UNNotificationRequest üzerinden çalışır
+class NotificationsView extends ConsumerStatefulWidget {
   const NotificationsView({super.key});
 
   @override
-  State<NotificationsView> createState() => _NotificationsViewState();
+  ConsumerState<NotificationsView> createState() => _NotificationsViewState();
 }
 
-class _NotificationsViewState extends State<NotificationsView> {
-  // Günlere göre gruplandırılmış motivasyon mesajları
-  //dummy data
+class _NotificationsViewState extends NotificationsViewModel {
   final CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start;
-  final Map<String, List<Map<String, dynamic>>> groupedMotivations = {
-    'Bugün': [
-      {
-        'time': '09:00',
-        'title': 'Günaydın! ☀️',
-        'message':
-            'Yeni bir gün, yeni bir başlangıç! Bugün kendine iyi davran.',
-        'isRead': false,
-      },
-      {
-        'time': '12:00',
-        'title': 'Öğle Hatırlatması 🌟',
-        'message':
-            'Hissettiklerini paylaşmak seni daha güçlü yapar. Benimle konuşmak ister misin?',
-        'isRead': false,
-      },
-      {
-        'time': '18:00',
-        'title': 'Akşam Motivasyonu 🌙',
-        'message':
-            'Bugün neler hissettin? Duygularını paylaşmak için buradayım.',
-        'isRead': true,
-      },
-    ],
-    'Dün': [
-      {
-        'time': '09:00',
-        'title': 'Günaydın! ☀️',
-        'message':
-            'Her yeni gün bir umut, her sabah yeni bir fırsat. Haydi başlayalım!',
-        'isRead': true,
-      },
-      {
-        'time': '12:00',
-        'title': 'Günün Ortası 💪',
-        'message': 'Sen harikasın! Unutma, sen çok değerlisin.',
-        'isRead': true,
-      },
-      {
-        'time': '18:00',
-        'title': 'Günün Sonu 🌆',
-        'message': 'Bugün nasıl geçti? Benimle paylaşmak ister misin?',
-        'isRead': true,
-      },
-    ],
-    '19 Ekim 2025': [
-      {
-        'time': '09:00',
-        'title': 'Sabah Enerjisi ⚡',
-        'message': 'Bugün kendine zaman ayır. Sen buna değersin!',
-        'isRead': true,
-      },
-      {
-        'time': '12:00',
-        'title': 'Öğle Molası ☕',
-        'message': 'Derin bir nefes al. Her şey yoluna girecek.',
-        'isRead': true,
-      },
-    ],
-    '18 Ekim 2025': [
-      {
-        'time': '09:00',
-        'title': 'Yeni Bir Gün 🌈',
-        'message': 'Hatırla: Zorluklarla baş edebilecek güce sahipsin.',
-        'isRead': true,
-      },
-      {
-        'time': '18:00',
-        'title': 'Akşam Sakinliği 🕊️',
-        'message': 'Bugün ne kadar ilerlediğini fark et. Gurur duy!',
-        'isRead': true,
-      },
-    ],
-  };
+  bool _isInitialLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      //Ekran açılışında bildirimleri yükle
+      _loadInitialData();
+    });
+  }
+
+  Future<void> _loadInitialData() async {
+    await loadNotifications();
+    //Bu widget hâlâ ekranda mı, yoksa kaldırıldı mı ekrandaysa _isInitialLoading = false; yap
+    if (mounted) {
+      setState(() {
+        _isInitialLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    //Başlığı büyük harfe çevir
     final String capitalizedNotifications =
         StringsEnum.notifications.value[0].toUpperCase() +
         StringsEnum.notifications.value.substring(1);
+
+    final List<NotificationModel> notifications = notificationsRead();
+    final bool isLoading = loadingWatch();
+    final Map<String, List<NotificationModel>> groupedNotifications =
+        groupNotificationsByDate(notifications);
+    final List<String> sortedDates = groupedNotifications.keys.toList()
+      ..sort((a, b) => b.compareTo(a)); // Yeniden eskiye
+
+    //Ekran açılışında veya bildirimler yüklenirken loading göster
+    if (_isInitialLoading || isLoading) {
+      return Scaffold(
+        backgroundColor: ColorName.scaffoldBackgroundColor,
+        appBar: MessageAppbar(title: StringsEnum.notifications.value),
+        body: const Center(
+          child: CircularProgressIndicator(color: ColorName.yellowColor),
+        ),
+      );
+    }
+    //Bildirimler yüklendiysa, ekranı güncelle
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackgroundColor,
       appBar: MessageAppbar(title: StringsEnum.notifications.value),
@@ -130,16 +102,35 @@ class _NotificationsViewState extends State<NotificationsView> {
             ),
 
             Expanded(
-              child: groupedMotivations.isEmpty
+              child: groupedNotifications.isEmpty
                   ? _EmptyNotifications()
                   : ListView.builder(
-                      itemCount: groupedMotivations.length,
+                      itemCount: sortedDates.length,
                       itemBuilder: (context, index) {
-                        final date = groupedMotivations.keys.elementAt(index);
-                        final notifications = groupedMotivations[date]!;
+                        final String date = sortedDates[index];
+                        final String dateLabel = getDateLabel(date);
+                        final List<NotificationModel> dayNotifications =
+                            groupedNotifications[date]!;
                         return _DailyNotificationCardWidget(
-                          date: date,
-                          notifications: notifications,
+                          date: dateLabel,
+                          notifications: dayNotifications,
+                          onNotificationTap: (NotificationModel notification) {
+                            if (notification.isRead == false) {
+                              // Document ID'yi date ve time'dan oluştur
+                              final String? userId =
+                                  FirebaseAuth.instance.currentUser?.uid;
+                              if (userId != null) {
+                                final String safeTime =
+                                    (notification.time ?? '').replaceAll(
+                                      ':',
+                                      '-',
+                                    );
+                                final String documentId =
+                                    '${userId}_${notification.date ?? ''}_$safeTime';
+                                markAsRead(documentId);
+                              }
+                            }
+                          },
                         );
                       },
                     ),
@@ -152,6 +143,7 @@ class _NotificationsViewState extends State<NotificationsView> {
   }
 }
 
+//Bildirimler yoksa, boş ekran göster
 class _EmptyNotifications extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center;
   @override
