@@ -1,21 +1,21 @@
 ## Flutter MindMate
 
-Modern, modüler ve sürdürülebilir mimariye sahip Flutter uygulaması. Bu proje; güçlü kod üretimi, sıkı kod standartları, ölçeklenebilir modüler dosyalama ve güvenli yapılandırmalar ile geliştirilmektedir. Ayrıca bir "akıl hocası" olan MindMate; gün içinde günlük gibi kullanılabilir, kullanıcıların diledikleri sorulara yanıt bulabilecekleri, içgörü (insight) edinebilecekleri ve duygularını yansıtabilecekleri kişisel bir rehber deneyimi sunar.
+A modern, modular, and sustainable Flutter application. The project uses powerful code generation, strict code standards, scalable modular structure, and secure configurations. MindMate also serves as a personal “mentor”: it can be used like a daily journal, helps users find answers to their questions, gain insights, and reflect their emotions throughout the day.
 
-> Önemli: Uygulama, yanıtları üretirken OpenAI API’sini kullanır; mobil uygulamaya yapay zeka entegrasyonu yapılmıştır.
+> Important: Answers are generated using the OpenAI API; the mobile app includes an AI integration.
 
-## Özellikler
-- Sesli giriş ve metne dönüştürme, metinden sese okuma
-- Yapay zeka asistanı: Yanıt üretimi OpenAI API ile gerçekleştirilir (LLM tabanlı rehberlik)
-- Kimlik doğrulama: E-posta/şifre ile giriş, Google ile tek tıkla giriş
-- Şifre sıfırlama: E-posta ile sıfırlama bağlantısı gönderimi
-- Gün içi ruh hali ile ilişkili bildirim/hatırlatma akışları
-- Grafiklerle periyodik ruh hali takibi (trendler/istatistik)
-- Konuşma geçmişi (history) ve geçmiş etkileşimlerden bağlamsal hatırlatma
-- Yerel/uzak bildirimler, izin yönetimi ve tıklama davranışları
-- Modüler feature mimarisi, Provider tabanlı state yönetimi
-- Genişletilebilir servis katmanı ve `get_it` ile bağımlılık enjeksiyonu
-- Responsive UI (`responsive_framework`) ve özelleştirilebilir AppBar bileşenleri
+## Features
+- Speech input and speech-to-text, plus text-to-speech
+- AI assistant: Responses are generated via the OpenAI API (LLM-based guidance)
+- Authentication: Email/password sign-in and one‑tap Google sign‑in
+- Password reset: Send reset link via email
+- Daily mood-related reminders/notifications
+- Periodic mood tracking with charts (trends/statistics)
+- Conversation history with contextual recall
+- Local/remote notifications, permission handling, and tap actions
+- Modular feature architecture with Provider-based state management
+- Extensible service layer and dependency injection with `get_it`
+- Responsive UI via `responsive_framework` and customizable AppBars
 
 ## Screens
 
@@ -71,73 +71,73 @@ Modern, modüler ve sürdürülebilir mimariye sahip Flutter uygulaması. Bu pro
 </table>
 
 
-### İçindekiler
-- Proje Özeti
-- Mimarî ve Dosya Yapısı
-- Komutlar ve Otomasyon (rps)
-- Kod Üretimi ve Kaynak Yönetimi
-- Ortam Değişkenleri (Env) ve Güvenlik
-- Durum Yönetimi ve Katmanlar
-- UI ve Tasarım Kuralları
-- Loglama ve Hata Yönetimi
-- Lint Kuralları ve Kod Standartları
-- Kullanılan Teknolojiler ve Paketler
-- Yapay Zeka Entegrasyonu (OpenAI API)
-- Bildirim Servisi (NotificationService)
-- Flutter Sürüm Yönetimi (Sidekick)
-- build.yaml Yapılandırması
-- Test (UI: Maestro)
+### Table of Contents
+- Project Overview
+- Architecture & Directory Structure
+- Commands & Automation (rps)
+- Code Generation & Asset Management
+- Environment Variables & Security
+- State Management & Layers
+- UI & Design Guidelines
+- Logging & Error Handling
+- Lint Rules & Code Standards
+- Technologies & Packages
+- AI Integration (OpenAI API)
+- Notification Service (NotificationService)
+- Flutter Version Management (Sidekick)
+- build.yaml Configuration
+- Testing (UI: Maestro)
 ---
 
-## Proje Özeti
-MindMate, özelliklerin `features/` altında modülerleştiği, servislerin `products/` altında toplandığı, bağımlılıkların `get_it` ile yönetildiği, kaynakların `flutter_gen_runner` ile otomatik üretildiği bir Flutter uygulamasıdır. Kodda sabit (hardcoded) string ve sayısal değerler kullanılmaz; metinler `enums/strings_enum.dart`, boyutlar `products/enums/sizes_enum.dart` altında enhanced enum yapılarıyla yönetilir. Ayrıca uygulama yanıtlarını üretmek için OpenAI API’si kullanılır; böylece mobil uygulamaya yapay zeka entegrasyonu sağlanmıştır.
+## Project Overview
+MindMate is a Flutter app where features are modularized under `features/`, services are grouped under `products/`, dependencies are managed with `get_it`, and resources are auto-generated via `flutter_gen_runner`. Hardcoded strings and numeric constants are avoided; strings live in `enums/strings_enum.dart` and sizes in `products/enums/sizes_enum.dart` as enhanced enums. The app generates answers using the OpenAI API, providing an AI integration for mobile.
 
 ---
 
-## Mimarî ve Dosya Yapısı
-Örnek dizin yapısı:
+## Architecture & Directory Structure
+Example layout:
 
 ```
 lib/
   features/
     <feature_name>/
       view/
-        <feature_name>_view.dart         // Sadece UI ağaçları
+        <feature_name>_view.dart         // UI tree only
       sub_view/
-        <parçalı_widgetlar>.dart        // UI parçaları (widget extraction)
+        <extracted_widgets>.dart         // Extracted UI parts
       view_model/
-        <feature_name>_view_model.dart   // İş mantığı, state, servis çağrıları
+        <feature_name>_view_model.dart   // Business logic, state, services
       provider/
-        <feature_name>_provider.dart     // Provider tanımları (ref erişimi sadece VM'de)
+        <feature_name>_provider.dart     // Provider definitions (ref usage only in VM)
 
   products/
     appbars/
-      <custom_appbarlar>.dart
+      <custom_appbars>.dart
     enums/
-      sizes_enum.dart                    // ImageSizesEnum, TextSizesEnum, IconSizesEnum, WidgetSizesEnum, AppbarSizesEnum (enhanced enum)
-      strings_enum.dart                  // Tüm sabit metinler
+      sizes_enum.dart                    // ImageSizesEnum, TextSizesEnum, IconSizesEnum, WidgetSizesEnum, AppbarSizesEnum (enhanced enums)
+      strings_enum.dart                  // Centralized strings
     services/
-      notification_service.dart          // Bildirim ve izin akışları
+      notification_service.dart          // Notifications & permissions
 
   service_locator/
-    service_locator.dart                 // get_it bağımlılık kayıtları
+    service_locator.dart                 // get_it registrations
 
-gen/                                      // flutter_gen çıktı dizini
+gen/                                      // flutter_gen outputs
 
 assets/
   images/ ...
-  colors/colors.xml                       // Renkler (istenirse)
+  colors/colors.xml                       // Colors (optional)
 ```
 
-Temel prensipler:
-- `view.dart` dosyalarında sadece Widget ağaçları bulunur. İş mantığı, doğrulamalar, servis çağrıları ve state, `view_model/` veya `provider/` katmanındadır.
-- Erişim modeli: Provider’lar yalnızca `ref` ile ve sadece ViewModel katmanından erişilmelidir. UI katmanı sadece gösterim yapar.
-- AppBar bileşenleri `products/appbars/` altına extract edilerek taşınır.
+Key principles:
+- `view.dart` files hold UI only. Business logic, validation, services and state live in `view_model/` or `provider/`.
+- Access model: Providers are accessed only via `ref` and only from ViewModel. UI focuses on presentation.
+- AppBars are extracted and placed under `products/appbars/`.
 
 ---
 
-## Komutlar ve Otomasyon (rps)
-Sürekli kullanılan komutlar `rps.yaml` üzerinden kısaltılır. Önerilen script’ler:
+## Commands & Automation (rps)
+Frequently used commands are shortened via `rps.yaml`. Suggested scripts:
 
 ```yaml
 scripts:
@@ -148,35 +148,35 @@ scripts:
   format: dart format lib test
 ```
 
-Kullanım:
+Usage:
 ```
 rps run gen_flutter
 rps run gen_watch
 rps run analyze
 ```
 
-Zorunlu kurallar:
-- `flutter_gen_runner` ile kod üretimi esnasında her değişiklikte: `rps run gen_flutter` çalıştırılmalı.
-- `assets/` altında değişiklik yapıldığında: `rps run gen_flutter` çalıştırılmalı.
+Required rules:
+- Whenever code generation is affected: run `rps run gen_flutter`.
+- When anything under `assets/` changes: run `rps run gen_flutter`.
 
 ---
 
-## Kod Üretimi ve Kaynak Yönetimi
-- Kaynaklar (assets, renkler, fontlar, görseller) `flutter_gen_runner` ile yönetilir ve `gen/` altında kod üretimi sağlanır.
-- JSON Serializable üretimi sadece `lib/models/` altında `*_model.dart` dosyaları için yapılır.
-- `pubspec.yaml` dosyasına eklenen her paket için başında 1-2 kelimelik yorum satırı bulunmalıdır (dokümantasyon için zorunlu kural).
+## Code Generation & Asset Management
+- Resources (assets, colors, fonts, images) are managed with `flutter_gen_runner`, generating code under `gen/`.
+- JSON Serializable runs only for `lib/models/**_model.dart` files.
+- Each package in `pubspec.yaml` should have a short comment prefix.
 
 ---
 
-## Ortam Değişkenleri (Env) ve Güvenlik
-- API anahtarları ve gizli bilgiler `.env` içinde tutulur, koda gömülmez.
-- Env değerleri `envied` paketiyle yönetilir. Üretim sırasında Envied, tip güvenli erişim sağlar.
-- `.env` dosyası VCS’e (git) dahil edilmemelidir.
+## Environment Variables & Security
+- API keys and secrets live in `.env`, never hardcoded.
+- Variables are managed via `envied` for type-safe access.
+- Do not commit `.env` to VCS.
 
-Kullanım notu:
-- Nasıl kullanılacağına dair örnek anahtarlar ve açıklamalar `.env.example` dosyasında gösterilmiştir. Bu dosyayı kopyalayıp yeniden adlandırarak `.env` oluşturun ve değerleri doldurun; ardından kod üretimi için `rps run gen_flutter` çalıştırın.
+Usage note:
+- See `.env.example` for sample keys and explanations. Copy it to `.env`, fill the values, then run `rps run gen_flutter` for codegen.
 
-Örnek `.env` (örnek anahtarlar):
+Example `.env`:
 ```
 API_BASE_URL=https://api.example.com
 SENTRY_DSN=...
@@ -185,42 +185,41 @@ FIREBASE_KEY=...
 
 ---
 
-## Durum Yönetimi ve Katmanlar
-- State yönetimi `provider` ile yapılır.
-- Provider’lara sadece ViewModel katmanında `ref` ile erişilir; UI katmanı sadece veriyi gösterir ve kullanıcı etkileşimini iletir.
-- Servis katmanında hata fırlatma (throw) yapılabilir; üst katman handle edecektir. UI katmanında kesinlikle `throw` kullanılmaz.
+## State Management & Layers
+- State management is done with Provider.
+- Providers are accessed via `ref` only in the ViewModel; the UI renders data and forwards interactions.
+- Throwing is allowed only in ViewModel/Service layers (to be handled above). Never throw from UI.
 
 ---
 
-## UI ve Tasarım Kuralları
-- Responsive tasarım `responsive_framework` ile ve `main.dart` içinde breakpoints tanımlanarak sağlanmalıdır.
-- Kodda sabit (hardcoded) string yasaktır. Tüm metinler `products/enums/strings_enum.dart` içinde merkezi yönetilir.
-- Sabit sayısal değerler yasaktır. Tüm boyutsal değerler `products/enums/sizes_enum.dart` içinde enhanced enum olarak tanımlıdır:
+## UI & Design Guidelines
+- Responsive layout via `responsive_framework` with breakpoints in `main.dart`.
+- No hardcoded strings. All texts live in `products/enums/strings_enum.dart`.
+- No hardcoded numeric sizes. Define all sizes as enhanced enums in `products/enums/sizes_enum.dart`:
   - `ImageSizesEnum`
   - `TextSizesEnum`
   - `IconSizesEnum`
   - `WidgetSizesEnum`
   - `AppbarSizesEnum`
-- Hangi tür istendiyse sadece o türe ait enum oluşturulmalıdır.
+- Only create enums for the requested type.
 
-Renkler:
-- Renk tanımları istenirse `assets/colors/colors.xml` içinde tutulur ve `flutter_gen` ile yönetilir.
+Colors:
+- Optionally manage colors in `assets/colors/colors.xml` and access via `flutter_gen`.
 
-AppBar’lar:
-- Ekranlardaki tüm appbar’lar extract edilerek `products/appbars/` altına taşınmalıdır.
-
----
-
-## Loglama ve Hata Yönetimi
-- Debug amaçlı `print` yerine mutlaka `Logger` paketi kullanılmalıdır.
-- Kritik ve çökme ihtimali olan tüm kodlar `try-catch` içinde yazılmalıdır.
-- `catch` bloklarında hatalar `Logger` ile kaydedilmelidir.
-- `throw` sadece ViewModel veya Service katmanında (üst katman handle edecekse) kullanılabilir; UI katmanında yasaktır.
+AppBars:
+- Extract AppBars and place them under `products/appbars/`.
 
 ---
 
-## Lint Kuralları ve Kod Standartları
-`analysis_options.yaml` içinde aşağıdaki kurallar tanımlanmalıdır (özet):
+## Logging & Error Handling
+- Avoid `print`; use a centralized logging approach.
+- Wrap critical/crash-prone code in `try-catch`.
+- Only throw from ViewModel/Service layers (to be handled by upper layers); never from UI.
+
+---
+
+## Lint Rules & Code Standards
+Enable the following in `analysis_options.yaml` (summary):
 - `flutter_lints`
 - `always_declare_return_types: true`
 - `always_put_required_named_parameters_first: true`
@@ -232,64 +231,63 @@ AppBar’lar:
 - `sort_constructors_first: true`
 - `use_super_parameters: true`
 
-Kod yazım rehberi:
-- Kısa ve anlamsız değişken isimlerinden kaçının; açık ve anlamlı isimler kullanın.
-- İş mantığı ViewModel/Service katmanında, UI sadece görselleştirme katmanında kalmalıdır.
-- Bağımlılıklar `get_it` ile `service_locator/service_locator.dart` dosyasında yönetilmelidir.
+Coding guidelines:
+- Prefer clear, meaningful names over cryptic ones.
+- Keep business logic in ViewModel/Service; UI is presentation-only.
+- Manage dependencies via `get_it` in `service_locator/service_locator.dart`.
 
-Not: Ekip içi geliştirme süreçlerini standartlaştırmak amacıyla “Cursor rules” ayrı bir belge/depo yönergesi olarak tanımlanmıştır. Bu README’de tekrara düşmemek için ayrıntıları listelenmemiştir; projede uygulanması beklenir.
-
----
-
-## Kullanılan Teknolojiler ve Paketler
-- dart_openai: OpenAI API istemcisi (LLM tabanlı yanıt üretimi).
-- Flutter & Dart: Çapraz platform UI geliştirme.
-- Riverpod 3 (`riverpod`, `flutter_riverpod`): State yönetimi; `ref` erişimi sadece ViewModel katmanında.
-- get_it: Servis ve bağımlılık enjeksiyonu (`service_locator/service_locator.dart`).
-- responsive_framework: Mobil/tablet/web/masaüstü için uyarlanabilir UI.
-- flutter_gen_runner + build_runner: Asset, renk, font gibi kaynakların otomatik kod üretimi (`gen/`).
-- json_serializable + json_annotation: Modeller için `g.dart` üretimi (yalnızca `lib/models/**_model.dart`).
-- envied: Ortam değişkenlerinin tip güvenli yönetimi (API anahtarları, token vb.).
-- flutter_dotenv: .env dosyalarını yüklemek için (gerekli durumlarda).
-- logger: Loglama; `print` yerine zorunlu kullanım.
-- dio: HTTP istemcisi.
-- connectivity_plus: Ağ durumu kontrolü.
-- permission_handler: İzin yönetimi.
-- image_picker: Görsel seçimi.
-- url_launcher: Harici bağlantı/uygulama açma.
-- flutter_local_notifications + timezone: Yerel bildirimler ve zamanlama.
-- fl_chart: Grafikler ve ruh hali trendleri.
-- equatable: Değer eşitliği için yardımcılar.
-- kartal: Yardımcı uzantılar.
-- Firebase: `firebase_core`, `cloud_firestore`, `firebase_auth`, `firebase_storage`, `firebase_ui_auth`, `firebase_ui_oauth_google`, `firebase_ui_localizations`, `google_sign_in`.
-- Flutter Sidekick: Flutter sürüm pinleme ve kanal yönetimi (önerilir).
-- Maestro: UI test otomasyonu.
-
-Not: Paket sürümleri ve ek açıklamalar için `pubspec.yaml` dosyasındaki yorumlara bakınız.
+Note: Team-wide development standards (“Cursor rules”) are defined in a separate guide to avoid duplication here.
 
 ---
 
-## Yapay Zeka Entegrasyonu (OpenAI API)
-- Amaç: Kullanıcı sorularına akıllı, bağlamsal ve empatik yanıtlar üretmek.
-- Altyapı: OpenAI API (LLM) kullanılarak yanıt oluşturma.
-- Güvenlik: API anahtarları `.env` içinde saklanır ve `envied` ile tip güvenli erişilir; kaynağa gömülmez.
-- Veri: Mümkün olduğunca minimal veri iletilir; konuşma geçmişi bağlamı, açık rıza ve gizlilik göz önünde bulundurularak kullanılır.
-- Hata Dayanıklılığı: Ağ hatalarında kullanıcıya uygun geri bildirim verilir; kritik kodlar `try-catch` ile sarılır ve `Logger` ile loglanır.
+## Technologies & Packages
+- dart_openai: OpenAI API client (LLM-based response generation)
+- Flutter & Dart: Cross-platform UI development
+- Riverpod 3 (`riverpod`, `flutter_riverpod`): State management; `ref` access only in ViewModel
+- get_it: Dependency injection (`service_locator/service_locator.dart`)
+- responsive_framework: Adaptive UI for mobile/tablet/web/desktop
+- flutter_gen_runner + build_runner: Codegen for assets/colors/fonts (`gen/`)
+- json_serializable + json_annotation: `g.dart` generation (only for `lib/models/**_model.dart`)
+- envied: Type-safe environment variable management
+- flutter_dotenv: Load .env files (when needed)
+- dio: HTTP client
+- connectivity_plus: Network status
+- permission_handler: Permissions
+- image_picker: Image selection
+- url_launcher: External links/app launching
+- flutter_local_notifications + timezone: Local notifications & scheduling
+- fl_chart: Charts and mood trends
+- equatable: Value equality helpers
+- kartal: Utility extensions
+- Firebase: `firebase_core`, `cloud_firestore`, `firebase_auth`, `firebase_storage`, `firebase_ui_auth`, `firebase_ui_oauth_google`, `firebase_ui_localizations`, `google_sign_in`
+- Flutter Sidekick: Pin Flutter version/channel (recommended)
+- Maestro: UI test automation
 
-Not: Üretim anahtarlarını paylaşmayın; oran/limitler için OpenAI panelinizi izleyin.
+Note: See `pubspec.yaml` for versions and comments.
 
 ---
 
-## Flutter Sürüm Yönetimi (Sidekick)
-- Proje başlamadan önce Sidekick ile Flutter sürümünü sabitleyin (pin). Böylece ekip içinde aynı SDK kullanılır ve inşa farkları azalır.
-- Gerekirse Sidekick içinden kanal (stable/beta) ve spesifik sürüm seçilebilir.
+## AI Integration (OpenAI API)
+- Purpose: Provide smart, contextual, and empathetic responses to users
+- Backend: Responses are generated using the OpenAI API (LLM)
+- Security: API keys are stored in `.env` and accessed via `envied`; never hardcoded
+- Data: Minimal data is sent; conversation history context is used with consent and privacy in mind
+- Resilience: Network failures are handled gracefully with user feedback; critical code is wrapped in `try-catch`
 
-Kurulum için: Sidekick uygulamasını indirip kurun, projeyi tanıtın ve sürümü pinleyin. Ardından terminalde `flutter --version` ile doğrulayın.
+Note: Do not share production keys; monitor usage/limits in the OpenAI dashboard.
 
 ---
 
-## build.yaml Yapılandırması
-`json_serializable` üretiminin yalnızca `lib/models/*_model.dart` dosyaları için yapılması hedeflenir. Örnek `build.yaml` yapılandırması aşağıdaki gibi olabilir:
+## Flutter Version Management (Sidekick)
+- Pin a Flutter version with Sidekick before development to align SDK across the team.
+- Choose a channel (stable/beta) and a specific version if needed.
+
+Setup: Install Sidekick, register the project, pin the version, then verify with `flutter --version`.
+
+---
+
+## build.yaml Configuration
+Run `json_serializable` only for `lib/models/*_model.dart`. Example configuration:
 
 ```yaml
 targets:
@@ -304,24 +302,24 @@ targets:
             - lib/models/**_model.dart
 ```
 
-Bu yaklaşım derleme süresini optimize eder ve istenmeyen dosyalar için `g.dart` üretimini engeller.
+This optimizes build time and prevents `g.dart` generation for unwanted files.
 
 ---
 
-## Bildirim Servisi (NotificationService)
-Dosya: `lib/products/services/notification_service.dart`
+## Notification Service (NotificationService)
+File: `lib/products/services/notification_service.dart`
 
-Yetenekler (genel):
-- Bildirim izin akışı ve durum kontrolü
-- Yerel ve/veya push bildirim planlama/gösterimi
-- Uygulama ön/arka planda iken davranışlar
+Capabilities:
+- Permissions flow & status checks
+- Scheduling/showing local (and/or push) notifications
+- Behavior when app is foreground/background
 
 ---
 
-## Test (UI: Maestro)
-- UI testleri Maestro ile gerçekleştirilmelidir.
-- Senaryolar `maestro/` dizininde tutulabilir.
-- Kurulum ve komutlar için Maestro dokümantasyonuna bakınız.
+## Testing (UI: Maestro)
+- UI tests are written with Maestro
+- Scenarios can live under `maestro/`
+- Refer to Maestro docs for setup and commands
 
 ---
 
