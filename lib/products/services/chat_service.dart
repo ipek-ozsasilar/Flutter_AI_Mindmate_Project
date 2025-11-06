@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<String> chatService(String prompt) async {
@@ -12,9 +11,8 @@ Future<String> chatService(String prompt) async {
     final String emptyResponse = 'API cevabı boş döndü';
     final String model = 'gpt-3.5-turbo';
     final int successStatusCode = 200;
-    final Logger logger = Logger();
     final String systemPrompt =
-        'Sen bir ruh sağlığı asistanısın. Kullanıcılara empatik ve destekleyici yanıtlar ver.';
+        'Sen bir ruh sağlığı asistanısın. Kullanıcılara empatik ve destekleyici yanıtlar ver. Kullanıcının mesajını hangi dilde yazdıysa, sen de aynı dilde yanıt ver. Kullanıcı Türkçe yazdıysa Türkçe, İngilizce yazdıysa İngilizce, diğer dillerde yazdıysa o dilde yanıt ver.';
     // Doğru OpenAI endpoint'i
     final Uri url = Uri.parse('https://api.openai.com/v1/chat/completions');
 
@@ -43,12 +41,9 @@ Future<String> chatService(String prompt) async {
           data['choices'][0]['message']['content'] as String? ?? '';
       return text.isNotEmpty ? text : emptyResponse;
     } else {
-      logger.e('API Error: ${response.statusCode} - ${response.body}');
       throw Exception('API isteği başarısız: ${response.statusCode}');
     }
   } catch (e) {
-    final Logger logger = Logger();
-    logger.e('sendPrompt hatası', error: e);
     rethrow;
   }
 }
@@ -57,11 +52,10 @@ Future<String> generateMotivation(String userMessage) async {
   try {
     final String apiKey = dotenv.env['OPENAI_API_KEY'] ?? '';
     final String model = 'gpt-3.5-turbo';
-    final Logger logger = Logger();
     final Uri url = Uri.parse('https://api.openai.com/v1/chat/completions');
 
     final String systemPrompt =
-        'Kısa, nazik, güven verici, tetikleyici olmayan, 20-30 kelimelik Türkçe bir motivasyon cümlesi üret. Emoji kullanma.';
+        'Kısa, nazik, güven verici, tetikleyici olmayan, 20-30 kelimelik bir motivasyon cümlesi üret. Emoji kullanma. Kullanıcının mesajını hangi dilde yazdıysa, sen de aynı dilde motivasyon mesajı ver. Kullanıcı Türkçe yazdıysa Türkçe, İngilizce yazdıysa İngilizce, diğer dillerde yazdıysa o dilde yanıt ver.';
     final String userPrompt =
         'Kullanıcının mesajı: "$userMessage". Bu duygu durumuna uygun tek cümlelik motivasyon yaz.';
 
@@ -88,14 +82,9 @@ Future<String> generateMotivation(String userMessage) async {
           data['choices'][0]['message']['content'] as String? ?? '';
       return text.trim();
     } else {
-      logger.e(
-        'OpenAI motivation error: ${response.statusCode} - ${response.body}',
-      );
       return 'Kendine nazik ol, bu duygular geçecek. Yanındayım.';
     }
   } catch (e) {
-    final Logger logger = Logger();
-    logger.e('generateMotivation hata', error: e);
     return 'Kendine nazik ol, bu duygular geçecek. Yanındayım.';
   }
 }

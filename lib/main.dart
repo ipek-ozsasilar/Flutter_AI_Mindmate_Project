@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       //GlobalKey<NavigatorState> türünde global bir anahtar. Uygulamanın Navigator durumuna, herhangi bir yerden (BuildContext olmadan) erişmenizi sağlar.
       //navigatorKey.currentState ile push/pop yaparak ekrana yönlendirme, dialog açma gibi işlemleri UI context’i olmayan kodlardan (ör. servisler,
       //background callback’ler) gerçekleştirebilirsiniz. Notification ile alakası ne? Bildirim tıklanınca veya mesajdan
-      //uygulama açılınca çoğu zaman bir ekrana yönlendirmek gerekir. Bu callback’lerde genelde BuildContext yoktur. 
+      //uygulama açılınca çoğu zaman bir ekrana yönlendirmek gerekir. Bu callback’lerde genelde BuildContext yoktur.
       //navigatorKey sayesinde: bildirimden gelen veriye göre ilgili sayfaya güvenle yönlendirme yapılır.
       navigatorKey: navigatorKey,
       builder: (context, child) => ResponsiveBreakpoints.builder(
@@ -61,7 +61,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mindmate App',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: ColorName.whiteColor),
+        ),
         iconButtonTheme: IconButtonThemeData(
           style: IconButton.styleFrom(
             backgroundColor: Colors.transparent,

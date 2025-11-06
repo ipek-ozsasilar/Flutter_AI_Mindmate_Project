@@ -122,10 +122,14 @@ class _CreateAccountViewState extends CreateAccountViewModel {
                   onPressed: () async {
                     try {
                       final url = Uri.parse(StringsEnum.privacyPolicyUrl.value);
-                      await launchUrl(
-                        url,
-                        mode: LaunchMode.externalApplication,
-                      );
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      } else {
+                        showSnackBar(ErrorStringsEnum.urlLaunchError.value);
+                      }
                     } catch (e) {
                       showSnackBar(ErrorStringsEnum.urlLaunchError.value);
                     }

@@ -7,7 +7,6 @@ import 'package:flutter_mindmate_project/products/services/chat_service.dart';
 import 'package:flutter_mindmate_project/products/services/firestore_service.dart';
 import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:logger/logger.dart';
 
 var messageProvider = StateNotifierProvider<MessageProvider, MessageState>(
   (ref) => MessageProvider(),
@@ -15,7 +14,6 @@ var messageProvider = StateNotifierProvider<MessageProvider, MessageState>(
 
 class MessageProvider extends StateNotifier<MessageState> {
   final FirestoreService _firestoreService = getIt<FirestoreService>();
-  final Logger _logger = Logger();
   MessageProvider()
     : super(
         const MessageState(
@@ -33,9 +31,6 @@ class MessageProvider extends StateNotifier<MessageState> {
       // 1. Önce mesajı AI response olmadan ekle (UI'da loading gösterilsin)
       final DateTime now = DateTime.now();
       final String formattedTime = _getCurrentTimeFromDateTime(now);
-      _logger.i(
-        'Mesaj zamanı oluşturuluyor: ${now.toString()} -> $formattedTime',
-      );
 
       final MessageModel messageWithoutResponse = MessageModel(
         date: now.toString().split(' ')[0],
@@ -205,9 +200,6 @@ class MessageProvider extends StateNotifier<MessageState> {
     final String hourString = hour.toString().padLeft(2, '0');
     final String minuteString = minute.toString().padLeft(2, '0');
     final String timeString = '$hourString:$minuteString';
-    _logger.i(
-      'Zaman formatı: original=${localDateTime.hour}:${localDateTime.minute.toString().padLeft(2, '0')}, turkish=$timeString',
-    );
     return timeString;
   }
 }

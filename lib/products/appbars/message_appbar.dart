@@ -10,7 +10,11 @@ import 'package:flutter_mindmate_project/products/widgets/texts/general_text_wid
 class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
   final bool centerTitle;
   final String title;
-  const MessageAppbar({this.centerTitle = true, required this.title, super.key});
+  const MessageAppbar({
+    this.centerTitle = true,
+    required this.title,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,9 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
         padding: Paddings.paddingInstance.splashAppbarLeadingLeftPadding,
         child: GlobalIconButton(
           icon: IconConstants.iconConstants.arrowBackIcon,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
       ),
       title: GeneralTextWidget(

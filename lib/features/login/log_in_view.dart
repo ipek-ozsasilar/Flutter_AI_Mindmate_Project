@@ -1,10 +1,7 @@
-import 'package:firebase_ui_auth/firebase_ui_auth.dart' hide ForgotPasswordView;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mindmate_project/features/create_chat/create_chat_view.dart';
 import 'package:flutter_mindmate_project/features/forgot_password/forgot_password_view.dart';
 import 'package:flutter_mindmate_project/features/login/create_account_view.dart';
-import 'package:flutter_mindmate_project/features/login/provider/login_provider.dart';
 import 'package:flutter_mindmate_project/features/login/view_model/login_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/appbars/log_in_appbar.dart';

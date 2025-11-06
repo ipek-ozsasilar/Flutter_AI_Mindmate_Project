@@ -3,12 +3,10 @@ import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/products/enums/durations_enum.dart';
-  
 
 mixin SpeechToTextMixin<T extends StatefulWidget> on State<T> {
   final TextEditingController messageController = TextEditingController();
@@ -19,8 +17,7 @@ mixin SpeechToTextMixin<T extends StatefulWidget> on State<T> {
   final SpeechToText speechToText = SpeechToText();
   // Cihazda speech-to-text özelliği başarıyla başlatıldı mı bilgisini tutar
   bool speechEnabled = false;
-  // Uygulama içi loglama için kullanılır; hata/uyarı/bilgi mesajları atılır
-  final Logger logger = Logger();
+
   // Dinleme sırasında gelen (final olmadan) anlık metni geçici olarak saklar
   String pendingSpeechText = '';
 
@@ -29,10 +26,8 @@ mixin SpeechToTextMixin<T extends StatefulWidget> on State<T> {
       // Cihaz yeteneklerini ve izinleri kontrol ederek speech-to-text'i hazırlar
       speechEnabled = await speechToText.initialize();
       if (mounted) setState(() {});
-      logger.i('Speech-to-text initialized: $speechEnabled');
     } catch (e) {
       // Başlatma hatası durumunda özelliği pasifler ve kullanıcıya etki etmesin diye state günceller
-      logger.e('Speech-to-text initialization error: $e');
       speechEnabled = false;
       if (mounted) setState(() {});
     }
@@ -85,18 +80,15 @@ mixin SpeechToTextMixin<T extends StatefulWidget> on State<T> {
       final status = await Permission.microphone.request();
       if (status.isGranted) {
         // İzin verildiyse dinlemeye devam edilebilir
-        logger.i('Microphone permission granted');
+
         return;
       } else if (status.isPermanentlyDenied) {
         // Kalıcı olarak reddedildiyse ayarlara yönlendirme gerekebilir
-        logger.w('Microphone permission permanently denied');
       } else {
         // Geçici reddedildiyse tekrar sorulabilir
-        logger.w('Microphone permission denied');
       }
     } catch (e) {
       // İzin isteme sırasında beklenmeyen bir hata oluştu
-      logger.e('Permission request error: $e');
     }
   }
 
@@ -104,11 +96,9 @@ mixin SpeechToTextMixin<T extends StatefulWidget> on State<T> {
     try {
       // Aktif dinlemeyi güvenli bir şekilde sonlandırır
       await speechToText.stop();
-      logger.i('Stopped listening');
       if (mounted) setState(() {});
     } catch (e) {
-      // Durdurma sırasında hata olursa loglanır
-      logger.e('Error stopping listening: $e');
+      // Durdurma sırasında hata olursa yoksay
     }
   }
 
@@ -128,7 +118,6 @@ mixin SpeechToTextMixin<T extends StatefulWidget> on State<T> {
 
     // Eğer konuşma motoru sonucu final olarak işaretlediyse
     if (result.finalResult) {
-      logger.i('Speech-to-text final result detected');
       applyPendingSpeechText(); // metni input'a uygula
       stopListening(); // dinlemeyi kapat
     }

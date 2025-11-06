@@ -16,9 +16,7 @@ import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart
 import 'package:flutter_mindmate_project/products/widgets/inputs/input_widget.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
-import 'package:flutter_mindmate_project/features/profile/provider/profile_provider.dart';
 
 part 'sub_view/profile_header_widget.dart';
 part 'sub_view/profile_menu_item_widget.dart';
@@ -33,8 +31,6 @@ class ProfileView extends ConsumerStatefulWidget {
 }
 
 class _ProfileViewState extends ProfileViewModel {
-  final Logger _logger = Logger();
-
   @override
   void initState() {
     super.initState();
@@ -68,8 +64,7 @@ class _ProfileViewState extends ProfileViewModel {
                   clearErrorMessage();
                   _ProfileShowEmailEdit()._showEditEmailDialog(
                     context,
-                    updateEmail
-                    
+                    updateEmail,
                   );
                 },
               ),

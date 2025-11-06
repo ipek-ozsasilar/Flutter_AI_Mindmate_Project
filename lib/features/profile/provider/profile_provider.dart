@@ -7,7 +7,6 @@ import 'package:flutter_mindmate_project/products/services/image_service.dart';
 import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:state_notifier/state_notifier.dart';
-import 'package:logger/logger.dart';
 
 final profileProvider = StateNotifierProvider<ProfileNotifier, ProfileState>(
   (ref) => ProfileNotifier(),
@@ -23,7 +22,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
         ),
       );
 
-  final Logger _logger = Logger();
   final ImageService _imageService = getIt<ImageService>();
 
   /// Kullanıcının profil görselini yükler
@@ -34,7 +32,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       changeStateImageUrl(url);
       return true;
     } catch (e) {
-      _logger.e('Profil görseli yüklenirken hata: $e');
       changeStateErrorMessage(e.toString());
       return false;
     } finally {
@@ -85,7 +82,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       changeStateErrorMessage('');
       return true;
     } catch (e) {
-      _logger.e('Email güncellenirken hata: $e');
       changeStateErrorMessage(e.toString());
       return false;
     } finally {
@@ -135,7 +131,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       changeStateErrorMessage('');
       return true;
     } catch (e) {
-      _logger.e('Şifre güncellenirken hata: $e');
       changeStateErrorMessage(e.toString());
       return false;
     } finally {
@@ -162,7 +157,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       changeStateImageUrl(url);
       return true;
     } catch (e) {
-      _logger.e('Profil görseli yüklenirken hata: $e');
       changeStateErrorMessage(e.toString());
       return false;
     } finally {

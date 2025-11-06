@@ -6,39 +6,33 @@ import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
 import 'package:flutter_mindmate_project/features/notifications/provider/notifications_provider.dart';
 import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 
 abstract class MessageViewModel extends ConsumerState<MessageView>
     with ScaffoldMessage<MessageView> {
-  final Logger _logger = Logger();
   void setupListeners() {
     ref.listen(messageProvider, (previous, next) {
       // Error mesajı değiştiğinde ve boş değilse snackbar göster
       if (next.errorMessage.isNotEmpty &&
           next.errorMessage != previous?.errorMessage) {
-        _logger.e(next.errorMessage);
+        // error handled by snackbar in UI
       }
 
       // İnternet bağlantı durumu değiştiğinde bildirim göster
       if (previous != null && previous.isConnected != next.isConnected) {
-        if (next.isConnected) {
-          _logger.i(ErrorStringsEnum.internetConnectionSuccess.value);
-        } else {
-          _logger.e(ErrorStringsEnum.internetConnectionError.value);
-        }
+        // connection status changed; UI shows feedback via snackbar
       }
 
       // Mesajlar yüklendiğinde (ilk yüklemede veya refresh'te)
       if (previous != null &&
           previous.messages.length != next.messages.length &&
           next.messages.isNotEmpty) {
-        _logger.i(ErrorStringsEnum.messageGetSuccess.value);
+        // messages updated
       }
 
       // AI yanıtı geldiğinde
       if (next.aiResponse.isNotEmpty &&
           next.aiResponse != previous?.aiResponse) {
-        _logger.i(ErrorStringsEnum.aiResponseSuccess.value);
+        // ai response arrived
       }
     });
   }

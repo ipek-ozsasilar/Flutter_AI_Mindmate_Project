@@ -2,13 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_mindmate_project/models/message_model.dart';
 import 'package:flutter_mindmate_project/models/notification_model.dart';
-import 'package:logger/logger.dart';
 import 'package:flutter_mindmate_project/products/enums/firestore_collection_enum.dart';
 
 /// Firebase Firestore ile mesaj işlemlerini yöneten service
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final Logger _logger = Logger();
 
   /// Messages koleksiyonuna erişim
   CollectionReference get _messagesCollection {
@@ -56,7 +54,6 @@ class FirestoreService {
       );
 
       await _messagesCollection.doc(docId).set(message.toJson());
-      _logger.i('Mesaj başarıyla Firestore\'a eklendi: $docId');
       return true;
     } catch (e) {
       return false;
@@ -88,7 +85,6 @@ class FirestoreService {
 
       return userMessages;
     } catch (e) {
-      _logger.e('Mesajlar getirilirken hata oluştu', error: e);
       return null;
     }
   }
@@ -107,10 +103,8 @@ class FirestoreService {
       for (final doc in userDocs) {
         await doc.reference.delete();
       }
-      _logger.i('Tüm mesajlar başarıyla silindi');
       return true;
     } catch (e) {
-      _logger.e('Tüm mesajlar silinirken hata oluştu', error: e);
       return false;
     }
   }
@@ -150,10 +144,8 @@ class FirestoreService {
       );
 
       await _notificationsCollection.doc(docId).set(notification.toJson());
-      _logger.i('Bildirim başarıyla Firestore\'a eklendi: $docId');
       return true;
     } catch (e) {
-      _logger.e('Bildirim eklenirken hata oluştu', error: e);
       return false;
     }
   }
@@ -182,7 +174,6 @@ class FirestoreService {
       // Ama Map zaten sırasız olduğu için, sıralama işlemini provider'da yapabiliriz
       return notificationsMap;
     } catch (e) {
-      _logger.e('Bildirimler getirilirken hata oluştu', error: e);
       return null;
     }
   }
@@ -194,10 +185,8 @@ class FirestoreService {
       await _notificationsCollection.doc(notificationId).update({
         'isRead': true,
       });
-      _logger.i('Bildirim okundu olarak işaretlendi: $notificationId');
       return true;
     } catch (e) {
-      _logger.e('Bildirim güncellenirken hata oluştu', error: e);
       return false;
     }
   }

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:logger/logger.dart';
 import 'package:flutter_mindmate_project/models/notification_model.dart';
 import 'package:flutter_mindmate_project/products/services/chat_service.dart';
 import 'package:flutter_mindmate_project/products/services/firestore_service.dart';
@@ -56,8 +55,6 @@ class NotificationsProvider extends StateNotifier<NotificationsState> {
         ),
       );
 
-  final Logger _logger = Logger();
-
   /// Yerel bildirim planlama/izin/kanal işlemleri
   final NotificationService _notificationService = getIt<NotificationService>();
   final FirestoreService _firestoreService = getIt<FirestoreService>();
@@ -80,7 +77,6 @@ class NotificationsProvider extends StateNotifier<NotificationsState> {
       //Yeni bir bildirim Firestore’a eklendi, o zaman ekranı güncelle ki kullanıcı hemen görebilsin
       await loadNotifications();
     } catch (e) {
-      _logger.w('scheduleMotivationAfterMessage failed: $e');
       changeErrorMessage('Bildirim planlanamadı: ${e.toString()}');
     } finally {
       changeIsLoading(false);
@@ -118,13 +114,14 @@ class NotificationsProvider extends StateNotifier<NotificationsState> {
         changeErrorMessage('Bildirimler yüklenemedi');
       }
     } catch (e) {
-      _logger.e('loadNotifications failed: $e');
-      changeErrorMessage('Bildirimler yüklenirken hata oluştu: ${e.toString()}');
+      changeErrorMessage(
+        'Bildirimler yüklenirken hata oluştu: ${e.toString()}',
+      );
     } finally {
       changeIsLoading(false);
     }
   }
-   
+
   //Kullanıcı bildirime baktıysa, Firestore’da ve ekrandaki state’de artık bu bildirimi okundu olarak göster.
   Future<void> markAsRead(String documentId) async {
     try {
@@ -150,8 +147,9 @@ class NotificationsProvider extends StateNotifier<NotificationsState> {
           .toList();
       changeNotifications(updatedNotifications);
     } catch (e) {
-      _logger.e('markAsRead failed: $e');
-      changeErrorMessage('Bildirim okundu olarak işaretlenirken hata oluştu: ${e.toString()}');
+      changeErrorMessage(
+        'Bildirim okundu olarak işaretlenirken hata oluştu: ${e.toString()}',
+      );
     }
   }
 }

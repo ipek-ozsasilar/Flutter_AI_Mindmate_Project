@@ -1,8 +1,6 @@
 part of '../profile_view.dart';
 
 class _ProfileShowPasswordEdit {
-  final Logger _logger = Logger();
-
   Future<void> _showEditPasswordDialog(
     BuildContext context,
     Future<bool> Function(String currentPassword, String newPassword)

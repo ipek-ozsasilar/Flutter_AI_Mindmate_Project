@@ -9,6 +9,7 @@ enum ErrorStringsEnum {
   aiResponseSuccess('ai response successful'),
   loginSuccess('login successful'),
   invalidEmailError('invalid email'),
+  invalidEmailFormatError('invalid email format'),
   userDisabledError('user disabled'),
   speechToTextInitializationError('speech-to-text initialization error'),
   userNotLoggedIn('user not logged in'),

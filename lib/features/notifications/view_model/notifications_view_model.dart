@@ -1,6 +1,5 @@
 import 'package:flutter_mindmate_project/features/notifications/notifications_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:flutter_mindmate_project/features/notifications/provider/notifications_provider.dart';
 import 'package:flutter_mindmate_project/models/notification_model.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
@@ -9,8 +8,6 @@ import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 /// - Provider'ı kullanır, UI'a basit API sağlar
 abstract class NotificationsViewModel extends ConsumerState<NotificationsView> {
   NotificationsViewModel();
-
-  final Logger _logger = Logger();
 
   /// Mesaj sonrası bildirim planlama (UI tarafından çağrılır)
   Future<void> scheduleAfterMessage({
@@ -25,10 +22,9 @@ abstract class NotificationsViewModel extends ConsumerState<NotificationsView> {
             delay: delay,
           );
     } catch (e) {
-      _logger.w('NotificationsViewModel.scheduleAfterMessage failed: $e');
+      // no-op
     }
   }
-
 
   /// UI'ın listeyi okuması için basit getter
   List<NotificationModel> notificationsRead() {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmate_project/features/create_chat/create_chat_view.dart';
 import 'package:flutter_mindmate_project/features/forgot_password/forgot_password_view.dart';
 import 'package:flutter_mindmate_project/features/forgot_password/provider/forgot_password_provider.dart';
 import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
@@ -8,7 +7,8 @@ import 'package:flutter_mindmate_project/products/mixins/navigation_mixin.dart';
 import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView> with ScaffoldMessage<ForgotPasswordView> {
+abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView>
+    with ScaffoldMessage<ForgotPasswordView> {
   // Build içinde çağrılır - state değişikliklerini dinler
   void setupListeners() {
     ref.listen<ForgotPasswordState>(forgotPasswordProvider, (previous, next) {

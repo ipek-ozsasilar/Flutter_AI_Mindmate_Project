@@ -2,26 +2,30 @@
 import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
 
 class Validators {
-   Validators._();
+  Validators._();
   static final validatorsInstance = Validators._();
 
   final int passwordLength = 6;
   // Email validation pattern
-   final RegExp emailRegex = RegExp(r'[a-zA-Z0-9@._+%-]');
-  
+  final RegExp emailRegex = RegExp(r'[a-zA-Z0-9@._+%-]');
+
   // Email validator method
-   String? validateEmail(String? value) {
+  String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return ErrorStringsEnum.emailEmptyError.value;
+    }
+    // @ işareti kontrolü
+    if (!value.contains('@')) {
+      return ErrorStringsEnum.invalidEmailFormatError.value;
     }
     if (!emailRegex.hasMatch(value)) {
       return ErrorStringsEnum.invalidEmailError.value;
     }
     return null;
   }
-  
+
   // Password validator
-   String? validatePassword(String? value) {
+  String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return ErrorStringsEnum.passwordEmptyError.value;
     }

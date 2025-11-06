@@ -1,8 +1,6 @@
 part of '../profile_view.dart';
 
 class _ProfileShowEmailEdit {
-  final Logger _logger = Logger();
-
   Future<void> _showEditEmailDialog(
     BuildContext context,
     Future<bool> Function(String currentPassword, String newEmail) updateEmail,

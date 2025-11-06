@@ -2,14 +2,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:logger/logger.dart';
 import 'package:flutter_mindmate_project/products/enums/firestore_collection_enum.dart';
 
 /// Kullanıcı profil görseli yükleme ve okuma servisleri
 class ImageService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  final Logger _logger = Logger();
 
   CollectionReference<Map<String, dynamic>> get _imagesCollection =>
       _firestore.collection(FirestoreCollectionsEnum.images.value);
@@ -27,7 +25,6 @@ class ImageService {
       final String downloadUrl = await ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
-      _logger.e('Görsel yüklenirken hata oluştu', error: e);
       return null;
     }
   }
@@ -43,7 +40,6 @@ class ImageService {
       }, SetOptions(merge: true));
       return true;
     } catch (e) {
-      _logger.e('Görsel URL kaydedilirken hata oluştu', error: e);
       return false;
     }
   }
@@ -60,7 +56,6 @@ class ImageService {
       if (!doc.exists) return null;
       return doc.data()?['imageUrl'] as String?;
     } catch (e) {
-      _logger.e('Görsel URL getirilirken hata oluştu', error: e);
       return null;
     }
   }
