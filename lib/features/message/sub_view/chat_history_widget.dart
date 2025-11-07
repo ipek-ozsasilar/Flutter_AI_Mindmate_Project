@@ -11,45 +11,44 @@ class _ChatHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: messages.isEmpty
-          ? _EmptyStateWidget()
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: Paddings.paddingInstance.generalHorizontalPadding,
-                  child: GeneralTextWidget(
-                    color: ColorName.whiteColor,
-                    size: TextSizesEnum.appTitleSize.value,
-                    text: StringsEnum.todaysConversations.value,
-                  ),
+    return messages.isEmpty
+        ? _EmptyStateWidget()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: Paddings.paddingInstance.generalHorizontalPadding,
+                child: GeneralTextWidget(
+                  color: ColorName.whiteColor,
+                  size: TextSizesEnum.appTitleSize.value,
+                  text: StringsEnum.todaysConversations.value,
                 ),
-                const SizedBox(height: 12),
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      // Sadece en son eklenen mesaj (son index) için loading göster
-                      // VE o mesajın AI response'u henüz yoksa
-                      final bool isLastMessage = index == messages.length - 1;
-                      final bool shouldShowLoading =
-                          isLastMessage &&
-                          isSendingMessage &&
-                          (messages[index].aiResponse == null ||
-                              messages[index].aiResponse!.isEmpty);
+              ),
+              const SizedBox(height: 12),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  // Sadece en son eklenen mesaj (son index) için loading göster
+                  // VE o mesajın AI response'u henüz yoksa
+                  final bool isLastMessage = index == messages.length - 1;
+                  final bool shouldShowLoading =
+                      isLastMessage &&
+                      isSendingMessage &&
+                      (messages[index].aiResponse == null ||
+                          messages[index].aiResponse!.isEmpty);
 
-                      return _ChatCard(
-                        message: messages[index],
-                        isLoading: shouldShowLoading,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-    );
+                  return _ChatCard(
+                    message: messages[index],
+                    isLoading: shouldShowLoading,
+                  );
+                },
+              ),
+            ],
+          );
   }
 }
 

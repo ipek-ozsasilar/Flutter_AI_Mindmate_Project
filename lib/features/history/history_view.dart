@@ -40,9 +40,12 @@ class _HistoryViewState extends HistoryViewModel {
 
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.history.value),
-      body: messages.isEmpty
-          ? _EmptyHistoryWidget()
-          : ListView.builder(
+      body: SingleChildScrollView(
+        child: messages.isEmpty
+            ? _EmptyHistoryWidget()
+            : ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
               padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
               itemCount: uniqueDates.length,
               itemBuilder: (context, index) {
@@ -60,6 +63,7 @@ class _HistoryViewState extends HistoryViewModel {
                 );
               },
             ),
+      ),
       bottomNavigationBar: MessageBottomAppbar(),
     );
   }

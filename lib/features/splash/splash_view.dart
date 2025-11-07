@@ -19,7 +19,7 @@ class SplashView extends ConsumerStatefulWidget {
   ConsumerState<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashViewState extends SplashViewModel{
+class _SplashViewState extends SplashViewModel {
   @override
   void initState() {
     super.initState();
@@ -33,10 +33,12 @@ class _SplashViewState extends SplashViewModel{
     return Scaffold(
       //splash appbar
       appBar: SplashAppbar(),
-      body: Padding(
-        padding: Paddings.paddingInstance.generalHorizontalPadding,
-        child: Center(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Paddings.paddingInstance.generalHorizontalPadding,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //splash image
               Padding(
@@ -52,17 +54,15 @@ class _SplashViewState extends SplashViewModel{
               ),
 
               //lets start button
-              Expanded(
-                child: Padding(
-                  padding: Paddings.paddingInstance.splashButtonVerticalPadding,
-                  child: GlobalElevatedButton(
-                    onPressed: () async {
-                      //Kullanıcının internet bağlantısını kontrol eder ve login durumunu kontrol eder
-                      //Ona geore gereklı sayfaya gecıs yapar
-                      await startChecks();
-                    },
-                    text: StringsEnum.startText.value,
-                  ),
+              Padding(
+                padding: Paddings.paddingInstance.splashButtonVerticalPadding,
+                child: GlobalElevatedButton(
+                  onPressed: () async {
+                    //Kullanıcının internet bağlantısını kontrol eder ve login durumunu kontrol eder
+                    //Ona geore gereklı sayfaya gecıs yapar
+                    await startChecks();
+                  },
+                  text: StringsEnum.startText.value,
                 ),
               ),
             ],

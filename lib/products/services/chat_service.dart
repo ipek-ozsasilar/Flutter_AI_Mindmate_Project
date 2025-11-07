@@ -35,10 +35,12 @@ Future<String> chatService(String prompt) async {
     );
 
     if (response.statusCode == successStatusCode) {
+      // JSON decode işlemini isolate'de yapmak için compute kullanabiliriz
+      // Ama küçük response'larda gerek yok, bu yüzden direkt decode ediyoruz
       final Map<String, dynamic> data =
           jsonDecode(response.body) as Map<String, dynamic>;
       final String text =
-          data['choices'][0]['message']['content'] as String? ?? '';
+          data['choices']?[0]?['message']?['content'] as String? ?? '';
       return text.isNotEmpty ? text : emptyResponse;
     } else {
       throw Exception('API isteği başarısız: ${response.statusCode}');

@@ -22,10 +22,10 @@ class CreateChatView extends StatefulWidget {
 class _CreateChatViewState extends State<CreateChatView> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.startChat.value),
-      body: Center(child: _StartChatWidget()),
-      bottomNavigationBar:  MessageBottomAppbar(),
+      body: SingleChildScrollView(child: Center(child: _StartChatWidget())),
+      bottomNavigationBar: MessageBottomAppbar(),
     );
   }
 }

@@ -78,33 +78,36 @@ class _NotificationsViewState extends NotificationsViewModel {
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackgroundColor,
       appBar: MessageAppbar(title: StringsEnum.notifications.value),
-      body: Padding(
-        padding: Paddings.paddingInstance.generalHorizontalPadding,
-        child: Column(
-          crossAxisAlignment: crossAxisAlignment,
-          children: [
-            Padding(
-              padding: Paddings.paddingInstance.notificationsViewTitlePadding,
-              child: GeneralTextWidget(
-                text: capitalizedNotifications,
-                color: ColorName.whiteColor,
-                size: TextSizesEnum.todayCardTitleSize.value,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Paddings.paddingInstance.generalHorizontalPadding,
+          child: Column(
+            crossAxisAlignment: crossAxisAlignment,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: Paddings.paddingInstance.notificationsViewTitlePadding,
+                child: GeneralTextWidget(
+                  text: capitalizedNotifications,
+                  color: ColorName.whiteColor,
+                  size: TextSizesEnum.todayCardTitleSize.value,
+                ),
               ),
-            ),
 
-            Padding(
-              padding: Paddings.paddingInstance.emptyHistoryWidgetPadding,
-              child: GeneralTextWidget(
-                text: StringsEnum.dailyMotivationMessages.value,
-                color: ColorName.loginGreyTextColor,
-                size: TextSizesEnum.subtitleSize.value,
+              Padding(
+                padding: Paddings.paddingInstance.emptyHistoryWidgetPadding,
+                child: GeneralTextWidget(
+                  text: StringsEnum.dailyMotivationMessages.value,
+                  color: ColorName.loginGreyTextColor,
+                  size: TextSizesEnum.subtitleSize.value,
+                ),
               ),
-            ),
 
-            Expanded(
-              child: groupedNotifications.isEmpty
+              groupedNotifications.isEmpty
                   ? _EmptyNotifications()
                   : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: sortedDates.length,
                       itemBuilder: (context, index) {
                         final String date = sortedDates[index];
@@ -134,8 +137,8 @@ class _NotificationsViewState extends NotificationsViewModel {
                         );
                       },
                     ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: MessageBottomAppbar(),

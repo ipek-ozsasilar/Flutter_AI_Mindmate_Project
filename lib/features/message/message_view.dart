@@ -62,23 +62,25 @@ class _MessageViewState extends MessageViewModel {
 
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.messages.value),
-      body: Column(
-        children: [
-          _ChatHistoryWidget(
-            messages: messageRead(),
-            isSendingMessage: loadingWatch(),
-          ),
-          _StartChatButtonWidget(
-            hasReachedLimit: remainingChats(totalChats: _totalChats) <= 0,
-            // onSendMessage → MessageViewModel.onPressedSendButton'u çağırır.
-            // Bu metot mesajı gönderdikten sonra NotificationsViewModel üzerinden
-            // yerel bildirimi planlar (delay ile). Navigasyon için global navigatorKey kullanılır.
-            //butona bastıktan ve verıtabanına verıler kaydedıldıkten sonra bildirim planlanır.
-            //TAM BURADA BİLDİRİM PLANLANIYOR.
-            onSendMessage: onPressedSendButton,
-            isLoading: loadingWatch(),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _ChatHistoryWidget(
+              messages: messageRead(),
+              isSendingMessage: loadingWatch(),
+            ),
+            _StartChatButtonWidget(
+              hasReachedLimit: remainingChats(totalChats: _totalChats) <= 0,
+              // onSendMessage → MessageViewModel.onPressedSendButton'u çağırır.
+              // Bu metot mesajı gönderdikten sonra NotificationsViewModel üzerinden
+              // yerel bildirimi planlar (delay ile). Navigasyon için global navigatorKey kullanılır.
+              //butona bastıktan ve verıtabanına verıler kaydedıldıkten sonra bildirim planlanır.
+              //TAM BURADA BİLDİRİM PLANLANIYOR.
+              onSendMessage: onPressedSendButton,
+              isLoading: loadingWatch(),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: MessageBottomAppbar(),
     );

@@ -11,12 +11,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart';
 
 void main() async {
-  //AppInitiliazer'ı başlatır
-  //AppInitiliazer'ın init metodu async olduğu için await kullanıyoruz.
+  // AppInitiliazer'ı başlatır
   await AppInitiliazer().init();
-  //MyApp widget'ını ProviderScope ile sarmalıyoruz (Riverpod için gerekli)
-  //dotenv.load(fileName: ".env"); ile .env dosyasını yükler
-  await dotenv.load(fileName: kReleaseMode ? ".env.production" : ".env.development");
+  // .env dosyasını yükler
+  await dotenv.load(
+    fileName: kReleaseMode ? ".env.production" : ".env.development",
+  );
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -27,15 +27,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //GlobalKey<NavigatorState> türünde global bir anahtar. Uygulamanın Navigator durumuna, herhangi bir yerden (BuildContext olmadan) erişmenizi sağlar.
-      //navigatorKey.currentState ile push/pop yaparak ekrana yönlendirme, dialog açma gibi işlemleri UI context’i olmayan kodlardan (ör. servisler,
-      //background callback’ler) gerçekleştirebilirsiniz. Notification ile alakası ne? Bildirim tıklanınca veya mesajdan
-      //uygulama açılınca çoğu zaman bir ekrana yönlendirmek gerekir. Bu callback’lerde genelde BuildContext yoktur.
-      //navigatorKey sayesinde: bildirimden gelen veriye göre ilgili sayfaya güvenle yönlendirme yapılır.
+      // Global Navigator Key
       navigatorKey: navigatorKey,
+
+      // Responsive Breakpoints ile responsive tasarım sağlanır
+      // Not: responsive_framework paketi genişlik bazlı çalışır
+      // Dikey ölçekleme için view dosyalarında MediaQuery kullanılmalıdır
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child!,
-        //breakpoints → belirli ekran genişliklerinde widget’ların nasıl ölçekleneceğini veya yeniden boyutlanacağını tanımlar.
+        //breakpoints → belirli ekran genişliklerinde widget'ların nasıl ölçekleneceğini veya yeniden boyutlanacağını tanımlar.
         breakpoints: [
           Breakpoint(
             start: ScreenSizesEnum.mobileSmall.value,
@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
       ),
+
       debugShowCheckedModeBanner: false,
       title: 'Mindmate App',
       theme: ThemeData(
@@ -78,11 +79,11 @@ class MyApp extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: ColorName.yellowColor,
             foregroundColor: ColorName.blackColor,
-            shape: RoundedRectangleBorder(),
+            shape: const RoundedRectangleBorder(), // const eklendi
           ),
         ),
       ),
-      home: SplashView(),
+      home: const SplashView(),
     );
   }
 }

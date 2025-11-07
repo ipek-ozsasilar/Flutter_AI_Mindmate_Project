@@ -28,68 +28,72 @@ class _ForgotPasswordViewState extends ForgotPasswordViewModel {
     setupListeners();
     return Scaffold(
       appBar: LogInAppbar(),
-      body: Padding(
-        padding: Paddings.paddingInstance.generalHorizontalPadding,
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              // Forgot Password title
-              GeneralTextWidget(
-                color: ColorName.whiteColor,
-                size: TextSizesEnum.googleSize.value,
-                text: StringsEnum.forgotPassword.value,
-              ),
-
-              // Description text
-              Padding(
-                padding: Paddings.paddingInstance.loginVerticalPadding,
-                child: GeneralTextWidget(
-                  color: ColorName.loginGreyTextColor,
-                  size: TextSizesEnum.generalSize.value,
-                  text: StringsEnum.forgotPasswordDescription.value,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Paddings.paddingInstance.generalHorizontalPadding,
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                // Forgot Password title
+                GeneralTextWidget(
+                  color: ColorName.whiteColor,
+                  size: TextSizesEnum.googleSize.value,
+                  text: StringsEnum.forgotPassword.value,
                 ),
-              ),
 
-              // Email address text
-              Padding(
-                padding: Paddings.paddingInstance.loginVerticalPadding,
-                child: GeneralTextWidget(
-                  color: ColorName.loginGreyTextColor,
-                  size: TextSizesEnum.generalSize.value,
-                  text: StringsEnum.emailAddress.value,
-                ),
-              ),
-
-              // Email address input
-              InputWidget(
-                controller: readEmailController(),
-                hintText: StringsEnum.demoEmail.value,
-                prefixIcon: IconConstants.iconConstants.emailIcon,
-                keyboardType: TextInputType.emailAddress,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                    Validators.validatorsInstance.emailRegex,
+                // Description text
+                Padding(
+                  padding: Paddings.paddingInstance.loginVerticalPadding,
+                  child: GeneralTextWidget(
+                    color: ColorName.loginGreyTextColor,
+                    size: TextSizesEnum.generalSize.value,
+                    text: StringsEnum.forgotPasswordDescription.value,
                   ),
-                ],
-                validator: Validators.validatorsInstance.validateEmail,
-              ),
-
-              // Send button
-              Padding(
-                padding: Paddings.paddingInstance.splashButtonVerticalPadding,
-                child: GlobalElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      // TODO: Send password reset email
-                      sendPasswordResetEmail();
-                    }
-                  },
-                  text: StringsEnum.send.value,
-                  loading: loadingWatch(),
                 ),
-              ),
-            ],
+
+                // Email address text
+                Padding(
+                  padding: Paddings.paddingInstance.loginVerticalPadding,
+                  child: GeneralTextWidget(
+                    color: ColorName.loginGreyTextColor,
+                    size: TextSizesEnum.generalSize.value,
+                    text: StringsEnum.emailAddress.value,
+                  ),
+                ),
+
+                // Email address input
+                InputWidget(
+                  controller: readEmailController(),
+                  hintText: StringsEnum.demoEmail.value,
+                  prefixIcon: IconConstants.iconConstants.emailIcon,
+                  keyboardType: TextInputType.emailAddress,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                      Validators.validatorsInstance.emailRegex,
+                    ),
+                  ],
+                  validator: Validators.validatorsInstance.validateEmail,
+                ),
+
+                // Send button
+                Padding(
+                  padding: Paddings.paddingInstance.splashButtonVerticalPadding,
+                  child: GlobalElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        // TODO: Send password reset email
+                        sendPasswordResetEmail();
+                      }
+                    },
+                    text: StringsEnum.send.value,
+                    loading: loadingWatch(),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

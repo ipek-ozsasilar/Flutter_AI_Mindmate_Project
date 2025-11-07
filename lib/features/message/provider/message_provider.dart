@@ -108,7 +108,6 @@ class MessageProvider extends StateNotifier<MessageState> {
 
   Future<bool> checkInternetConnection() async {
     try {
-      changeStateIsLoading(true);
       final result = await Connectivity().checkConnectivity();
       if (result.contains(ConnectivityResult.none)) {
         changeStateIsConnected(false);
@@ -120,10 +119,7 @@ class MessageProvider extends StateNotifier<MessageState> {
       }
     } catch (e) {
       changeStateErrorMessage(e.toString());
-      changeStateIsLoading(false);
       return false;
-    } finally {
-      changeStateIsLoading(false);
     }
   }
 

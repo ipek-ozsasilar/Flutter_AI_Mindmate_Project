@@ -44,121 +44,128 @@ class _LogInViewState extends LoginViewModel {
     return Scaffold(
       //Login appbar
       appBar: LogInAppbar(),
-      body: Padding(
-        padding: Paddings.paddingInstance.generalHorizontalPadding,
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              //welcome back title
-              GeneralTextWidget(
-                color: ColorName.whiteColor,
-                size: TextSizesEnum.googleSize.value,
-                text: StringsEnum.welcomeBack.value,
-              ),
-              //email address text
-              Padding(
-                padding: Paddings.paddingInstance.loginVerticalPadding,
-                child: GeneralTextWidget(
-                  color: ColorName.loginGreyTextColor,
-                  size: TextSizesEnum.generalSize.value,
-                  text: StringsEnum.emailAddress.value,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Paddings.paddingInstance.generalHorizontalPadding,
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                //welcome back title
+                GeneralTextWidget(
+                  color: ColorName.whiteColor,
+                  size: TextSizesEnum.googleSize.value,
+                  text: StringsEnum.welcomeBack.value,
                 ),
-              ),
-              //email address input
-              InputWidget(
-                controller: readEmailController(),
-                hintText: StringsEnum.demoEmail.value,
-                prefixIcon: IconConstants.iconConstants.emailIcon,
-                keyboardType: TextInputType.emailAddress,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                    Validators.validatorsInstance.emailRegex,
+                //email address text
+                Padding(
+                  padding: Paddings.paddingInstance.loginVerticalPadding,
+                  child: GeneralTextWidget(
+                    color: ColorName.loginGreyTextColor,
+                    size: TextSizesEnum.generalSize.value,
+                    text: StringsEnum.emailAddress.value,
                   ),
-                ],
-                validator: Validators.validatorsInstance.validateEmail,
-              ),
-              //password text
-              Padding(
-                padding: Paddings.paddingInstance.loginPasswordVerticalPadding,
-                child: GeneralTextWidget(
-                  color: ColorName.loginGreyTextColor,
-                  size: TextSizesEnum.generalSize.value,
-                  text: StringsEnum.password.value,
                 ),
-              ),
+                //email address input
+                InputWidget(
+                  controller: readEmailController(),
+                  hintText: StringsEnum.demoEmail.value,
+                  prefixIcon: IconConstants.iconConstants.emailIcon,
+                  keyboardType: TextInputType.emailAddress,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                      Validators.validatorsInstance.emailRegex,
+                    ),
+                  ],
+                  validator: Validators.validatorsInstance.validateEmail,
+                ),
+                //password text
+                Padding(
+                  padding:
+                      Paddings.paddingInstance.loginPasswordVerticalPadding,
+                  child: GeneralTextWidget(
+                    color: ColorName.loginGreyTextColor,
+                    size: TextSizesEnum.generalSize.value,
+                    text: StringsEnum.password.value,
+                  ),
+                ),
 
-              //password input
-              InputWidget(
-                controller: readPasswordController(),
-                hintText: StringsEnum.password.value,
-                prefixIcon: IconConstants.iconConstants.lockIcon,
-                suffixIcon: IconConstants.iconConstants.visibilityIcon,
-                keyboardType: TextInputType.visiblePassword,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(
-                    Validators.validatorsInstance.passwordLength,
-                  ), // Max 6 karakter
-                ],
-                validator: Validators.validatorsInstance.validatePassword,
-                obscureText: watchPasswordObscure(),
-                onSuffixIconPressed: togglePasswordVisibility,
-              ),
-              //forgot password text button
-              Padding(
-                padding: Paddings.paddingInstance.loginForgotPasswordTopPadding,
-                child: Align(
-                  alignment: alignment,
-                  child: GlobalTextButton(
-                    text: StringsEnum.forgotPassword.value,
-                    textColor: ColorName.loginGreyTextColor,
-                    onPressed: () {
-                      context.navigateTo(const ForgotPasswordView());
-                      //Başka bir sayfaya geçildiğinde email ve password'u temizle
-                      clearEmailAndPassword();
+                //password input
+                InputWidget(
+                  controller: readPasswordController(),
+                  hintText: StringsEnum.password.value,
+                  prefixIcon: IconConstants.iconConstants.lockIcon,
+                  suffixIcon: IconConstants.iconConstants.visibilityIcon,
+                  keyboardType: TextInputType.visiblePassword,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(
+                      Validators.validatorsInstance.passwordLength,
+                    ), // Max 6 karakter
+                  ],
+                  validator: Validators.validatorsInstance.validatePassword,
+                  obscureText: watchPasswordObscure(),
+                  onSuffixIconPressed: togglePasswordVisibility,
+                ),
+                //forgot password text button
+                Padding(
+                  padding:
+                      Paddings.paddingInstance.loginForgotPasswordTopPadding,
+                  child: Align(
+                    alignment: alignment,
+                    child: GlobalTextButton(
+                      text: StringsEnum.forgotPassword.value,
+                      textColor: ColorName.loginGreyTextColor,
+                      onPressed: () {
+                        context.navigateTo(const ForgotPasswordView());
+                        //Başka bir sayfaya geçildiğinde email ve password'u temizle
+                        clearEmailAndPassword();
+                      },
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: Paddings.paddingInstance.splashButtonVerticalPadding,
+                  child: GlobalElevatedButton(
+                    onPressed: () async {
+                      // Form validate et
+                      if (_formKey.currentState?.validate() ?? false) {
+                        // Login işlemini başlat ve başarılıysa başka bir sayfaya geç
+                        await loginUser();
+                      }
+                    },
+                    text: StringsEnum.logIn.value,
+                    loading: loadingWatch(),
+                  ),
+                ),
+
+                OrContinueWithRow(),
+
+                Padding(
+                  padding: Paddings
+                      .paddingInstance
+                      .loginTextAndSignUpVerticalPadding,
+                  child: GlobalOutlinedIconButton(
+                    onPressed: () async {
+                      await googleLogin();
                     },
                   ),
                 ),
-              ),
 
-              Padding(
-                padding: Paddings.paddingInstance.splashButtonVerticalPadding,
-                child: GlobalElevatedButton(
-                  onPressed: () async {
-                    // Form validate et
-                    if (_formKey.currentState?.validate() ?? false) {
-                      // Login işlemini başlat ve başarılıysa başka bir sayfaya geç
-                      await loginUser();
-                    }
-                  },
-                  text: StringsEnum.logIn.value,
-                  loading: loadingWatch(),
-                ),
-              ),
-
-              OrContinueWithRow(),
-
-              Padding(
-                padding:
-                    Paddings.paddingInstance.loginTextAndSignUpVerticalPadding,
-                child: GlobalOutlinedIconButton(
-                  onPressed: () async {
-                    await googleLogin();
+                TextAndSignUpLogInRowWidget(
+                  firstText: StringsEnum.dontHaveAnAccount.value,
+                  secondText: StringsEnum.signUp.value,
+                  onPressed: () {
+                    context.navigateTo(const CreateAccountView());
+                    //Başka bir sayfaya geçildiğinde email ve password'u temizle
+                    clearEmailAndPassword();
                   },
                 ),
-              ),
-
-              TextAndSignUpLogInRowWidget(
-                firstText: StringsEnum.dontHaveAnAccount.value,
-                secondText: StringsEnum.signUp.value,
-                onPressed: () {
-                  context.navigateTo(const CreateAccountView());
-                  //Başka bir sayfaya geçildiğinde email ve password'u temizle
-                  clearEmailAndPassword();
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
