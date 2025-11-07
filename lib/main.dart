@@ -16,7 +16,7 @@ void main() async {
   await AppInitiliazer().init();
   //MyApp widget'ını ProviderScope ile sarmalıyoruz (Riverpod için gerekli)
   //dotenv.load(fileName: ".env"); ile .env dosyasını yükler
-  await dotenv.load(fileName: kReleaseMode ? ".env.development" : ".env.production");
+  await dotenv.load(fileName: kReleaseMode ? ".env.production" : ".env.development");
   runApp(const ProviderScope(child: MyApp()));
 }
 
