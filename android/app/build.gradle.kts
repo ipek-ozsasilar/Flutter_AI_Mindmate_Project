@@ -1,14 +1,3 @@
-signingConfigs {
-    release {
-        if (project.hasProperty("MYAPP_UPLOAD_STORE_FILE")) {
-            storeFile file(MYAPP_UPLOAD_STORE_FILE)
-            storePassword MYAPP_UPLOAD_STORE_PASSWORD
-            keyAlias MYAPP_UPLOAD_KEY_ALIAS
-            keyPassword MYAPP_UPLOAD_KEY_PASSWORD
-        }
-    }
-}
-
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -45,14 +34,28 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            if (project.hasProperty("MYAPP_UPLOAD_STORE_FILE")) {
+                storeFile = file(project.property("MYAPP_UPLOAD_STORE_FILE") as String)
+                storePassword = project.property("MYAPP_UPLOAD_STORE_PASSWORD") as String
+                keyAlias = project.property("MYAPP_UPLOAD_KEY_ALIAS") as String
+                keyPassword = project.property("MYAPP_UPLOAD_KEY_PASSWORD") as String
+            }
+        }
+    }
+
     buildTypes {
-        release {
+        getByName("release") {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            isShrinkResources = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
         }
     }
 }
