@@ -118,7 +118,7 @@ flutter:
     - assets/images/
     - assets/colors/
     - assets/icons/
-    - .env
+    - .env.development
     - .env.production
 
 flutter_gen:
