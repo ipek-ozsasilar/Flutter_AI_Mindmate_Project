@@ -47,28 +47,28 @@ A modern, modular, and sustainable Flutter application. The project uses powerfu
     <td><img src="https://github.com/user-attachments/assets/081e9f5d-ac09-45f9-a53f-4babe8a46554" width="200"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/c348bc7f-690c-4329-b9fe-b303cf10ddea" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/83cf63d7-4dd7-4eb9-ba02-87e30ebc4c1c" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/cf873e2f-7d56-4d84-a9d1-3e64ffcd170b" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/34251db6-f537-4e54-a552-423012187cec" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/c348bc7f-690c-4329-b9fe-b303cf10ddea" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/83cf63d7-4dd7-4eb9-ba02-87e30ebc4c1c" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/cf873e2f-7d56-4d84-a9d1-3e64ffcd170b" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/34251db6-f537-4e54-a552-423012187cec" width="200"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/6b513e90-6164-4aa7-9bd4-0e5fc3fe1bc6" width=100"></td>
-    <td><img src="https://github.com/user-attachments/assets/b3da89d0-5fc7-45bd-ab28-9fdd15415539" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/1bf51cb2-64e0-4847-9af9-02062dbff272" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/d2b9a580-380c-4040-a4f4-e13c6db546a0" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/6b513e90-6164-4aa7-9bd4-0e5fc3fe1bc6" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/b3da89d0-5fc7-45bd-ab28-9fdd15415539" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/1bf51cb2-64e0-4847-9af9-02062dbff272" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/d2b9a580-380c-4040-a4f4-e13c6db546a0" width="200"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/a7cf0872-2d27-43f9-9f40-20c78f67c296" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/cb47c35d-b7e6-4a12-9dd9-46e916b7d641" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/9b99457a-733c-417a-b1f7-ef5d4d42bde1" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/49795c93-de45-4bd6-8699-4bc52094d8e3" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/a7cf0872-2d27-43f9-9f40-20c78f67c296" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/cb47c35d-b7e6-4a12-9dd9-46e916b7d641" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/9b99457a-733c-417a-b1f7-ef5d4d42bde1" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/49795c93-de45-4bd6-8699-4bc52094d8e3" width="200"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/19c74fc7-05ea-43f4-a37c-cbd326eff1d3" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/f0283be3-c32e-4842-b94c-6ee3571a10e2" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/66777628-2a9a-4b0c-8564-c4f552e2d950" width="100"></td>
-    <td><img src="https://github.com/user-attachments/assets/87572f29-0cb7-46ab-a9ca-56772d24a1d7" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/19c74fc7-05ea-43f4-a37c-cbd326eff1d3" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/f0283be3-c32e-4842-b94c-6ee3571a10e2" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/66777628-2a9a-4b0c-8564-c4f552e2d950" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/87572f29-0cb7-46ab-a9ca-56772d24a1d7" width="200"></td>
   </tr>
 </table>
 
