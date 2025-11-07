@@ -41,6 +41,7 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
+    resetProfile();
   }
 
   Future<bool> updateEmail({
@@ -81,8 +82,19 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       // Başarılı işlemde hata mesajını temiz tut
       changeStateErrorMessage('');
       return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        changeStateErrorMessage(ErrorStringsEnum.invalidEmailFormatError.value);
+        return false;
+      }
+      if (e.code == 'email-already-in-use') {
+        changeStateErrorMessage(ErrorStringsEnum.emailAlreadyInUseError.value);
+        return false;
+      }
+      changeStateErrorMessage(ErrorStringsEnum.wrongPasswordError.value);
+      return false;
     } catch (e) {
-      changeStateErrorMessage(e.toString());
+      changeStateErrorMessage(ErrorStringsEnum.unexpectedError.value);
       return false;
     } finally {
       changeStateIsLoading(false);
@@ -130,8 +142,17 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       await user.updatePassword(newPassword.trim());
       changeStateErrorMessage('');
       return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        changeStateErrorMessage(ErrorStringsEnum.wrongPasswordError.value);
+      } else if (e.code == 'weak-password') {
+        changeStateErrorMessage(ErrorStringsEnum.weakPasswordError.value);
+      } else {
+        changeStateErrorMessage(ErrorStringsEnum.updatePasswordFailed.value);
+      }
+      return false;
     } catch (e) {
-      changeStateErrorMessage(e.toString());
+      changeStateErrorMessage(ErrorStringsEnum.unexpectedError.value);
       return false;
     } finally {
       changeStateIsLoading(false);
@@ -173,12 +194,24 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
   }
 
   void changeStateImageUrl(String? imageUrl) {
-    state = state.copyWith(imageUrl: imageUrl);
+    state = ProfileState(
+      imageUrl: imageUrl,
+      isLoading: state.isLoading,
+      errorMessage: state.errorMessage,
+    );
   }
 
   /// UI açılışında eski hata mesajları kalmasın diye temizler
   void clearErrorMessage() {
     state = state.copyWith(errorMessage: '');
+  }
+
+  void resetProfile() {
+    state = const ProfileState(
+      imageUrl: null,
+      isLoading: false,
+      errorMessage: null,
+    );
   }
 }
 

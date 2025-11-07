@@ -46,6 +46,8 @@ class InputWidget extends StatelessWidget {
       inputFormatters: inputFormatters,
       validator: validator,
       maxLength: maxLength,
+      style: const TextStyle(color: ColorName.whiteColor),
+      cursorColor: ColorName.whiteColor,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(color: ColorName.loginGreyTextColor),

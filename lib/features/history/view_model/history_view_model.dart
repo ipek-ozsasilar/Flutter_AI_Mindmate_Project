@@ -46,6 +46,15 @@ abstract class HistoryViewModel extends ConsumerState<HistoryView>
     return date;
   }
 
+  /// Tarihin bugün olup olmadığını kontrol eder
+  bool isTodayDate(String date) {
+    final DateTime today = DateTime.now();
+    final String todayDateStr = today.toString().split(
+      ' ',
+    )[0]; // YYYY-MM-DD formatında
+    return date == todayDateStr;
+  }
+
   List<String> getUniqueDates(List<MessageModel> messages) {
     // Unique tarihleri al (tekrar etmesin) ve sırala (yeniden eskiye)
     final List<String> uniqueDates =
@@ -56,6 +65,4 @@ abstract class HistoryViewModel extends ConsumerState<HistoryView>
           ..sort((a, b) => b.compareTo(a)); // Yeniden eskiye sırala
     return uniqueDates;
   }
-
-    
 }

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:logger/logger.dart';
 
 var forgotPasswordProvider =
     StateNotifierProvider<ForgotPasswordProvider, ForgotPasswordState>(
@@ -54,18 +55,71 @@ class ForgotPasswordProvider extends StateNotifier<ForgotPasswordState> {
     return true;
   }
 
-  //Firebase login işlemini yapıyoruz
+  //Firebase password reset email gönderme işlemi
+  //Güvenlik: user-not-found hatası gösterilmez (email enumeration saldırısını önlemek için)
+  //Email kayıtlı olsun ya da olmasın, her durumda başarılı mesaj gösterilir
   Future<bool> sendPasswordResetEmail() async {
+    final String? email = state.email;
+    if (email == null || email.isEmpty) {
+      changeStateErrorMessage(ErrorStringsEnum.emailEmptyError.value);
+      return false;
+    }
+
+    changeStateIsLoading(true);
     try {
-      changeStateIsLoading(true);
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: state.email!);
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      // Güvenlik: Email kayıtlı olsun ya da olmasın, her durumda başarılı mesaj göster
       changeStateErrorMessage(ErrorStringsEnum.passwordResetEmailSent.value);
       changeStateIsLoading(false);
       return true;
-    } catch (e) {
-      changeStateErrorMessage(ErrorStringsEnum.unexpectedError.value);
+    } on FirebaseAuthException catch (error, stackTrace) {
+      // Güvenlik açığı: user-not-found hatası gösterilmez
+      // Email enumeration saldırısını önlemek için her durumda başarılı mesaj gösterilir
+      if (error.code == 'user-not-found') {
+        Logger().w(
+          'Password reset requested for non-existent email (security: not shown to user)',
+          error: error,
+          stackTrace: stackTrace,
+        );
+        // Güvenlik: Kullanıcıya hata gösterme, başarılı mesaj göster
+        changeStateErrorMessage(ErrorStringsEnum.passwordResetEmailSent.value);
+        changeStateIsLoading(false);
+        return true;
+      }
+
+      // Network hatası gibi kritik hatalar gösterilir
+      if (error.code == 'network-request-failed') {
+        Logger().e(
+          'Network error while sending password reset email',
+          error: error,
+          stackTrace: stackTrace,
+        );
+        changeStateErrorMessage(ErrorStringsEnum.internetConnectionError.value);
+        changeStateIsLoading(false);
+        return false;
+      }
+
+      // Diğer hatalar loglanır ama kullanıcıya gösterilmez (güvenlik)
+      Logger().e(
+        'FirebaseAuthException while sending password reset email',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      // Güvenlik: Hata gösterilmez, başarılı mesaj gösterilir
+      changeStateErrorMessage(ErrorStringsEnum.passwordResetEmailSent.value);
       changeStateIsLoading(false);
-      return false;
+      return true;
+    } catch (error, stackTrace) {
+      // Beklenmeyen hatalar loglanır
+      Logger().e(
+        'Unexpected error while sending password reset email',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      // Güvenlik: Hata gösterilmez, başarılı mesaj gösterilir
+      changeStateErrorMessage(ErrorStringsEnum.passwordResetEmailSent.value);
+      changeStateIsLoading(false);
+      return true;
     }
   }
 

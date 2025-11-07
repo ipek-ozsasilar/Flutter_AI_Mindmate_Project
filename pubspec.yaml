@@ -119,6 +119,7 @@ flutter:
     - assets/colors/
     - assets/icons/
     - .env
+    - .env.production
 
 flutter_gen:
   output: lib/gen/

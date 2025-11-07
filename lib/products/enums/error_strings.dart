@@ -15,6 +15,7 @@ enum ErrorStringsEnum {
   userNotLoggedIn('user not logged in'),
   userNotFoundError('user not found'),
   wrongPasswordError('wrong password'),
+
   invalidCredentialError('invalid credential'),
   cannotUpdateGoogleEmail('cannot update email for google accounts'),
   uploadImageFailed('upload image failed'),
@@ -22,8 +23,9 @@ enum ErrorStringsEnum {
   unexpectedError('unexpected error'),
   cannotUpdateGooglePassword('cannot update password for google accounts'),
   updatePasswordFailed('update password failed'),
-  updateEmailFailed('update email failed'),
+
   passwordLengthError('password must be at least 6 characters long'),
+  passwordDigitsOnlyError('password must contain only digits'),
   googleLoginCanceled('google login canceled'),
   passwordResetEmailSent('password reset email sent'),
   messageGetError('message get error'),

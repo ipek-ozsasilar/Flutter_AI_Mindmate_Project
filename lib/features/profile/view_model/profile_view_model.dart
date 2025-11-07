@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmate_project/features/login/log_in_view.dart';
 
@@ -20,12 +19,17 @@ abstract class ProfileViewModel extends ConsumerState<ProfileView>
 
   void setupListeners() {
     ref.listen(profileProvider, (previous, next) {
-      if (previous?.isLoading == true && next.isLoading == false) {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      }
-      // Hataları global olarak göster (önceki davranış)
-      if (next.errorMessage != null && next.errorMessage!.isNotEmpty) {
-        showSnackBar(next.errorMessage!);
+      final String? previousError = previous?.errorMessage;
+      final String? nextError = next.errorMessage;
+
+      final bool hasNewError =
+          nextError != null &&
+          nextError.isNotEmpty &&
+          nextError != previousError;
+
+      if (hasNewError) {
+        showSnackBar(nextError);
+        ref.read(profileProvider.notifier).clearErrorMessage();
       }
     });
   }
@@ -34,10 +38,8 @@ abstract class ProfileViewModel extends ConsumerState<ProfileView>
     return ref.watch(profileProvider).isLoading;
   }
 
-
   void clearErrorMessage() {
     ref.read(profileProvider.notifier).clearErrorMessage();
-
   }
 
   Future<bool> updatePassword(
@@ -50,9 +52,6 @@ abstract class ProfileViewModel extends ConsumerState<ProfileView>
           currentPassword: currentPassword,
           newPassword: newPassword,
         );
-    if (!updated) {
-      showSnackBar(ErrorStringsEnum.updatePasswordFailed.value);
-    }
     return updated;
   }
 
@@ -60,14 +59,16 @@ abstract class ProfileViewModel extends ConsumerState<ProfileView>
     final bool updated = await ref
         .read(profileProvider.notifier)
         .updateEmail(currentPassword: currentPassword, newEmail: newEmail);
-    if (!updated) {
-      showSnackBar(ErrorStringsEnum.updateEmailFailed.value);
-    }
     return updated;
   }
 
   Future<void> signOut() async {
     await ref.read(profileProvider.notifier).signOut();
+    if (mounted) {
+      setState(() {
+        selectedImage = null;
+      });
+    }
     context.navigateTo(const LogInView());
   }
 
@@ -118,9 +119,11 @@ abstract class ProfileViewModel extends ConsumerState<ProfileView>
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(success
-            ? StringsEnum.imageUploadSuccess.value
-            : StringsEnum.imageUploadError.value),
+        content: Text(
+          success
+              ? StringsEnum.imageUploadSuccess.value
+              : StringsEnum.imageUploadError.value,
+        ),
         backgroundColor: success ? Colors.green : Colors.red,
       ),
     );

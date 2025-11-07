@@ -12,6 +12,8 @@ A modern, modular, and sustainable Flutter application. The project uses powerfu
 - Daily mood-related reminders/notifications
 - Periodic mood tracking with charts (trends/statistics)
 - Conversation history with contextual recall
+- Profile image upload: Select and upload profile pictures via image picker
+- Multi-language support: Turkish and English character support in message inputs
 - Local/remote notifications, permission handling, and tap actions
 - Modular feature architecture with Provider-based state management
 - Extensible service layer and dependency injection with `get_it`
@@ -19,56 +21,57 @@ A modern, modular, and sustainable Flutter application. The project uses powerfu
 
 ## Screens
 
-<table style="width:100%; border-collapse: collapse;">
+<table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/ca111334-3e68-453f-b49c-bf0ce34f98b6" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/5f1bf555-d344-4405-932c-13496e266710" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/86052c67-6390-467b-9e84-617d2bbbff2a" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/101c5092-2ae4-4804-b840-ef52f062b60b" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/6b513e90-6164-4aa7-9bd4-0e5fc3fe1bc6" width=100"></td>
+    <td><img src="https://github.com/user-attachments/assets/b3da89d0-5fc7-45bd-ab28-9fdd15415539" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/1bf51cb2-64e0-4847-9af9-02062dbff272" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/d2b9a580-380c-4040-a4f4-e13c6db546a0" width="100"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/0605b15b-cd82-46e8-9887-8a73df785d31" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/4f80f6ef-5f8c-4350-ab6d-e4d1d114cb11" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/e1e2ce55-e3f4-4a0e-8f2c-7fac592c35d4" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/6df9c97e-95f4-4916-817a-697276c2fad6" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/a7cf0872-2d27-43f9-9f40-20c78f67c296" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/cb47c35d-b7e6-4a12-9dd9-46e916b7d641" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/9b99457a-733c-417a-b1f7-ef5d4d42bde1" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/49795c93-de45-4bd6-8699-4bc52094d8e3" width="100"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/ce6614b7-03d0-404a-9244-b4b3833adb10" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/021cc449-d8c2-49e9-9960-3f7c3bdbac40" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/3ae22b53-2aac-489e-b372-9eaca8528a8a" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/174bfa5a-897a-40ad-b9b4-c58efd4dbd50" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/19c74fc7-05ea-43f4-a37c-cbd326eff1d3" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/f0283be3-c32e-4842-b94c-6ee3571a10e2" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/66777628-2a9a-4b0c-8564-c4f552e2d950" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/87572f29-0cb7-46ab-a9ca-56772d24a1d7" width="100"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/3d878bdb-3864-4e8c-8293-299d737ad14a" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/31330b16-3385-403c-ad33-2ec8bbb75288" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/339056fa-7d26-4512-97f8-d29a16cfa0fa" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/facdd231-b3cd-4a3c-8f2b-fde796702255" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/28905e04-1dd8-4139-a649-470eb5925af6" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/b7f19ede-3981-4615-adde-7d52fd74fd15" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/1bf54f20-426e-4629-8d19-e226ffe575b6" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/09e27d49-be28-4d3f-8f0d-87cad5727c16" width="100"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/2b616f5b-b68c-4bf2-ae88-46a62542405f" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/8fbdc782-d254-47d9-afa4-b2bf2662fb19" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/e4640f64-22ae-42cb-8ffd-eb865b2757d4" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/c92515bc-982c-4f7c-b48e-474a275ea08f" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/a948730f-c39d-46da-935d-df9ae483eb48" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/21c5f561-b8aa-4f80-ab98-4ea898d782d4" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/51818704-0769-4fac-afff-331b54c17ce7" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/1453d43b-1c38-4164-8943-41018b34deb1" width="100"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/beda2568-1962-4f9f-a83c-aa5be303c8ef" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/6d804306-f2cd-4011-bfc7-1660fdb55f1c" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/c5cca22b-beae-42d3-a580-53ab0b1a563d" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/6c6d2ebc-47de-420e-96af-46e55f59a2ea" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/6410ce41-08f6-440f-9a45-905d9f0adba2" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/158c70c5-be33-465c-8672-0144870308ed" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/7fa613da-1cbd-4a34-bd28-528d5a33072f" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/7d082f3f-6ac8-49a7-be27-9760086abe6c" width="100"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/3e722f05-2423-443b-9ee8-1fd54ec30400" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/11b1ffae-c889-466c-9af0-4def6b297a30" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/4dd70507-d60e-49ba-acef-22daef039b0b" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/542ae7ad-a3d3-4aef-8f63-bb2e2731f07c" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/c507bd05-2c52-4a62-b95f-d869d0b6dfb7" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/0a6c6c00-ea50-4cde-9f2f-bb55babe2a1f" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/97e57506-5309-4ba1-a202-63a82f286b07" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/081e9f5d-ac09-45f9-a53f-4babe8a46554" width="100"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/53895618-8e36-42cf-b6cb-d7f5cb8e750d" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/d13fface-55f8-4f85-949d-1f3ffc83db08" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/6b644f0c-25d1-4d76-9504-1525fb94b631" width="100%" /></td>
-    <td><img src="https://github.com/user-attachments/assets/58653246-6458-4021-8950-387445d5c7a8" width="100%" /></td>
+    <td><img src="https://github.com/user-attachments/assets/c348bc7f-690c-4329-b9fe-b303cf10ddea" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/83cf63d7-4dd7-4eb9-ba02-87e30ebc4c1c" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/cf873e2f-7d56-4d84-a9d1-3e64ffcd170b" width="100"></td>
+    <td><img src="https://github.com/user-attachments/assets/34251db6-f537-4e54-a552-423012187cec" width="100"></td>
   </tr>
 </table>
+
 
 
 ### Table of Contents
@@ -86,11 +89,10 @@ A modern, modular, and sustainable Flutter application. The project uses powerfu
 - Notification Service (NotificationService)
 - Flutter Version Management (Sidekick)
 - build.yaml Configuration
-- Testing (UI: Maestro)
 ---
 
 ## Project Overview
-MindMate is a Flutter app where features are modularized under `features/`, services are grouped under `products/`, dependencies are managed with `get_it`, and resources are auto-generated via `flutter_gen_runner`. Hardcoded strings and numeric constants are avoided; strings live in `enums/strings_enum.dart` and sizes in `products/enums/sizes_enum.dart` as enhanced enums. The app generates answers using the OpenAI API, providing an AI integration for mobile.
+MindMate is a Flutter app where features are modularized under `features/`, services are grouped under `products/`, dependencies are managed with `get_it`, and resources are auto-generated via `flutter_gen_runner`. Hardcoded strings and numeric constants are avoided; strings live in `enums/strings_enum.dart` and sizes in `products/enums/sizes_enum.dart` as enhanced enums. The app generates answers using the OpenAI API, providing an AI integration for mobile. User experience is bilingual: message inputs and AI yanıtları hem Türkçe hem İngilizce karakterleri destekler, kullanıcı hangi dilde yazarsa uygulama da aynı dilde karşılık verir.
 
 ---
 
@@ -169,18 +171,39 @@ Required rules:
 ---
 
 ## Environment Variables & Security
-- API keys and secrets live in `.env`, never hardcoded.
+- API keys and secrets live in `.env` files, never hardcoded.
 - Variables are managed via `envied` for type-safe access.
-- Do not commit `.env` to VCS.
+- Do not commit `.env` files to VCS.
 
-Usage note:
-- See `.env.example` for sample keys and explanations. Copy it to `.env`, fill the values, then run `rps run gen_flutter` for codegen.
+### Environment Files Setup
+The project uses different environment files for debug and production modes:
+- **Debug mode**: Uses `.env` file (development API keys)
+- **Production mode**: Uses `.env.production` file (production API keys)
 
-Example `.env`:
+The app automatically loads the correct file based on the build mode:
+- Debug builds → `.env`
+- Release builds → `.env.production`
+
+### Setup Instructions
+1. Create `.env` file for development (debug mode)
+2. Create `.env.production` file for production (release mode)
+3. Fill both files with appropriate API keys and secrets
+4. Run `rps run gen_flutter` after creating/updating `.env` files for codegen
+
+**Important**: Never commit `.env` or `.env.production` files to version control. Add them to `.gitignore`.
+
+Example `.env` (development):
 ```
-API_BASE_URL=https://api.example.com
-SENTRY_DSN=...
+OPENAI_API_KEY=sk-dev-...
 FIREBASE_KEY=...
+API_BASE_URL=https://api-dev.example.com
+```
+
+Example `.env.production` (production):
+```
+OPENAI_API_KEY=sk-prod-...
+FIREBASE_KEY=...
+API_BASE_URL=https://api.example.com
 ```
 
 ---
@@ -253,7 +276,7 @@ Note: Team-wide development standards (“Cursor rules”) are defined in a sepa
 - dio: HTTP client
 - connectivity_plus: Network status
 - permission_handler: Permissions
-- image_picker: Image selection
+- image_picker: Image selection from gallery for profile pictures
 - url_launcher: External links/app launching
 - flutter_local_notifications + timezone: Local notifications & scheduling
 - fl_chart: Charts and mood trends
@@ -264,6 +287,74 @@ Note: Team-wide development standards (“Cursor rules”) are defined in a sepa
 - Maestro: UI test automation
 
 Note: See `pubspec.yaml` for versions and comments.
+
+---
+
+## Firebase Integration
+The app uses Firebase as the backend infrastructure for authentication, data storage, and file storage.
+
+### Firebase Services Used
+
+#### 1. Firebase Authentication (`firebase_auth`)
+- **Email/Password Authentication**: User sign-up, sign-in, and password reset
+- **Google Sign-In**: One-tap Google authentication via `firebase_ui_oauth_google`
+- **Security**: Password reset emails don't reveal if an email exists (prevents email enumeration attacks)
+- **Re-authentication**: Required for sensitive operations (password/email changes)
+
+#### 2. Cloud Firestore (`cloud_firestore`)
+- **Messages Collection**: Stores user messages, AI responses, dates, times, and mood emojis
+- **Images Collection**: Stores user profile image URLs
+- **Notifications Collection**: Stores notification preferences and scheduling data
+- **Structure**: Collections organized by user ID for data isolation
+
+#### 3. Firebase Storage (`firebase_storage`)
+- **Profile Images**: Uploads and stores user profile pictures
+- **Path Structure**: `profile_images/{userId}/{timestamp}.jpg`
+- **Image Service**: Handles upload, download URL generation, and Firestore URL storage
+
+#### 4. Firebase UI (`firebase_ui_auth`, `firebase_ui_oauth_google`)
+- **Pre-built UI Components**: Authentication screens and Google sign-in buttons
+- **Localization**: Multi-language support via `firebase_ui_localizations`
+
+### Firebase Configuration
+- Configuration files: `android/app/google-services.json` (Android)
+- Environment variables: API keys stored in `.env` files (not committed to VCS)
+- Initialization: Firebase initialized in `AppInitiliazer` before app start
+
+---
+
+## Image Picker & Profile Management
+- **Package**: `image_picker` (v1.2.0)
+- **Usage**: Profile picture selection from device gallery
+- **Features**:
+  - Gallery image selection
+  - Image quality optimization (80% quality)
+  - Upload to Firebase Storage
+  - URL storage in Firestore
+  - Automatic image loading on profile screen
+- **Implementation**: `lib/features/profile/view_model/profile_view_model.dart`
+- **Service**: `lib/products/services/image_service.dart` handles Firebase Storage uploads
+
+---
+
+## Time Period Logic (Morning/Afternoon/Evening)
+The app automatically categorizes messages by time period based on the current hour:
+
+- **Morning**: 00:00 - 11:59 (hour < 12)
+- **Afternoon**: 12:00 - 17:59 (hour >= 12 && hour < 18)
+- **Evening**: 18:00 - 23:59 (hour >= 18)
+
+**Implementation**: `lib/features/message/provider/message_provider.dart` - `_getPeriodFromDateTime()` method
+
+The time period is displayed alongside messages in the history view and is used for organizing conversations by day and period.
+
+---
+
+## Multi-Language Support
+- **Message Input**: Supports Turkish characters (ı, ö, ü, ş, ğ, ç) and English characters
+- **No Input Restrictions**: Message input fields don't use `FilteringTextInputFormatter`, allowing full Unicode character support
+- **AI Responses**: AI responds in the same language as the user's input (Turkish or English)
+- **Localization**: UI strings managed via `products/enums/strings_enum.dart`
 
 ---
 
@@ -315,13 +406,3 @@ Capabilities:
 - Behavior when app is foreground/background
 
 ---
-
-## Testing (UI: Maestro)
-- UI tests are written with Maestro
-- Scenarios can live under `maestro/`
-- Refer to Maestro docs for setup and commands
-
----
-
-
-

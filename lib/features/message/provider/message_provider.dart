@@ -178,7 +178,7 @@ class MessageProvider extends StateNotifier<MessageState> {
   }
 
   String _getPeriodFromDateTime(DateTime dateTime) {
-    final int hour = dateTime.hour;
+    final int hour = _convertToTurkishTime(dateTime).hour % 24;
     if (hour < 12) {
       return StringsEnum.morning.value;
     } else if (hour < 18) {
@@ -190,9 +190,7 @@ class MessageProvider extends StateNotifier<MessageState> {
 
   String _getCurrentTimeFromDateTime(DateTime dateTime) {
     // 24 saatlik format (HH:mm) - örnek: 21:00, 20:45, 17:17
-    // Türkiye saat dilimi için 3 saat ekle (UTC+3)
-    final DateTime localDateTime = dateTime.toLocal();
-    final DateTime turkishTime = localDateTime.add(const Duration(hours: 3));
+    final DateTime turkishTime = _convertToTurkishTime(dateTime);
     // 24 saatlik format için: saat 24'ü geçerse 0'a döner (DateTime otomatik günleri günceller ama biz sadece saat ve dakikayı alıyoruz)
     final int hour = turkishTime.hour % 24;
     final int minute = turkishTime.minute;
@@ -201,6 +199,12 @@ class MessageProvider extends StateNotifier<MessageState> {
     final String minuteString = minute.toString().padLeft(2, '0');
     final String timeString = '$hourString:$minuteString';
     return timeString;
+  }
+
+  DateTime _convertToTurkishTime(DateTime dateTime) {
+    // Türkiye saat dilimi için 3 saat ekle (UTC+3)
+    final DateTime localDateTime = dateTime.toLocal();
+    return localDateTime.add(const Duration(hours: 3));
   }
 }
 

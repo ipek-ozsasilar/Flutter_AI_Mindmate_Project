@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 mixin ScaffoldMessage<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: GeneralTextWidget(
@@ -13,6 +14,7 @@ mixin ScaffoldMessage<T extends ConsumerStatefulWidget> on ConsumerState<T> {
           size: TextSizesEnum.generalSize.value,
           text: message,
         ),
+        backgroundColor: ColorName.redColor,
       ),
     );
   }

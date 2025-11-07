@@ -15,13 +15,15 @@ abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView>
       // Loading bitti, sonucu kontrol et
       if (previous != null && previous.isLoading && !next.isLoading) {
         if (next.errorMessage == ErrorStringsEnum.loginSuccess.value ||
-            next.errorMessage == ErrorStringsEnum.createAccountSuccess.value) {
-          // Login/Create Account başarılı, home'a git
+            next.errorMessage == ErrorStringsEnum.createAccountSuccess.value ||
+            next.errorMessage ==
+                ErrorStringsEnum.passwordResetEmailSent.value) {
+          // Login/Create Account/Password Reset başarılı, login ekranına git
           context.navigateTo(const LogInView());
-          //email ve password'u temizle
+          // Email'i temizle
           clearEmail();
         } else if (next.errorMessage != null && next.errorMessage!.isNotEmpty) {
-          // Hata mesajı göster
+          // Hata mesajı göster (sadece network hatası gibi kritik hatalar)
           showSnackBar(next.errorMessage!);
         }
       }
@@ -54,11 +56,24 @@ abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView>
         .read(forgotPasswordProvider.notifier)
         .sendPasswordResetEmail();
     if (result) {
+      // Başarılı mesajı göster ve login ekranına yönlendir
+      final String? successMessage = ref
+          .read(forgotPasswordProvider)
+          .errorMessage;
+      if (successMessage != null && successMessage.isNotEmpty) {
+        showSnackBar(successMessage);
+      }
       context.navigateTo(const LogInView());
       clearEmail();
       return true;
     } else {
-      showSnackBar(ErrorStringsEnum.unexpectedError.value);
+      // Sadece network hatası gibi kritik hatalar gösterilir
+      final String? errorMessage = ref
+          .read(forgotPasswordProvider)
+          .errorMessage;
+      if (errorMessage != null && errorMessage.isNotEmpty) {
+        showSnackBar(errorMessage);
+      }
       return false;
     }
   }

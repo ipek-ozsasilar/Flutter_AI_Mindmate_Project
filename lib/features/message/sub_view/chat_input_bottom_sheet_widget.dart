@@ -108,6 +108,13 @@ class _ChatInputModalWidgetState extends State<_ChatInputBottomSheetWidget>
           TextField(
             controller: messageController,
             maxLines: 4,
+            keyboardType: TextInputType.multiline,
+            textCapitalization: TextCapitalization.sentences,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                RegExp(r"[a-zA-Z0-9ğüşöçıİĞÜŞÖÇ\s\p{P}\p{S}]", unicode: true),
+              ),
+            ],
             style: const TextStyle(color: ColorName.whiteColor),
             decoration: InputDecoration(
               hintText: StringsEnum.writeYourFeelingsHere.value,

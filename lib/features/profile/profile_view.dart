@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mindmate_project/features/profile/view_model/profile_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/appbars/message_appbar.dart';
 import 'package:flutter_mindmate_project/products/bottom_appbars/message_bottom_appbar.dart';
 import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/constants/paddings.dart';
+import 'package:flutter_mindmate_project/products/enums/error_strings.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/buttons/global_elevated_button.dart';
@@ -15,6 +17,7 @@ import 'package:flutter_mindmate_project/products/widgets/buttons/global_text_bu
 import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart';
 import 'package:flutter_mindmate_project/products/widgets/inputs/input_widget.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
+import 'package:flutter_mindmate_project/products/widgets/validators/validators.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 

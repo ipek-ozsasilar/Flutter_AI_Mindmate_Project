@@ -8,6 +8,7 @@ import 'package:flutter_mindmate_project/products/navigation/app_navigator.dart'
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart';
 
 void main() async {
   //AppInitiliazer'ı başlatır
@@ -15,7 +16,7 @@ void main() async {
   await AppInitiliazer().init();
   //MyApp widget'ını ProviderScope ile sarmalıyoruz (Riverpod için gerekli)
   //dotenv.load(fileName: ".env"); ile .env dosyasını yükler
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: kReleaseMode ? ".env" : ".env.production");
   runApp(const ProviderScope(child: MyApp()));
 }
 

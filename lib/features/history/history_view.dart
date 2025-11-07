@@ -12,7 +12,6 @@ import 'package:flutter_mindmate_project/products/widgets/texts/general_text_wid
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_mindmate_project/features/history/view_model/history_view_model.dart';
 
-
 part 'sub_view/daily_history_card_widget.dart';
 part 'sub_view/history_chat_item_widget.dart';
 part 'sub_view/empty_history_widget.dart';
@@ -38,7 +37,7 @@ class _HistoryViewState extends HistoryViewModel {
   Widget build(BuildContext context) {
     final List<MessageModel> messages = messageRead();
     final List<String> uniqueDates = getUniqueDates(messages);
-    
+
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.history.value),
       body: messages.isEmpty
@@ -54,7 +53,7 @@ class _HistoryViewState extends HistoryViewModel {
 
                 return _DailyHistoryCardWidget(
                   date: getDateLabel(date, index),
-                  isToday: index == 0,
+                  isToday: isTodayDate(date),
                   dayChats: dayChats
                       .map((message) => message.toJson())
                       .toList(),

@@ -32,6 +32,9 @@ class Validators {
     if (value.length < passwordLength) {
       return ErrorStringsEnum.passwordLengthError.value;
     }
+    if (!RegExp(r'^\d+$').hasMatch(value)) {
+      return ErrorStringsEnum.passwordDigitsOnlyError.value;
+    }
     return null;
   }
 
