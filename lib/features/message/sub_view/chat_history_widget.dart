@@ -11,44 +11,42 @@ class _ChatHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return messages.isEmpty
-        ? _EmptyStateWidget()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: Paddings.paddingInstance.generalHorizontalPadding,
-                child: GeneralTextWidget(
-                  color: ColorName.whiteColor,
-                  size: TextSizesEnum.appTitleSize.value,
-                  text: StringsEnum.todaysConversations.value,
-                ),
-              ),
-              const SizedBox(height: 12),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  // Sadece en son eklenen mesaj (son index) için loading göster
-                  // VE o mesajın AI response'u henüz yoksa
-                  final bool isLastMessage = index == messages.length - 1;
-                  final bool shouldShowLoading =
-                      isLastMessage &&
-                      isSendingMessage &&
-                      (messages[index].aiResponse == null ||
-                          messages[index].aiResponse!.isEmpty);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: Paddings.paddingInstance.generalHorizontalPadding,
+          child: GeneralTextWidget(
+            color: ColorName.whiteColor,
+            size: TextSizesEnum.appTitleSize.value,
+            text: StringsEnum.todaysConversations.value,
+          ),
+        ),
+        const SizedBox(height: 12),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: messages.length,
+          itemBuilder: (context, index) {
+            // Sadece en son eklenen mesaj (son index) için loading göster
+            // VE o mesajın AI response'u henüz yoksa
+            final bool isLastMessage = index == messages.length - 1;
+            final bool shouldShowLoading =
+                isLastMessage &&
+                isSendingMessage &&
+                (messages[index].aiResponse == null ||
+                    messages[index].aiResponse!.isEmpty);
 
-                  return _ChatCard(
-                    message: messages[index],
-                    isLoading: shouldShowLoading,
-                  );
-                },
-              ),
-            ],
-          );
+            return _ChatCard(
+              message: messages[index],
+              isLoading: shouldShowLoading,
+            );
+          },
+        ),
+      ],
+    );
   }
 }
 
@@ -174,40 +172,38 @@ class _ChatCard extends StatelessWidget {
 class _EmptyStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: ColorName.loginInputColor,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: const Icon(
-              Icons.chat_bubble_outline,
-              size: 50,
-              color: ColorName.loginGreyTextColor,
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            color: ColorName.loginInputColor,
+            borderRadius: BorderRadius.circular(50),
           ),
-          const SizedBox(height: 20),
-          GeneralTextWidget(
-            color: ColorName.whiteColor,
-            size: TextSizesEnum.generalSize.value,
-            text: StringsEnum.noChatsYet.value,
+          child: const Icon(
+            Icons.chat_bubble_outline,
+            size: 50,
+            color: ColorName.loginGreyTextColor,
           ),
-          const SizedBox(height: 8),
-          Text(
-            StringsEnum.startYourFirstChat.value,
-            style: TextStyle(
-              color: ColorName.loginGreyTextColor,
-              fontSize: TextSizesEnum.subtitleSize.value,
-            ),
-            textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 20),
+        GeneralTextWidget(
+          color: ColorName.whiteColor,
+          size: TextSizesEnum.generalSize.value,
+          text: StringsEnum.noChatsYet.value,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          StringsEnum.startYourFirstChat.value,
+          style: TextStyle(
+            color: ColorName.loginGreyTextColor,
+            fontSize: TextSizesEnum.subtitleSize.value,
           ),
-        ],
-      ),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

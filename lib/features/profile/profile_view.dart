@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mindmate_project/features/profile/provider/profile_provider.dart';
 import 'package:flutter_mindmate_project/features/profile/view_model/profile_view_model.dart';
 import 'package:flutter_mindmate_project/gen/colors.gen.dart';
 import 'package:flutter_mindmate_project/products/appbars/message_appbar.dart';
@@ -47,56 +48,56 @@ class _ProfileViewState extends ProfileViewModel {
     setupListeners();
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.profile.value),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
-          child: Column(
-            children: [
-              _ProfileHeaderWidget(
-                selectedImage: selectedImage,
-                imageUrl: imageUrlWatch(),
-                onImagePicked: () => pickImage(context),
-              ),
-              _ProfileMenuItemWidget(
-                icon: IconConstants.iconConstants.emailInsideEmpty,
-                text:
-                    FirebaseAuth.instance.currentUser?.email ??
-                    StringsEnum.demoEmail.value,
-                isEditable: true,
-                onTap: () {
-                  clearErrorMessage();
-                  _ProfileShowEmailEdit()._showEditEmailDialog(
-                    context,
-                    updateEmail,
-                  );
-                },
-              ),
-              _ProfileMenuItemWidget(
-                icon: IconConstants.iconConstants.lockInsideEmpty,
-                text: StringsEnum.password.value,
-                isEditable: true,
-                onTap: () {
-                  clearErrorMessage();
-                  _ProfileShowPasswordEdit()._showEditPasswordDialog(
-                    context,
-                    updatePassword,
-                  );
-                },
-              ),
-              _ProfileMenuItemWidget(
-                icon: IconConstants.iconConstants.privacy,
-                text: StringsEnum.privacy.value,
-                isExpandable: true,
-              ),
-              GlobalElevatedButton(
-                onPressed: () async {
-                  await signOut();
-                },
-                text: StringsEnum.logout.value,
-                icon: IconConstants.iconConstants.logout,
-              ),
-            ],
-          ),
+      body: Padding(
+        padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
+        child: Column(
+          children: [
+            _ProfileHeaderWidget(
+              selectedImage: selectedImage,
+              imageUrl: imageUrlWatch(),
+              onImagePicked: () => pickImage(context),
+            ),
+            _ProfileMenuItemWidget(
+              icon: IconConstants.iconConstants.emailInsideEmpty,
+              text:
+                  FirebaseAuth.instance.currentUser?.email ??
+                  StringsEnum.demoEmail.value,
+              isEditable: true,
+              onTap: () {
+                clearErrorMessage();
+                _ProfileShowEmailEdit()._showEditEmailDialog(
+                  context,
+                  updateEmail,
+                  ref,
+                );
+              },
+            ),
+            _ProfileMenuItemWidget(
+              icon: IconConstants.iconConstants.lockInsideEmpty,
+              text: StringsEnum.password.value,
+              isEditable: true,
+              onTap: () {
+                clearErrorMessage();
+                _ProfileShowPasswordEdit()._showEditPasswordDialog(
+                  context,
+                  updatePassword,
+                  ref,
+                );
+              },
+            ),
+            _ProfileMenuItemWidget(
+              icon: IconConstants.iconConstants.privacy,
+              text: StringsEnum.privacy.value,
+              isExpandable: true,
+            ),
+            GlobalElevatedButton(
+              onPressed: () async {
+                await signOut();
+              },
+              text: StringsEnum.logout.value,
+              icon: IconConstants.iconConstants.logout,
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: MessageBottomAppbar(),

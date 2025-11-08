@@ -56,23 +56,6 @@ class _CreateAccountViewState extends CreateAccountViewModel {
                   child: GeneralTextWidget(
                     color: ColorName.loginGreyTextColor,
                     size: TextSizesEnum.generalSize.value,
-                    text: StringsEnum.fullName.value,
-                  ),
-                ),
-                //full name input
-                InputWidget(
-                  controller: readFullNameController(),
-                  hintText: StringsEnum.fullName.value,
-                  prefixIcon: IconConstants.iconConstants.personIcon,
-                  keyboardType: TextInputType.name,
-                  validator: Validators.validatorsInstance.validateFullName,
-                ),
-
-                Padding(
-                  padding: Paddings.paddingInstance.loginVerticalPadding,
-                  child: GeneralTextWidget(
-                    color: ColorName.loginGreyTextColor,
-                    size: TextSizesEnum.generalSize.value,
                     text: StringsEnum.emailAddress.value,
                   ),
                 ),

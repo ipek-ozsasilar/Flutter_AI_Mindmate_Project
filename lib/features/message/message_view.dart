@@ -60,28 +60,51 @@ class _MessageViewState extends MessageViewModel {
       );
     }
 
+    final List<MessageModel> messages = messageRead();
+    final bool isEmpty = messages.isEmpty;
+
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.messages.value),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _ChatHistoryWidget(
-              messages: messageRead(),
-              isSendingMessage: loadingWatch(),
+      body: isEmpty
+          ? Column(
+              children: [
+                const Spacer(),
+                _EmptyStateWidget(),
+                const SizedBox(height: 40),
+                _StartChatButtonWidget(
+                  hasReachedLimit: remainingChats(totalChats: _totalChats) <= 0,
+                  // onSendMessage → MessageViewModel.onPressedSendButton'u çağırır.
+                  // Bu metot mesajı gönderdikten sonra NotificationsViewModel üzerinden
+                  // yerel bildirimi planlar (delay ile). Navigasyon için global navigatorKey kullanılır.
+                  //butona bastıktan ve verıtabanına verıler kaydedıldıkten sonra bildirim planlanır.
+                  //TAM BURADA BİLDİRİM PLANLANIYOR.
+                  onSendMessage: onPressedSendButton,
+                  isLoading: loadingWatch(),
+                ),
+                const Spacer(),
+              ],
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  _ChatHistoryWidget(
+                    messages: messages,
+                    isSendingMessage: loadingWatch(),
+                  ),
+                  _StartChatButtonWidget(
+                    hasReachedLimit:
+                        remainingChats(totalChats: _totalChats) <= 0,
+                    // onSendMessage → MessageViewModel.onPressedSendButton'u çağırır.
+                    // Bu metot mesajı gönderdikten sonra NotificationsViewModel üzerinden
+                    // yerel bildirimi planlar (delay ile). Navigasyon için global navigatorKey kullanılır.
+                    //butona bastıktan ve verıtabanına verıler kaydedıldıkten sonra bildirim planlanır.
+                    //TAM BURADA BİLDİRİM PLANLANIYOR.
+                    onSendMessage: onPressedSendButton,
+                    isLoading: loadingWatch(),
+                  ),
+                ],
+              ),
             ),
-            _StartChatButtonWidget(
-              hasReachedLimit: remainingChats(totalChats: _totalChats) <= 0,
-              // onSendMessage → MessageViewModel.onPressedSendButton'u çağırır.
-              // Bu metot mesajı gönderdikten sonra NotificationsViewModel üzerinden
-              // yerel bildirimi planlar (delay ile). Navigasyon için global navigatorKey kullanılır.
-              //butona bastıktan ve verıtabanına verıler kaydedıldıkten sonra bildirim planlanır.
-              //TAM BURADA BİLDİRİM PLANLANIYOR.
-              onSendMessage: onPressedSendButton,
-              isLoading: loadingWatch(),
-            ),
-          ],
-        ),
-      ),
       bottomNavigationBar: MessageBottomAppbar(),
     );
   }

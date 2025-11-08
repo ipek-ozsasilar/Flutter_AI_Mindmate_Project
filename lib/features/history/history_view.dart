@@ -40,30 +40,30 @@ class _HistoryViewState extends HistoryViewModel {
 
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.history.value),
-      body: SingleChildScrollView(
-        child: messages.isEmpty
-            ? _EmptyHistoryWidget()
-            : ListView.builder(
+      body: messages.isEmpty
+          ? Center(child: _EmptyHistoryWidget())
+          : SingleChildScrollView(
+              child: ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-              padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
-              itemCount: uniqueDates.length,
-              itemBuilder: (context, index) {
-                final String date = uniqueDates[index];
-                final List<MessageModel> dayChats = messages
-                    .where((message) => message.date == date)
-                    .toList();
+                padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
+                itemCount: uniqueDates.length,
+                itemBuilder: (context, index) {
+                  final String date = uniqueDates[index];
+                  final List<MessageModel> dayChats = messages
+                      .where((message) => message.date == date)
+                      .toList();
 
-                return _DailyHistoryCardWidget(
-                  date: getDateLabel(date, index),
-                  isToday: isTodayDate(date),
-                  dayChats: dayChats
-                      .map((message) => message.toJson())
-                      .toList(),
-                );
-              },
+                  return _DailyHistoryCardWidget(
+                    date: getDateLabel(date, index),
+                    isToday: isTodayDate(date),
+                    dayChats: dayChats
+                        .map((message) => message.toJson())
+                        .toList(),
+                  );
+                },
+              ),
             ),
-      ),
       bottomNavigationBar: MessageBottomAppbar(),
     );
   }

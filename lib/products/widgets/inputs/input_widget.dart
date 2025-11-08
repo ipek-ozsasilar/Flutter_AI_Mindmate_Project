@@ -17,6 +17,7 @@ class InputWidget extends StatelessWidget {
   final bool filled = true;
   final VoidCallback? onSuffixIconPressed;
   final bool obscureText;
+  final EdgeInsetsGeometry? contentPadding;
   final OutlineInputBorder? borderNone = OutlineInputBorder(
     borderSide: BorderSide.none,
   );
@@ -35,6 +36,7 @@ class InputWidget extends StatelessWidget {
     this.maxLength,
     this.onSuffixIconPressed,
     this.obscureText = false,
+    this.contentPadding,
   });
 
   @override
@@ -53,6 +55,7 @@ class InputWidget extends StatelessWidget {
         hintStyle: TextStyle(color: ColorName.loginGreyTextColor),
         filled: filled,
         fillColor: ColorName.loginInputColor,
+        contentPadding: contentPadding,
         border: borderNone,
         enabledBorder: borderNone,
         focusedBorder: borderNone,

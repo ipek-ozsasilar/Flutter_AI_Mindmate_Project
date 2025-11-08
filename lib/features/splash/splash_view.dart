@@ -8,8 +8,6 @@ import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/buttons/global_elevated_button.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/richt_text_widget.dart';
-import 'package:flutter_mindmate_project/products/mixins/navigation_mixin.dart';
-import 'package:flutter_mindmate_project/products/mixins/scaffold_message.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SplashView extends ConsumerStatefulWidget {
@@ -33,40 +31,38 @@ class _SplashViewState extends SplashViewModel {
     return Scaffold(
       //splash appbar
       appBar: SplashAppbar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: Paddings.paddingInstance.generalHorizontalPadding,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              //splash image
-              Padding(
-                padding: Paddings.paddingInstance.splashImageVerticalPadding,
-                child: _SplashContainerImage(),
-              ),
-              //splash ekranındaki title
-              RichtTextWidget(
-                firstText: StringsEnum.splashTitle.value,
-                secondText: StringsEnum.mindmate.value,
-                textSize: TextSizesEnum.splashTitleSize.value,
-                isItalic: true,
-              ),
+      body: Padding(
+        padding: Paddings.paddingInstance.generalHorizontalPadding,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //splash image
+            Padding(
+              padding: Paddings.paddingInstance.splashImageVerticalPadding,
+              child: _SplashContainerImage(),
+            ),
+            //splash ekranındaki title
+            RichtTextWidget(
+              firstText: StringsEnum.splashTitle.value,
+              secondText: StringsEnum.mindmate.value,
+              textSize: TextSizesEnum.splashTitleSize.value,
+              isItalic: true,
+            ),
 
-              //lets start button
-              Padding(
-                padding: Paddings.paddingInstance.splashButtonVerticalPadding,
-                child: GlobalElevatedButton(
-                  onPressed: () async {
-                    //Kullanıcının internet bağlantısını kontrol eder ve login durumunu kontrol eder
-                    //Ona geore gereklı sayfaya gecıs yapar
-                    await startChecks();
-                  },
-                  text: StringsEnum.startText.value,
-                ),
+            //lets start button
+            Padding(
+              padding: Paddings.paddingInstance.splashButtonVerticalPadding,
+              child: GlobalElevatedButton(
+                onPressed: () async {
+                  //Kullanıcının internet bağlantısını kontrol eder ve login durumunu kontrol eder
+                  //Ona geore gereklı sayfaya gecıs yapar
+                  await startChecks();
+                },
+                text: StringsEnum.startText.value,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

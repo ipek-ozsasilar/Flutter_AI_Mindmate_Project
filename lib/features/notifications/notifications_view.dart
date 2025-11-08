@@ -75,37 +75,42 @@ class _NotificationsViewState extends NotificationsViewModel {
       );
     }
     //Bildirimler yüklendiysa, ekranı güncelle
+    final bool isEmpty = groupedNotifications.isEmpty;
+
     return Scaffold(
       backgroundColor: ColorName.scaffoldBackgroundColor,
       appBar: MessageAppbar(title: StringsEnum.notifications.value),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: Paddings.paddingInstance.generalHorizontalPadding,
-          child: Column(
-            crossAxisAlignment: crossAxisAlignment,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: Paddings.paddingInstance.notificationsViewTitlePadding,
-                child: GeneralTextWidget(
-                  text: capitalizedNotifications,
-                  color: ColorName.whiteColor,
-                  size: TextSizesEnum.todayCardTitleSize.value,
-                ),
-              ),
+      body: isEmpty
+          ? Center(child: _EmptyNotifications())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: Paddings.paddingInstance.generalHorizontalPadding,
+                child: Column(
+                  crossAxisAlignment: crossAxisAlignment,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: Paddings
+                          .paddingInstance
+                          .notificationsViewTitlePadding,
+                      child: GeneralTextWidget(
+                        text: capitalizedNotifications,
+                        color: ColorName.whiteColor,
+                        size: TextSizesEnum.todayCardTitleSize.value,
+                      ),
+                    ),
 
-              Padding(
-                padding: Paddings.paddingInstance.emptyHistoryWidgetPadding,
-                child: GeneralTextWidget(
-                  text: StringsEnum.dailyMotivationMessages.value,
-                  color: ColorName.loginGreyTextColor,
-                  size: TextSizesEnum.subtitleSize.value,
-                ),
-              ),
+                    Padding(
+                      padding:
+                          Paddings.paddingInstance.emptyHistoryWidgetPadding,
+                      child: GeneralTextWidget(
+                        text: StringsEnum.dailyMotivationMessages.value,
+                        color: ColorName.loginGreyTextColor,
+                        size: TextSizesEnum.subtitleSize.value,
+                      ),
+                    ),
 
-              groupedNotifications.isEmpty
-                  ? _EmptyNotifications()
-                  : ListView.builder(
+                    ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: sortedDates.length,
@@ -137,10 +142,10 @@ class _NotificationsViewState extends NotificationsViewModel {
                         );
                       },
                     ),
-            ],
-          ),
-        ),
-      ),
+                  ],
+                ),
+              ),
+            ),
       bottomNavigationBar: MessageBottomAppbar(),
     );
   }
@@ -151,36 +156,33 @@ class _EmptyNotifications extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment = MainAxisAlignment.center;
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: mainAxisAlignment,
-        children: [
-          GlobalIcon(
-            IconConstants.iconConstants.notificationsIcon,
-            iconColor: ColorName.loginGreyTextColor,
-            iconSize: IconSizesEnum.moodIconSize.value * 1.5,
-          ),
+    return Column(
+      mainAxisAlignment: mainAxisAlignment,
+      children: [
+        GlobalIcon(
+          IconConstants.iconConstants.notificationsIcon,
+          iconColor: ColorName.loginGreyTextColor,
+          iconSize: IconSizesEnum.moodIconSize.value * 1.5,
+        ),
 
-          Padding(
-            padding: Paddings.paddingInstance.notificationsViewTitlePadding,
-            child: GeneralTextWidget(
-              text: StringsEnum.noNotificationsYet.value,
-              color: ColorName.whiteColor,
-              size: TextSizesEnum.appTitleSize.value,
-            ),
+        Padding(
+          padding: Paddings.paddingInstance.notificationsViewTitlePadding,
+          child: GeneralTextWidget(
+            text: StringsEnum.noNotificationsYet.value,
+            color: ColorName.whiteColor,
+            size: TextSizesEnum.appTitleSize.value,
           ),
+        ),
 
-          Padding(
-            padding:
-                Paddings.paddingInstance.notificationsViewDescriptionPadding,
-            child: GeneralTextWidget(
-              text: StringsEnum.noNotificationsYetDescription.value,
-              color: ColorName.loginGreyTextColor,
-              size: TextSizesEnum.subtitleSize.value,
-            ),
+        Padding(
+          padding: Paddings.paddingInstance.notificationsViewDescriptionPadding,
+          child: GeneralTextWidget(
+            text: StringsEnum.noNotificationsYetDescription.value,
+            color: ColorName.loginGreyTextColor,
+            size: TextSizesEnum.subtitleSize.value,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

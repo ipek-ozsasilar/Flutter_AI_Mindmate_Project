@@ -1,8 +1,11 @@
 ## Flutter MindMate
 
-A modern, modular, and sustainable Flutter application. The project uses powerful code generation, strict code standards, scalable modular structure, and secure configurations. MindMate also serves as a personal “mentor”: it can be used like a daily journal, helps users find answers to their questions, gain insights, and reflect their emotions throughout the day.
+A modern, modular, and sustainable Flutter application. The project uses powerful code generation, strict code standards, scalable modular structure, and secure configurations. MindMate also serves as a personal "mentor": it can be used like a daily journal, helps users find answers to their questions, gain insights, and reflect their emotions throughout the day.
 
 > Important: Answers are generated using the OpenAI API; the mobile app includes an AI integration.
+
+### Privacy Policy
+- [Privacy Policy](https://www.notion.so/Privacy-Policy-2a54908ffef680d19bd6facc44c033da?source=copy_link)
 
 ## Features
 - Speech input and speech-to-text, plus text-to-speech

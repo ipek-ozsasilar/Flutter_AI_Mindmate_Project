@@ -10,6 +10,7 @@ import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
 import 'package:flutter_mindmate_project/products/widgets/icons/global_icon.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/general_text_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MessageBottomAppbar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -30,7 +31,13 @@ class MessageBottomAppbar extends StatelessWidget
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HistoryView()),
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const HistoryView(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                    opaque: true,
+                  ),
                 );
               },
             ),
@@ -42,7 +49,13 @@ class MessageBottomAppbar extends StatelessWidget
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ProgressView()),
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const ProgressView(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                    opaque: true,
+                  ),
                 );
               },
             ),
@@ -54,7 +67,13 @@ class MessageBottomAppbar extends StatelessWidget
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MessageView()),
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const MessageView(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                    opaque: true,
+                  ),
                 );
               },
             ),
@@ -67,7 +86,13 @@ class MessageBottomAppbar extends StatelessWidget
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ProfileView()),
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const ProfileView(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                    opaque: true,
+                  ),
                 );
               },
             ),
@@ -79,7 +104,13 @@ class MessageBottomAppbar extends StatelessWidget
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const NotificationsView()),
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const NotificationsView(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                    opaque: true,
+                  ),
                 );
               },
             ),
@@ -114,11 +145,20 @@ class _MessageBottomAppbarTextAndIcon extends StatelessWidget {
           mainAxisSize: mainAxisSize,
           children: [
             GlobalIcon(icon, iconColor: ColorName.loginGreyTextColor),
-            GeneralTextWidget(
-              text: text ?? '',
-              size: TextSizesEnum.messageBottomAppbarTextSize.value,
-              color: ColorName.loginGreyTextColor,
-            ),
+            if (text != null && text!.isNotEmpty)
+              Padding(
+                //.w (Width): Genişlik için. Widget genişliklerini ekrana göre ölçekler.
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: GeneralTextWidget(
+                    text: text!,
+                    //.sp (Screen Pixel): Font size için. Text boyutlarını ekrana göre ölçekler.
+                    size: TextSizesEnum.messageBottomAppbarTextSize.value.sp,
+                    color: ColorName.loginGreyTextColor,
+                  ),
+                ),
+              ),
           ],
         ),
       ),

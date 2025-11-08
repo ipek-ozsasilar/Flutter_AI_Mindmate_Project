@@ -96,7 +96,13 @@ class NotificationService {
     final BuildContext? context = navigatorKey.currentContext;
     if (context != null) {
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const NotificationsView()),
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const NotificationsView(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+          opaque: true,
+        ),
       );
     } else {}
   }

@@ -15,6 +15,9 @@ class LogInAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       toolbarHeight: AppbarSizesEnum.logInToolbarHeight.value,
       centerTitle: centerTitle,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      scrolledUnderElevation: 0,
       title: Column(
         children: [
           //login ekranındaki appbar leadingteki logo
