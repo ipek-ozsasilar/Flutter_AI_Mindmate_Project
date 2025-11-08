@@ -41,7 +41,7 @@ abstract class ForgotPasswordViewModel extends ConsumerState<ForgotPasswordView>
       return false;
     }
 
-    // Full Name, Email ve password kontrolü
+    // Email kontrolü
     final email = await ref.read(forgotPasswordProvider.notifier).checkEmail();
     if (!email) {
       final errorMsg = ref.read(forgotPasswordProvider).errorMessage;

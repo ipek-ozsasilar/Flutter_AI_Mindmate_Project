@@ -12,7 +12,7 @@ import 'package:flutter_mindmate_project/service_locator/service_locator.dart';
 /// - İzinler, kanal oluşturma, zamanlama, tıklama ile navigasyon
 class NotificationService {
   NotificationService();
-  final String icon = '@mipmap/ic_launcher';
+  final String icon = '@drawable/ic_notification';
   //Flutter kodun ile Android/iOS işletim sisteminin bildirim servisleri (NotificationManager, UNNotificationCenter)
   //arasında köprü kurar. Yani sen “bildirim göster” diyorsun o da gidip Android’e AlarmManager üzerinden şu bildirimi planla” diyor
   final FlutterLocalNotificationsPlugin _plugin =
@@ -25,8 +25,8 @@ class NotificationService {
   Future<void> init() async {
     if (_initialized) return;
     try {
-      //FlutterLocalNotificationsPlugin’in Android tarafındaki bildirim başlangıç ayarlarını tanımlıyor.
-      //Android tarafında bildirim gösterirken kullanılacak varsayılan simgeyi @mipmap/ic_launcher olarak ayarla.
+      //FlutterLocalNotificationsPlugin'in Android tarafındaki bildirim başlangıç ayarlarını tanımlıyor.
+      //Android tarafında bildirim gösterirken kullanılacak varsayılan simgeyi @drawable/ic_notification olarak ayarla.
       AndroidInitializationSettings androidInit = AndroidInitializationSettings(
         icon,
       );
@@ -184,6 +184,7 @@ class NotificationService {
             channelDescription: StringsEnum.notificationChannelDesc.value,
             importance: Importance.high,
             priority: Priority.high,
+            icon: icon,
           );
       //NotificationDetails, bildirim için genel bir yapıdır. Android ve iOS için ayrı ayrı ayarlar yapılabilir.
       final NotificationDetails details = NotificationDetails(

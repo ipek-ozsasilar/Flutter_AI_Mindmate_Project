@@ -12,7 +12,7 @@
         tools:targetApi="33" />
 
     <application
-        android:label="flutter_mindmate_project"
+        android:label="Mindmate Personal AI"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
@@ -24,18 +24,18 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <!-- 🔹 Bildirim receiver'ları (flutter_local_notifications için gerekli)
-             - BootReceiver: cihaz yeniden başladığında planlı bildirimleri geri yükler
-             - ScheduledNotificationReceiver: zaman geldiğinde bildirimi tetikler -->
+        <!-- 🔹 Bildirim receiver'ları (flutter_local_notifications için gerekli) -->
         <receiver
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
             android:exported="false">
@@ -50,6 +50,15 @@
         <receiver
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
             android:exported="false" />
+
+        <!-- 🔸 Firebase bildirim ikonu ve renk tanımları -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/yellowColor" />
 
         <meta-data android:name="flutterEmbedding" android:value="2" />
     </application>
@@ -69,4 +78,5 @@
             <data android:scheme="http" />
         </intent>
     </queries>
+
 </manifest>

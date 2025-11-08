@@ -87,6 +87,7 @@ class _MessageViewState extends MessageViewModel {
           : SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(height: 16),
                   _ChatHistoryWidget(
                     messages: messages,
                     isSendingMessage: loadingWatch(),

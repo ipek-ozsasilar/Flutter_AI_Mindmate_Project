@@ -69,7 +69,7 @@ abstract class ProfileViewModel extends ConsumerState<ProfileView>
         selectedImage = null;
       });
     }
-    context.navigateTo(const LogInView());
+    context.navigateToAndClearStack(const LogInView());
   }
 
   /// Kullanıcının profil görselini yükler

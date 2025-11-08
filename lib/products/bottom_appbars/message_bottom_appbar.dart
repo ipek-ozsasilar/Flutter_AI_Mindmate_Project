@@ -146,16 +146,18 @@ class _MessageBottomAppbarTextAndIcon extends StatelessWidget {
           children: [
             GlobalIcon(icon, iconColor: ColorName.loginGreyTextColor),
             if (text != null && text!.isNotEmpty)
-              Padding(
-                //.w (Width): Genişlik için. Widget genişliklerini ekrana göre ölçekler.
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: GeneralTextWidget(
-                    text: text!,
-                    //.sp (Screen Pixel): Font size için. Text boyutlarını ekrana göre ölçekler.
-                    size: TextSizesEnum.messageBottomAppbarTextSize.value.sp,
-                    color: ColorName.loginGreyTextColor,
+              Flexible(
+                child: Padding(
+                  //.w (Width): Genişlik için. Widget genişliklerini ekrana göre ölçekler.
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: GeneralTextWidget(
+                      text: text!,
+                      //.sp (Screen Pixel): Font size için. Text boyutlarını ekrana göre ölçekler.
+                      size: TextSizesEnum.messageBottomAppbarTextSize.value.sp,
+                      color: ColorName.loginGreyTextColor,
+                    ),
                   ),
                 ),
               ),

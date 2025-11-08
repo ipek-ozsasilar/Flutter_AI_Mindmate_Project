@@ -20,4 +20,17 @@ extension NavigationMixin on BuildContext {
   void popPage() {
     route.navigation.pop();
   }
+
+  /// Navigation stack'i temizler ve yeni sayfaya yönlendirir (logout için)
+  void navigateToAndClearStack(Widget widget) {
+    route.navigation.pushAndRemoveUntil(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => widget,
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+        opaque: true,
+      ),
+      (route) => false, // Tüm önceki route'ları kaldır
+    );
+  }
 }

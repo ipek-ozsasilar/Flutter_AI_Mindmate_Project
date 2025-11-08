@@ -34,34 +34,28 @@ class _SplashViewState extends SplashViewModel {
       body: Padding(
         padding: Paddings.paddingInstance.generalHorizontalPadding,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //splash image
-            Padding(
-              padding: Paddings.paddingInstance.splashImageVerticalPadding,
+            const Spacer(flex: 1), // üst boşluk
+            Expanded(
+              flex: 5, // resim alanı
               child: _SplashContainerImage(),
             ),
-            //splash ekranındaki title
+            const Spacer(flex: 1), // küçük boşluk
             RichtTextWidget(
               firstText: StringsEnum.splashTitle.value,
               secondText: StringsEnum.mindmate.value,
               textSize: TextSizesEnum.splashTitleSize.value,
               isItalic: true,
             ),
-
-            //lets start button
-            Padding(
-              padding: Paddings.paddingInstance.splashButtonVerticalPadding,
-              child: GlobalElevatedButton(
-                onPressed: () async {
-                  //Kullanıcının internet bağlantısını kontrol eder ve login durumunu kontrol eder
-                  //Ona geore gereklı sayfaya gecıs yapar
-                  await startChecks();
-                },
-                text: StringsEnum.startText.value,
-              ),
+            const Spacer(flex: 1),
+            GlobalElevatedButton(
+              onPressed: () async {
+                await startChecks();
+              },
+              text: StringsEnum.startText.value,
             ),
+            const Spacer(flex: 1), // altta biraz daha boşluk
           ],
         ),
       ),
@@ -74,7 +68,7 @@ class _SplashViewState extends SplashViewModel {
       children: [
         Container(
           width: double.infinity,
-          height: WidgetSizesEnum.splashImageContainerHeight.value,
+          height: MediaQuery.of(context).size.height * 0.3,
           color: ColorName.whiteColor,
           child: Assets.images.mindmateSplash.image(),
         ),

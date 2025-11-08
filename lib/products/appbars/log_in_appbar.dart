@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmate_project/features/splash/splash_view.dart';
 import 'package:flutter_mindmate_project/gen/assets.gen.dart';
+import 'package:flutter_mindmate_project/products/constants/icons.dart';
 import 'package:flutter_mindmate_project/products/enums/strings_enum.dart';
+import 'package:flutter_mindmate_project/products/mixins/navigation_mixin.dart';
+import 'package:flutter_mindmate_project/products/widgets/buttons/global_icon_button.dart';
 import 'package:flutter_mindmate_project/products/widgets/texts/richt_text_widget.dart';
 import 'package:flutter_mindmate_project/products/enums/sizes_enum.dart';
 

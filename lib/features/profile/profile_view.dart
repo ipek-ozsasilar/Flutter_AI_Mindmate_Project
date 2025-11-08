@@ -48,56 +48,58 @@ class _ProfileViewState extends ProfileViewModel {
     setupListeners();
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.profile.value),
-      body: Padding(
-        padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
-        child: Column(
-          children: [
-            _ProfileHeaderWidget(
-              selectedImage: selectedImage,
-              imageUrl: imageUrlWatch(),
-              onImagePicked: () => pickImage(context),
-            ),
-            _ProfileMenuItemWidget(
-              icon: IconConstants.iconConstants.emailInsideEmpty,
-              text:
-                  FirebaseAuth.instance.currentUser?.email ??
-                  StringsEnum.demoEmail.value,
-              isEditable: true,
-              onTap: () {
-                clearErrorMessage();
-                _ProfileShowEmailEdit()._showEditEmailDialog(
-                  context,
-                  updateEmail,
-                  ref,
-                );
-              },
-            ),
-            _ProfileMenuItemWidget(
-              icon: IconConstants.iconConstants.lockInsideEmpty,
-              text: StringsEnum.password.value,
-              isEditable: true,
-              onTap: () {
-                clearErrorMessage();
-                _ProfileShowPasswordEdit()._showEditPasswordDialog(
-                  context,
-                  updatePassword,
-                  ref,
-                );
-              },
-            ),
-            _ProfileMenuItemWidget(
-              icon: IconConstants.iconConstants.privacy,
-              text: StringsEnum.privacy.value,
-              isExpandable: true,
-            ),
-            GlobalElevatedButton(
-              onPressed: () async {
-                await signOut();
-              },
-              text: StringsEnum.logout.value,
-              icon: IconConstants.iconConstants.logout,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Paddings.paddingInstance.chatHistoryWidgetAllPadding,
+          child: Column(
+            children: [
+              _ProfileHeaderWidget(
+                selectedImage: selectedImage,
+                imageUrl: imageUrlWatch(),
+                onImagePicked: () => pickImage(context),
+              ),
+              _ProfileMenuItemWidget(
+                icon: IconConstants.iconConstants.emailInsideEmpty,
+                text:
+                    FirebaseAuth.instance.currentUser?.email ??
+                    StringsEnum.demoEmail.value,
+                isEditable: true,
+                onTap: () {
+                  clearErrorMessage();
+                  _ProfileShowEmailEdit()._showEditEmailDialog(
+                    context,
+                    updateEmail,
+                    ref,
+                  );
+                },
+              ),
+              _ProfileMenuItemWidget(
+                icon: IconConstants.iconConstants.lockInsideEmpty,
+                text: StringsEnum.password.value,
+                isEditable: true,
+                onTap: () {
+                  clearErrorMessage();
+                  _ProfileShowPasswordEdit()._showEditPasswordDialog(
+                    context,
+                    updatePassword,
+                    ref,
+                  );
+                },
+              ),
+              _ProfileMenuItemWidget(
+                icon: IconConstants.iconConstants.privacy,
+                text: StringsEnum.privacy.value,
+                isExpandable: true,
+              ),
+              GlobalElevatedButton(
+                onPressed: () async {
+                  await signOut();
+                },
+                text: StringsEnum.logout.value,
+                icon: IconConstants.iconConstants.logout,
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: MessageBottomAppbar(),

@@ -41,7 +41,6 @@ enum WidgetSizesEnum {
   notificationTimeContainerSize(50),
   profileImageSize(120),
   elevatedButtonHeight(60),
-  splashImageContainerHeight(350),
   startChatContainerHeight(150),
   startChatContainerWidth(200),
   progressChartContainerHeight(300),

@@ -24,13 +24,15 @@ class _CreateChatViewState extends State<CreateChatView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MessageAppbar(title: StringsEnum.startChat.value),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SizedBox(
-            height: constraints.maxHeight,
-            child: Center(child: _StartChatWidget()),
-          );
-        },
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height:
+              MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top -
+              kToolbarHeight -
+              kBottomNavigationBarHeight,
+          child: Center(child: _StartChatWidget()),
+        ),
       ),
       bottomNavigationBar: MessageBottomAppbar(),
     );

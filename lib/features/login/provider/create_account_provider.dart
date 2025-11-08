@@ -46,16 +46,9 @@ class CreateAccountProvider extends StateNotifier<CreateAccountState> {
     }
   }
 
-  Future<bool> checkFullNameAndEmailAndPassword() async {
-    final fullName = fullNameController.text.trim();
+  Future<bool> checkEmailAndPassword() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-
-    // Full Name boş mu kontrol et
-    if (fullName.isEmpty) {
-      changeStateErrorMessage(ErrorStringsEnum.fullNameEmptyError.value);
-      return false;
-    }
 
     // Email boş mu kontrol et
     if (email.isEmpty) {
@@ -70,7 +63,6 @@ class CreateAccountProvider extends StateNotifier<CreateAccountState> {
     }
 
     // Email ve password geçerliyse state'e kaydet
-    changeStateFullName(fullName);
     changeStateEmail(email);
     changeStatePassword(password);
     return true;

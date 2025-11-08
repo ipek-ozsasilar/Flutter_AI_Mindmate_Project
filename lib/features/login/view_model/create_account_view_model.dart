@@ -39,11 +39,11 @@ abstract class CreateAccountViewModel extends ConsumerState<CreateAccountView>
       return false;
     }
 
-    // Full Name, Email ve password kontrolü
-    final fullNameAndEmailAndPassword = await ref
+    // Email ve password kontrolü
+    final emailAndPassword = await ref
         .read(createAccountProvider.notifier)
-        .checkFullNameAndEmailAndPassword();
-    if (!fullNameAndEmailAndPassword) {
+        .checkEmailAndPassword();
+    if (!emailAndPassword) {
       final errorMsg = ref.read(createAccountProvider).errorMessage;
       if (errorMsg != null && errorMsg.isNotEmpty) {
         showSnackBar(errorMsg);
