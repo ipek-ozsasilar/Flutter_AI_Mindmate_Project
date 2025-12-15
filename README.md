@@ -9,9 +9,6 @@ A modern, modular, and sustainable Flutter application. The project uses powerfu
 
 > Important: Answers are generated using the OpenAI API; the mobile app includes an AI integration.
 
-### Privacy Policy
-- [Privacy Policy](https://www.notion.so/Privacy-Policy-2a54908ffef680d19bd6facc44c033da?source=copy_link)
-
 ## Features
 - Speech input and speech-to-text, plus text-to-speech
 - AI assistant: Responses are generated via the OpenAI API (LLM-based guidance)
@@ -412,4 +409,6 @@ Capabilities:
 - Scheduling/showing local (and/or push) notifications
 - Behavior when app is foreground/background
 
+### Privacy Policy
+- [Privacy Policy](https://www.notion.so/Privacy-Policy-2a54908ffef680d19bd6facc44c033da?source=copy_link)
 ---
