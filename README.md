@@ -1,5 +1,7 @@
 ## Flutter MindMate
 
+[Google Play'de görüntüle](https://play.google.com/store/apps/details?id=com.ipekozsasilar.flutter_mindmate_project)
+
 A modern, modular, and sustainable Flutter application. The project uses powerful code generation, strict code standards, scalable modular structure, and secure configurations. MindMate also serves as a personal "mentor": it can be used like a daily journal, helps users find answers to their questions, gain insights, and reflect their emotions throughout the day.
 
 > Important: Answers are generated using the OpenAI API; the mobile app includes an AI integration.
